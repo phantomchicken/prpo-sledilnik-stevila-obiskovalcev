@@ -22,8 +22,9 @@ public class Zaposleni {
     @Column(name="priimek")
     private String priimek;
 
-    /*@OneToOne
-    private Vhod idVhoda;*/
+    @OneToOne
+    @JoinColumn(name = "vrata_id")
+    private Vrata idVrata;
 
     public Integer getId() { return id; }
 
