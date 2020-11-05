@@ -18,13 +18,17 @@ public class Vrata {
     private Integer id;
 
     @Column(name="st_vhodov")
-    private String stVhodov;
+    private Integer stVhodov;
 
     @Column(name="st_izhodov")
-    private String stIzhodov;
+    private Integer stIzhodov;
 
-    /*@ManyToOne
-    private Prostor idProstora;*/
+    @OneToOne
+    private Zaposleni id_zaposleni;
+
+    @ManyToOne
+    @JoinColumn(name = "id_prostor")
+    private Prostor idProstor;
 
     public Integer getId() {
         return id;
@@ -34,19 +38,27 @@ public class Vrata {
         this.id = id;
     }
 
-    public String getStVhodov() {
+    public Integer getStVhodov() {
         return stVhodov;
     }
 
-    public void setStVhodov(String stVhodov) {
+    public void setStVhodov(Integer stVhodov) {
         this.stVhodov = stVhodov;
     }
 
-    public String getStIzhodov() {
+    public Integer getStIzhodov() {
         return stIzhodov;
     }
 
-    public void setStIzhodov(String stIzhodov) {
+    public void setStIzhodov(Integer stIzhodov) {
         this.stIzhodov = stIzhodov;
+    }
+
+    public Zaposleni getId_zaposleni() {
+        return id_zaposleni;
+    }
+
+    public void setId_zaposleni(Zaposleni id_zaposleni) {
+        this.id_zaposleni = id_zaposleni;
     }
 }

@@ -4,6 +4,8 @@
         <jta-data-source>jdbc/sledilnik-stevila-obiskovalcev</jta-data-source>
         <!--<class>Zaposleni</class>-->
         <class>si.fri.prpo.skupina19.entitete.Zaposleni</class>
+        <class>si.fri.prpo.skupina19.entitete.Vrata</class>
+        <class>si.fri.prpo.skupina19.entitete.Prostor</class>
 
         <properties>
             <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
