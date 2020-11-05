@@ -9,7 +9,7 @@ import javax.persistence.*;
         {
                 @NamedQuery(name = "zaposleni.getAll", query = "SELECT z FROM Zaposleni z"),
                 @NamedQuery(name = "zaposleni.getImePriimek", query = "SELECT z.ime, z.priimek FROM Zaposleni z"),
-                /*@NamedQuery(name = "zaposleni.getVhodUporabnika", query = "SELECT z.idVhoda FROM Zaposleni z")*/
+                @NamedQuery(name = "zaposleni.getVrataUporabnika", query = "SELECT z.id_vrata FROM Zaposleni z")
         })
 public class Zaposleni {
     @Id
@@ -37,4 +37,13 @@ public class Zaposleni {
     public String getPriimek() { return priimek; }
 
     public void setPriimek(String priimek) { this.priimek = priimek; }
+
+    public Vrata getId_vrata() { return id_vrata; }
+
+    public void setId_vrata(Vrata id_vrata) { this.id_vrata = id_vrata; }
+
+    @Override
+    public String toString() {
+        return ime + " " + priimek + " trenutno na vratih " + id_vrata;
+    }
 }
