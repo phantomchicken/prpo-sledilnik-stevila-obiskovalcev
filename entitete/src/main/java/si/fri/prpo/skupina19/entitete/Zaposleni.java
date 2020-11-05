@@ -7,9 +7,9 @@ import javax.persistence.*;
 @Table(name="zaposleni")
 @NamedQueries(value =
         {
-                @NamedQuery(name = "Zaposleni.getAll", query = "SELECT z FROM Zaposleni z"),
-                @NamedQuery(name = "Zaposleni.getImePriimek", query = "SELECT z.ime, z.priimek FROM Zaposleni z"),
-                @NamedQuery(name = "Zaposleni.getVhodUporabnika", query = "SELECT z.idVhoda FROM Zaposleni z")
+                @NamedQuery(name = "zaposleni.getAll", query = "SELECT z FROM Zaposleni z"),
+                @NamedQuery(name = "zaposleni.getImePriimek", query = "SELECT z.ime, z.priimek FROM Zaposleni z"),
+                /*@NamedQuery(name = "zaposleni.getVhodUporabnika", query = "SELECT z.idVhoda FROM Zaposleni z")*/
         })
 public class Zaposleni {
     @Id
@@ -22,8 +22,8 @@ public class Zaposleni {
     @Column(name="priimek")
     private String priimek;
 
-    @OneToOne
-    private Vhod idVhoda;
+    /*@OneToOne
+    private Vhod idVhoda;*/
 
     public Integer getId() { return id; }
 

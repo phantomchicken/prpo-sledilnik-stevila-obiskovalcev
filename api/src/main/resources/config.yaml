@@ -1,0 +1,10 @@
+kumuluzee:
+  name: sledilnik-stevila-obiskovalcev
+  version: 1.0.0
+  env:
+    name: dev
+  datasources:
+    - jndi-name: jdbc/sledilnik-stevila-obiskovalcev
+      connection-url: jdbc:postgresql://localhost:5432/sledilnik-stevila-obiskovalcev
+      username: postgres
+      password: postgres

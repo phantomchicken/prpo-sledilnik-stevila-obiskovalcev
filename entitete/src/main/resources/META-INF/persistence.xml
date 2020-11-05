@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
-    <persistence-unit name="lokacijski-opomniki-jpa" transaction-type="JTA">
-        <jta-data-source>jdbc/LokacijskiOpomnikiDS</jta-data-source>
-
-        <class>Zaposleni</class>
+    <persistence-unit name="sledilnik-stevila-obiskovalcev-jpa" transaction-type="JTA">
+        <jta-data-source>jdbc/sledilnik-stevila-obiskovalcev</jta-data-source>
+        <!--<class>Zaposleni</class>-->
+        <class>si.fri.prpo.skupina19.entitete.Zaposleni</class>
 
         <properties>
             <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
