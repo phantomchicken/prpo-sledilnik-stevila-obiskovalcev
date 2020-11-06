@@ -24,10 +24,11 @@ public class Vrata {
     private Integer stIzhodov;
 
     @OneToOne
-    private Zaposleni id_zaposleni;
+    @JoinColumn(name = "zaposleni_id")
+    private Zaposleni zaposleni;
 
     @ManyToOne
-    @JoinColumn(name = "id_prostor")
+    @JoinColumn(name = "prostor_id")
     private Prostor idProstor;
 
     public Integer getId() {
@@ -54,11 +55,4 @@ public class Vrata {
         this.stIzhodov = stIzhodov;
     }
 
-    public Zaposleni getId_zaposleni() {
-        return id_zaposleni;
-    }
-
-    public void setId_zaposleni(Zaposleni id_zaposleni) {
-        this.id_zaposleni = id_zaposleni;
-    }
 }

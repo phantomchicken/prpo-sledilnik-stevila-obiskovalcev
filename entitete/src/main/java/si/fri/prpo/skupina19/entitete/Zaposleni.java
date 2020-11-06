@@ -7,9 +7,9 @@ import javax.persistence.*;
 @Table(name="zaposleni")
 @NamedQueries(value =
         {
-                @NamedQuery(name = "zaposleni.getAll", query = "SELECT z FROM Zaposleni z"),
-                @NamedQuery(name = "zaposleni.getImePriimek", query = "SELECT z.ime, z.priimek FROM Zaposleni z"),
-                @NamedQuery(name = "zaposleni.getVrataUporabnika", query = "SELECT z.id_vrata FROM Zaposleni z")
+                @NamedQuery(name = "Zaposleni.getAll", query = "SELECT z FROM Zaposleni z"),
+                @NamedQuery(name = "Zaposleni.getIme", query = "SELECT z.ime FROM Zaposleni z"),
+                @NamedQuery(name = "Zaposleni.getVrataUporabnika", query = "SELECT z.vrata FROM Zaposleni z")
         })
 public class Zaposleni {
     @Id
@@ -22,28 +22,38 @@ public class Zaposleni {
     @Column(name="priimek")
     private String priimek;
 
-    @OneToOne
-    @JoinColumn(name = "vrata_id")
-    private Vrata idVrata;
+    @OneToOne(mappedBy = "zaposleni")
+    private Vrata vrata;
 
-    public Integer getId() { return id; }
+    public Integer getId() {
+        return id;
+    }
 
-    public void setId(Integer id) { this.id = id; }
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-    public String getIme() { return ime; }
+    public String getIme() {
+        return ime;
+    }
 
-    public void setIme(String ime) { this.ime = ime; }
+    public void setIme(String ime) {
+        this.ime = ime;
+    }
 
-    public String getPriimek() { return priimek; }
+    public String getPriimek() {
+        return priimek;
+    }
 
-    public void setPriimek(String priimek) { this.priimek = priimek; }
+    public void setPriimek(String priimek) {
+        this.priimek = priimek;
+    }
 
-    public Vrata getId_vrata() { return id_vrata; }
+    public Vrata getVrata() {
+        return vrata;
+    }
 
-    public void setId_vrata(Vrata id_vrata) { this.id_vrata = id_vrata; }
-
-    @Override
-    public String toString() {
-        return ime + " " + priimek + " trenutno na vratih " + id_vrata;
+    public void setVrata(Vrata vrata) {
+        this.vrata = vrata;
     }
 }

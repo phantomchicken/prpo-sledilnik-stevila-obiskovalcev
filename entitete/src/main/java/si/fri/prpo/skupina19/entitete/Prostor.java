@@ -30,8 +30,8 @@ public class Prostor {
     @Column(name="omejitev_oseb")
     private Integer omejitevOseb;
 
-    @OneToMany(mappedBy = "prostor")
-    private List<Vrata> seznamVrat;
+    //@OneToMany(mappedBy = "prostor")
+    //private List<Vrata> seznamVrat;
 
 
     public Integer getId() {
@@ -74,11 +74,11 @@ public class Prostor {
         this.omejitevOseb = omejitevOseb;
     }
 
-    public List<Vrata> getSeznamVrat() {
+    /*public List<Vrata> getSeznamVrat() {
         return seznamVrat;
     }
 
     public void setSeznamVrat(List<Vrata> seznamVrat) {
         this.seznamVrat = seznamVrat;
-    }
+    }*/
 }
