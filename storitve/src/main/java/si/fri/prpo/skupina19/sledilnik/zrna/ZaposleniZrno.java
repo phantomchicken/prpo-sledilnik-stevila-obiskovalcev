@@ -37,4 +37,18 @@ public class ZaposleniZrno {
         query.select(from);
         return em.createQuery(query).getResultList();
     }
+
+    //vrne prostor v katerem zaposleni dela
+    public List<String> getDelovnoMesto() {
+
+        // implementacija
+        TypedQuery<Object> query = em.createNamedQuery("Zaposleni.getDelovnoMesto", Object.class);
+        List<Object> results = query.getResultList();
+        List<String> delovnoMesto = new ArrayList<String>();
+        for (Object result : results) {
+            delovnoMesto.add((String) result);
+        }
+
+        return delovnoMesto;
+    }
 }

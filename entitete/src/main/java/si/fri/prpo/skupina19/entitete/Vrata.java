@@ -9,7 +9,8 @@ import javax.persistence.*;
         {
                 @NamedQuery(name = "Vrata.getAll", query = "SELECT v FROM Vrata v"),
                 @NamedQuery(name = "Vrata.getStVhodov", query = "SELECT v.stVhodov FROM Vrata v WHERE v.id = :id"),
-                @NamedQuery(name = "Vrata.getStIzhodov", query = "SELECT v.stIzhodov FROM Vrata v WHERE v.id = :id")
+                @NamedQuery(name = "Vrata.getStIzhodov", query = "SELECT v.stIzhodov FROM Vrata v WHERE v.id = :id"),
+                @NamedQuery(name = "Vrata.getSt", query = "SELECT v.stVhodov, v.stIzhodov FROM Vrata v")
         })
 
 public class Vrata {
@@ -53,6 +54,11 @@ public class Vrata {
 
     public void setStIzhodov(Integer stIzhodov) {
         this.stIzhodov = stIzhodov;
+    }
+
+    @Override
+    public String toString() {
+        return Integer.toString(this.stVhodov) + " " + Integer.toString(this.stIzhodov);
     }
 
 }

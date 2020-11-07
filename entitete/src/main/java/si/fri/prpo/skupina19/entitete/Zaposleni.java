@@ -9,7 +9,8 @@ import javax.persistence.*;
         {
                 @NamedQuery(name = "Zaposleni.getAll", query = "SELECT z FROM Zaposleni z"),
                 @NamedQuery(name = "Zaposleni.getImeInPriimek", query = "SELECT z.ime, z.priimek FROM Zaposleni z"),
-                @NamedQuery(name = "Zaposleni.getVrataUporabnika", query = "SELECT z.vrata FROM Zaposleni z")
+                @NamedQuery(name = "Zaposleni.getVrataUporabnika", query = "SELECT z.vrata FROM Zaposleni z"),
+                @NamedQuery(name = "Zaposleni.getDelovnoMesto", query = "SELECT p.id FROM Zaposleni z, Vrata v, Prostor p WHERE p.id = v.prostor.id AND v.id = z.vrata.id")
         })
 public class Zaposleni {
     @Id

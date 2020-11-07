@@ -9,6 +9,7 @@ import java.util.List;
 @NamedQueries(value =
         {
                 @NamedQuery(name = "Prostor.getAll", query = "SELECT p FROM Prostor p"),
+                @NamedQuery(name = "Prostor.getIme", query = "SELECT p.imeProstora FROM Prostor p"),
                 @NamedQuery(name = "Prostor.getStVrat", query = "SELECT p.stVrat FROM Prostor p"),
                 @NamedQuery(name = "Prostor.getTrOseb", query = "SELECT p.trenutnoOseb FROM Prostor p")
         })
@@ -80,5 +81,10 @@ public class Prostor {
 
     public void setSeznamVrat(List<Vrata> seznamVrat) {
         this.seznamVrat = seznamVrat;
+    }
+
+    @Override
+    public String toString() {
+        return this.imeProstora;
     }
 }
