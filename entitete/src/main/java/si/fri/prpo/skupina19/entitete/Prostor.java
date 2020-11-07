@@ -74,11 +74,11 @@ public class Prostor {
         this.omejitevOseb = omejitevOseb;
     }
 
-    /*public List<Vrata> getSeznamVrat() {
+    public List<Vrata> getSeznamVrat() {
         return seznamVrat;
     }
 
     public void setSeznamVrat(List<Vrata> seznamVrat) {
         this.seznamVrat = seznamVrat;
-    }*/
+    }
 }
