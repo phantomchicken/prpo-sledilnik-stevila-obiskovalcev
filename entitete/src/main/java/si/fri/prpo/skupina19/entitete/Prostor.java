@@ -8,9 +8,9 @@ import java.util.List;
 @Table(name="prostor")
 @NamedQueries(value =
         {
-                @NamedQuery(name = "prostor.getAll", query = "SELECT p FROM Prostor p"),
-                @NamedQuery(name = "vrata.getStVrat", query = "SELECT p.stVrat FROM Prostor p"),
-                @NamedQuery(name = "vrata.getTrOSeb", query = "SELECT p.trenutnoOseb FROM Prostor p")
+                @NamedQuery(name = "Prostor.getAll", query = "SELECT p FROM Prostor p"),
+                @NamedQuery(name = "Prostor.getStVrat", query = "SELECT p.stVrat FROM Prostor p"),
+                @NamedQuery(name = "Prostor.getTrOseb", query = "SELECT p.trenutnoOseb FROM Prostor p")
         })
 
 public class Prostor {
@@ -30,8 +30,8 @@ public class Prostor {
     @Column(name="omejitev_oseb")
     private Integer omejitevOseb;
 
-    //@OneToMany(mappedBy = "prostor")
-    //private List<Vrata> seznamVrat;
+    @OneToMany(mappedBy = "prostor")
+    private List<Vrata> seznamVrat;
 
 
     public Integer getId() {

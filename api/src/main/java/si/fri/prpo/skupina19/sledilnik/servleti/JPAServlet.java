@@ -21,7 +21,7 @@ public class JPAServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        List<String> imePriimek = zaposleniZrno.getZaposleni();
+        //List<String> imePriimek = zaposleniZrno.getZaposleni();
 
         // izpis zaposlenih na spletni strani
         resp.setContentType("text/html; charset=UTF-8");
@@ -29,10 +29,17 @@ public class JPAServlet extends HttpServlet {
 
         PrintWriter writer = resp.getWriter();
 
+        
+        //izpis imen in priimkov zaposlenih
         writer.append("<h1>Poizvedba po podatkovni bazi</h1>");
         writer.append("<p>Zaposleni imajo imena: <ol>");
-        zaposleniZrno.getZaposleni().stream().forEach( u -> writer.append("<li>" + u + "</li>"));
+        zaposleniZrno.getZaposleni().stream().forEach( u -> writer.append("<li>" + u.toString() + "</li>"));
         writer.append("</ol></p>");
 
+        //izpis vseh uporabnikov s CriteriaAPI
+        writer.append("<h1>Poizvedba po podatkovni bazi s CriteriaAPI</h1>");
+        writer.append("<p>Zaposleni imajo imena: <ol>");
+        zaposleniZrno.getZaposleniCriteriaAPI().stream().forEach( u -> writer.append("<li>"+ u.toString() + "</li>"));
+        writer.append("</ol></p>");
     }
 }

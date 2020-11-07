@@ -8,7 +8,7 @@ import javax.persistence.*;
 @NamedQueries(value =
         {
                 @NamedQuery(name = "Zaposleni.getAll", query = "SELECT z FROM Zaposleni z"),
-                @NamedQuery(name = "Zaposleni.getIme", query = "SELECT z.ime FROM Zaposleni z"),
+                @NamedQuery(name = "Zaposleni.getImeInPriimek", query = "SELECT z.ime, z.priimek FROM Zaposleni z"),
                 @NamedQuery(name = "Zaposleni.getVrataUporabnika", query = "SELECT z.vrata FROM Zaposleni z")
         })
 public class Zaposleni {
@@ -55,5 +55,10 @@ public class Zaposleni {
 
     public void setVrata(Vrata vrata) {
         this.vrata = vrata;
+    }
+
+    @Override
+    public String toString() {
+        return this.ime + " " + this.priimek;
     }
 }

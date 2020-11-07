@@ -7,9 +7,9 @@ import javax.persistence.*;
 @Table(name="vrata")
 @NamedQueries(value =
         {
-                @NamedQuery(name = "vrata.getAll", query = "SELECT v FROM Vrata v"),
-                @NamedQuery(name = "vrata.getStVhodov", query = "SELECT v.stVhodov FROM Vrata v WHERE v.id = :id"),
-                @NamedQuery(name = "vrata.getStIzhodov", query = "SELECT v.stIzhodov FROM Vrata v WHERE v.id = :id")
+                @NamedQuery(name = "Vrata.getAll", query = "SELECT v FROM Vrata v"),
+                @NamedQuery(name = "Vrata.getStVhodov", query = "SELECT v.stVhodov FROM Vrata v WHERE v.id = :id"),
+                @NamedQuery(name = "Vrata.getStIzhodov", query = "SELECT v.stIzhodov FROM Vrata v WHERE v.id = :id")
         })
 
 public class Vrata {
@@ -29,7 +29,7 @@ public class Vrata {
 
     @ManyToOne
     @JoinColumn(name = "prostor_id")
-    private Prostor idProstor;
+    private Prostor prostor;
 
     public Integer getId() {
         return id;
