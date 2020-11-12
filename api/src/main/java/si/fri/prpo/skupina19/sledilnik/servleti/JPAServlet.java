@@ -29,6 +29,9 @@ public class JPAServlet extends HttpServlet {
     @Inject
     UpravljanjeProstorovZrno upravljanjeProstorovZrno;
 
+    @Inject
+    UpravljanjeZaposlenihZrno upravljanjeZaposlenihZrno;
+
     public void izpis(PrintWriter writer, char c){
         writer.append("<ol>");
         if (c=='z') zaposleniZrno.getZaposleni().stream().forEach( z -> writer.append("<li>" + z + "</li>"));
