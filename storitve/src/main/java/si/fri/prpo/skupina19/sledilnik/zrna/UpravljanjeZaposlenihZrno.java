@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 
 @ApplicationScoped
 public class UpravljanjeZaposlenihZrno {
-    private Logger log = Logger.getLogger(UpravljanjeProstorovZrno.class.getName());
+    private Logger log = Logger.getLogger(UpravljanjeZaposlenihZrno.class.getName());
     private String idZ;
 
     @Inject
@@ -37,19 +37,23 @@ public class UpravljanjeZaposlenihZrno {
     private EntityManager em;
 
     public Zaposleni createZaposleni (ZaposleniDTO zaposleniDTO) {
-        Zaposleni zaposleni = zaposleniZrno.getZaposleni(zaposleniDTO.getZaposleniId());
-
-        if (zaposleni != null) {
-            log.info("Zaposleni s tem id-jem ze obstaja");
+        if (zaposleniDTO.getZaposleniId()!=null) {
+            log.info("Zaposleni s tem ID-jem ze obstaja");
             return null;
         }
-
         Zaposleni noviZaposleni = new Zaposleni();
-        noviZaposleni.setId(zaposleniDTO.getZaposleniId());
         noviZaposleni.setIme(zaposleniDTO.getIme());
         noviZaposleni.setPriimek(zaposleniDTO.getPriimek());
         noviZaposleni.setVrata(zaposleniDTO.getVrata());
         return zaposleniZrno.createZaposleni(noviZaposleni);
+    }
+
+    public Integer deleteZaposleni (ZaposleniDTO zaposleniDTO){
+        if (zaposleniDTO.getZaposleniId()==null) {
+            log.info("Zaposleni s tem ID-jem ne obstaja");
+            return null;
+        }
+        return zaposleniZrno.deleteZaposleni(zaposleniDTO.getZaposleniId());
     }
 
 }

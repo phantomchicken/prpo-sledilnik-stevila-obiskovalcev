@@ -64,7 +64,7 @@ public class Vrata {
 
     @Override
     public String toString() {
-        return "zaposleniID: " + zaposleni + "\n" +  "stVstopov: " +stVstopov+ "\n" + "stIzstopov" + stIzstopov +"\n";
+        return "ID: " + id + "\n" + "zaposleniID: " + zaposleni + "\n" +  "stVstopov: " +stVstopov+ "\n" + "stIzstopov" + stIzstopov +"\n";
         // "ID: " + id +"\n"  +
         //"prostorID: " + prostor.toString() + "\n"
     }
