@@ -26,6 +26,9 @@ public class JPAServlet extends HttpServlet {
     @Inject
     private VrataZrno vrataZrno;
 
+    @Inject
+    UpravljanjeProstorovZrno upravljanjeProstorovZrno;
+
     public void izpis(PrintWriter writer, char c){
         writer.append("<ol>");
         if (c=='z') zaposleniZrno.getZaposleni().stream().forEach( z -> writer.append("<li>" + z + "</li>"));
@@ -67,7 +70,7 @@ public class JPAServlet extends HttpServlet {
         //izpis stanja vrat
         writer.append("<h3>Vrata z DB </h3>");
         writer.append("<p>Stanja vrat so:");
-        izpis(writer,'v');;
+        izpis(writer,'v');
 
         /*izpis stanja vrat s CriteriaAPI
         writer.append("<h3>Vrata s CriteriaAPI</h3>");
@@ -78,7 +81,7 @@ public class JPAServlet extends HttpServlet {
         writer.append("<h3>Prostori z DB </h3>");
         writer.append("<p>Prostori so:");
         //writer.append(prostorZrno.getProstori().toString());
-        izpis(writer,'p');;
+        izpis(writer,'p');
 
         /*izpis vseh prostorov s CriteriaAPI
         writer.append("<h3>Prostori s CriteriaAPI</h3>");
@@ -89,14 +92,14 @@ public class JPAServlet extends HttpServlet {
         //writer.append("<h1>Test</h1>");
         //zaposleniZrno.getDelovnoMesto().stream().forEach( z -> writer.append("<li>"+ z.toString() + "</li>"));
 
-        /*ProstorDTO prostorDTO = new ProstorDTO();
+        ProstorDTO prostorDTO = new ProstorDTO();
         prostorDTO.setProstorId(3);
-        prostorDTO.setImePr;ostora("Bazen");
+        prostorDTO.setImeProstora("Bazen");
         prostorDTO.setKvadratovPoOsebi(10);
         prostorDTO.setKvadratura(1000);
         prostorDTO.setStVrat(7);
-        prostorDTO.setTrenutnoOseb(100);*/
-        //Prostor p = UpravljanjeProstorovZrno.createProstor(prostorDTO);
+        prostorDTO.setTrenutnoOseb(100);
+        Prostor p = upravljanjeProstorovZrno.createProstor(prostorDTO);
 
         writer.append("<hr>");
         writer.append("<h1>Testiranje CRUD operacij</h1>");

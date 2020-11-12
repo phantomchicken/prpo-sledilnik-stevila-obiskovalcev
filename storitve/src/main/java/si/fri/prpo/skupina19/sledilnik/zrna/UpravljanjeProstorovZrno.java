@@ -13,11 +13,12 @@ import java.util.logging.Logger;
 
 @ApplicationScoped
 public class UpravljanjeProstorovZrno {
+
     private Logger log = Logger.getLogger(UpravljanjeProstorovZrno.class.getName());
     private String idP;
 
     @Inject
-    ProstorZrno prostorZrno;
+    private ProstorZrno prostorZrno;
 
     @PostConstruct
     private void initialization(){
@@ -42,6 +43,7 @@ public class UpravljanjeProstorovZrno {
             noviProstor.setKvadratura(prostorDTO.getKvadratovPoOsebi());
             noviProstor.setStVrat(prostorDTO.getStVrat());
             noviProstor.setTrenutnoOseb(prostorDTO.getTrenutnoOseb());
+
             return prostorZrno.createProstor(noviProstor);
         } else {
             log.info("Ne morem ustvariti novega prostora!");
