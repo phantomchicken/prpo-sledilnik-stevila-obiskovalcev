@@ -1,9 +1,12 @@
 package si.fri.prpo.skupina19.sledilnik.dtos;
 
+import si.fri.prpo.skupina19.entitete.Vrata;
+
 public class ZaposleniDTO {
     private Integer zaposleniId;
     private String ime;
     private String priimek;
+    private Vrata vrata;
 
     public Integer getZaposleniId() {
         return zaposleniId;
@@ -27,5 +30,13 @@ public class ZaposleniDTO {
 
     public void setPriimek(String priimek) {
         this.priimek = priimek;
+    }
+
+    public Vrata getVrata() {
+        return vrata;
+    }
+
+    public void setVrata(Vrata vrata) {
+        this.vrata = vrata;
     }
 }

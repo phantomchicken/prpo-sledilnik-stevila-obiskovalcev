@@ -43,7 +43,6 @@ public class UpravljanjeProstorovZrno {
             noviProstor.setKvadratura(prostorDTO.getKvadratovPoOsebi());
             noviProstor.setStVrat(prostorDTO.getStVrat());
             noviProstor.setTrenutnoOseb(prostorDTO.getTrenutnoOseb());
-
             return prostorZrno.createProstor(noviProstor);
         } else {
             log.info("Ne morem ustvariti novega prostora!");
