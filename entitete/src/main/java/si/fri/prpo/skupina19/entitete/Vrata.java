@@ -8,9 +8,9 @@ import javax.persistence.*;
 @NamedQueries(value =
         {
                 @NamedQuery(name = "Vrata.getAll", query = "SELECT v FROM Vrata v"),
-                @NamedQuery(name = "Vrata.getStVhodov", query = "SELECT v.stVhodov FROM Vrata v WHERE v.id = :id"),
-                @NamedQuery(name = "Vrata.getStIzhodov", query = "SELECT v.stIzhodov FROM Vrata v WHERE v.id = :id"),
-                @NamedQuery(name = "Vrata.getSt", query = "SELECT v.stVhodov, v.stIzhodov FROM Vrata v")
+                @NamedQuery(name = "Vrata.getStVstopov", query = "SELECT v.stVstopov FROM Vrata v WHERE v.id = :id"),
+                @NamedQuery(name = "Vrata.getStIzstopov", query = "SELECT v.stIzstopov FROM Vrata v WHERE v.id = :id"),
+                @NamedQuery(name = "Vrata.getSt", query = "SELECT v.stVstopov, v.stIzstopov FROM Vrata v"),
         })
 
 public class Vrata {
@@ -18,11 +18,11 @@ public class Vrata {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name="st_vhodov")
-    private Integer stVhodov;
+    @Column(name="st_vstopov")
+    private Integer stVstopov;
 
-    @Column(name="st_izhodov")
-    private Integer stIzhodov;
+    @Column(name="st_izstopov")
+    private Integer stIzstopov;
 
     @OneToOne
     @JoinColumn(name = "zaposleni_id")
@@ -40,25 +40,25 @@ public class Vrata {
         this.id = id;
     }
 
-    public Integer getStVhodov() {
-        return stVhodov;
+    public Integer getStVstopov() {
+        return stVstopov;
     }
 
-    public void setStVhodov(Integer stVhodov) {
-        this.stVhodov = stVhodov;
+    public void setStVstopov(Integer stVstopov) {
+        this.stVstopov = stVstopov;
     }
 
-    public Integer getStIzhodov() {
-        return stIzhodov;
+    public Integer getStIzstopov() {
+        return stIzstopov;
     }
 
-    public void setStIzhodov(Integer stIzhodov) {
-        this.stIzhodov = stIzhodov;
+    public void setStIzstopov(Integer stIzstopov) {
+        this.stIzstopov = stIzstopov;
     }
 
     @Override
     public String toString() {
-        return Integer.toString(this.stVhodov) + " " + Integer.toString(this.stIzhodov);
+        return Integer.toString(this.stVstopov) + " " + Integer.toString(this.stIzstopov);
     }
 
 }
