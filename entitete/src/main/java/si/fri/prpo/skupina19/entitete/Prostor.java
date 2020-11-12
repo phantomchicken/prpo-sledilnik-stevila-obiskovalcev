@@ -72,8 +72,8 @@ public class Prostor {
 
     public Integer getKvadratPoOsebi() { return kvadratovPoOsebi; }
 
-    public void setKvadratovPoOsebi(Integer kvadratPoOsebi) {
-        this.kvadratovPoOsebi = kvadratPoOsebi;
+    public void setKvadratovPoOsebi(Integer kvadratovPoOsebi) {
+        this.kvadratovPoOsebi = kvadratovPoOsebi;
     }
 
     public List<Vrata> getSeznamVrat() {
@@ -96,13 +96,14 @@ public class Prostor {
         }
         String vrataString = "";
 
+        System.out.println("PRVI ime: " + imeProstora + "kvadratura: " + kvadratura);
         // če vrata niso nastavljena
         if (sb.length()>2){
             vrataString = sb.substring(0,sb.length()-2);
         } else {
             vrataString = sb.toString();
         }
-
+        System.out.println("ime:" + imeProstora + "kvadratura" + kvadratura);
         return "ID: " + id + "\n" + "ime " + imeProstora + "\n" + "stVrat " + stVrat + "\n" + "kvadratura " + kvadratura +"\n" + "kvadratovPoOsebi " + kvadratovPoOsebi + "\n" + "trenutnoOseb " + trenutnoOseb + "\n"  +"ID-ji vrat " + vrataString + "\n";
         //return String.format("ime %s%n stVrat %d%n kvadratura %d%n kvadratovPoOsebi %d%n trenutnoOseb %d%n",imeProstora, stVrat, kvadratura, kvadratovPoOsebi, trenutnoOseb);
     }

@@ -101,10 +101,12 @@ public class JPAServlet extends HttpServlet {
         //prostorDTO.setProstorId(3);
         prostorDTO.setImeProstora("Bazen");
         prostorDTO.setKvadratovPoOsebi(10);
-        prostorDTO.setKvadratura(1000);
+        prostorDTO.setKvadratura(500);
         prostorDTO.setStVrat(7);
         prostorDTO.setTrenutnoOseb(100);
         Prostor p = upravljanjeProstorovZrno.createProstor(prostorDTO);
+        izpis(writer,'p');
+        //writer.append(upravljanjeProstorovZrno.getOmejitev(prostorDTO).toString());
 
         /*writer.append("<hr>");
         writer.append("<h1>Testiranje CRUD operacij</h1>");
@@ -126,6 +128,11 @@ public class JPAServlet extends HttpServlet {
         zaposleniDTO.setPriimek("Ivanovski");
         //zaposleniDTO.setVrata();
         Zaposleni z = upravljanjeZaposlenihZrno.createZaposleni(zaposleniDTO);
+        izpis(writer,'z');
+
+        zaposleniDTO.setId(4);
+        upravljanjeZaposlenihZrno.deleteZaposleni(zaposleniDTO);
+        izpis(writer,'z');
 
         /*writer.append("<h3>Create zaposleni</h3><p>");
         Zaposleni zaposleni = new Zaposleni();
