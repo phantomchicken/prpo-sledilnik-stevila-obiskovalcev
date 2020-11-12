@@ -36,17 +36,19 @@ public class UpravljanjeProstorovZrno {
 
     public Prostor createProstor (ProstorDTO prostorDTO) {
         Prostor prostor = prostorZrno.getProstor(prostorDTO.getProstorId());
+
+        //ce obstaja ze uporabnik s tem emailom ne naredi novega uporabnika
         if (prostor != null) {
-            Prostor noviProstor = new Prostor();
-            noviProstor.setImeProstora(prostorDTO.getImeProstora());
-            noviProstor.setKvadratovPoOsebi(prostorDTO.getKvadratovPoOsebi());
-            noviProstor.setKvadratura(prostorDTO.getKvadratovPoOsebi());
-            noviProstor.setStVrat(prostorDTO.getStVrat());
-            noviProstor.setTrenutnoOseb(prostorDTO.getTrenutnoOseb());
-            return prostorZrno.createProstor(noviProstor);
-        } else {
-            log.info("Ne morem ustvariti novega prostora!");
+            log.info("Prostor s tem id-jem ze obstaja");
             return null;
         }
+
+        Prostor noviProstor = new Prostor();
+        noviProstor.setImeProstora(prostorDTO.getImeProstora());
+        noviProstor.setKvadratovPoOsebi(prostorDTO.getKvadratovPoOsebi());
+        noviProstor.setKvadratura(prostorDTO.getKvadratovPoOsebi());
+        noviProstor.setStVrat(prostorDTO.getStVrat());
+        noviProstor.setTrenutnoOseb(prostorDTO.getTrenutnoOseb());
+        return prostorZrno.createProstor(noviProstor);
     }
 }

@@ -38,17 +38,18 @@ public class UpravljanjeZaposlenihZrno {
 
     public Zaposleni createZaposleni (ZaposleniDTO zaposleniDTO) {
         Zaposleni zaposleni = zaposleniZrno.getZaposleni(zaposleniDTO.getZaposleniId());
+
         if (zaposleni != null) {
-            Zaposleni noviZaposleni = new Zaposleni();
-            noviZaposleni.setId(zaposleniDTO.getZaposleniId());
-            noviZaposleni.setIme(zaposleniDTO.getIme());
-            noviZaposleni.setPriimek(zaposleniDTO.getPriimek());
-            noviZaposleni.setVrata(zaposleniDTO.getVrata());
-            return zaposleniZrno.createZaposleni(noviZaposleni);
-        } else {
-            log.info("Ne morem ustvariti novega zaposlenega!");
+            log.info("Zaposleni s tem id-jem ze obstaja");
             return null;
         }
+
+        Zaposleni noviZaposleni = new Zaposleni();
+        noviZaposleni.setId(zaposleniDTO.getZaposleniId());
+        noviZaposleni.setIme(zaposleniDTO.getIme());
+        noviZaposleni.setPriimek(zaposleniDTO.getPriimek());
+        noviZaposleni.setVrata(zaposleniDTO.getVrata());
+        return zaposleniZrno.createZaposleni(noviZaposleni);
     }
 
 }

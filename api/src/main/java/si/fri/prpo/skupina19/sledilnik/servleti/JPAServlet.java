@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import si.fri.prpo.skupina19.entitete.*;
 import si.fri.prpo.skupina19.sledilnik.dtos.ProstorDTO;
+import si.fri.prpo.skupina19.sledilnik.dtos.ZaposleniDTO;
+import si.fri.prpo.skupina19.sledilnik.dtos.VrataDTO;
 import si.fri.prpo.skupina19.sledilnik.zrna.UpravljanjeProstorovZrno;
 import si.fri.prpo.skupina19.sledilnik.zrna.*;
 
@@ -104,7 +106,7 @@ public class JPAServlet extends HttpServlet {
         prostorDTO.setTrenutnoOseb(100);
         Prostor p = upravljanjeProstorovZrno.createProstor(prostorDTO);
 
-        writer.append("<hr>");
+        /*writer.append("<hr>");
         writer.append("<h1>Testiranje CRUD operacij</h1>");
 
         writer.append("<h3>Create prostor</h3><p>");
@@ -116,9 +118,16 @@ public class JPAServlet extends HttpServlet {
         prostor.setStVrat(7);
         prostor.setTrenutnoOseb(100);
         prostorZrno.createProstor(prostor);
-        izpis(writer,'p');
+        izpis(writer,'p');*/
 
-        writer.append("<h3>Create zaposleni</h3><p>");
+        ZaposleniDTO zaposleniDTO = new ZaposleniDTO();
+        zaposleniDTO.setId(4);
+        zaposleniDTO.setIme("Marko");
+        zaposleniDTO.setPriimek("Ivanovski");
+        //zaposleniDTO.setVrata();
+        Zaposleni z = upravljanjeZaposlenihZrno.createZaposleni(zaposleniDTO);
+
+        /*writer.append("<h3>Create zaposleni</h3><p>");
         Zaposleni zaposleni = new Zaposleni();
         zaposleni.setIme("Patrick");
         zaposleni.setPriimek("Ewing");
@@ -142,6 +151,6 @@ public class JPAServlet extends HttpServlet {
 
         writer.append("<h3>Delete zaposleni</h3><p>");
         zaposleniZrno.deleteZaposleni(4);
-        izpis(writer,'z');
+        izpis(writer,'z');*/
     }
 }

@@ -12,7 +12,7 @@ public class ZaposleniDTO {
         return zaposleniId;
     }
 
-    public void setZaposleniId(Integer zaposleniId) {
+    public void setId(Integer zaposleniId) {
         this.zaposleniId = zaposleniId;
     }
 
