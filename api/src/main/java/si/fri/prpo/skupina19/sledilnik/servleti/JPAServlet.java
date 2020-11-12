@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import si.fri.prpo.skupina19.entitete.*;
+import si.fri.prpo.skupina19.sledilnik.dtos.ProstorDTO;
+import si.fri.prpo.skupina19.sledilnik.zrna.UpravljanjeProstorovZrno;
 import si.fri.prpo.skupina19.sledilnik.zrna.*;
 
 @WebServlet("/servlet")
@@ -33,16 +35,15 @@ public class JPAServlet extends HttpServlet {
 
         PrintWriter writer = resp.getWriter();
 
-        
         //izpis imen in priimkov zaposlenih
         writer.append("<h1>Zaposleni z DB</h1>");
-        writer.append("<p>Zaposleni imajo imena: <ol>");
+        writer.append("<p>Zaposleni so: <ol>");
         zaposleniZrno.getZaposleni().stream().forEach( z -> writer.append("<li>" + z + "</li>"));
         writer.append("</ol></p>");
 
         //izpis vseh uporabnikov s CriteriaAPI
         writer.append("<h1>Zaposleni s CriteriaAPI</h1>");
-        writer.append("<p>Zaposleni imajo imena: <ol>");
+        writer.append("<p>Zaposleni so: <ol>");
         zaposleniZrno.getZaposleniCriteriaAPI().stream().forEach( z -> writer.append("<li>"+ z.toString() + "</li>"));
         writer.append("</ol></p>");
 
@@ -61,6 +62,7 @@ public class JPAServlet extends HttpServlet {
         //izpis prostorov
         writer.append("<h1>Prostori z DB </h1>");
         writer.append("<p>Prostori so: <ol>");
+        //writer.append(prostorZrno.getProstori().toString());
         prostorZrno.getProstori().stream().forEach( p -> writer.append("<li>" + p + "</li>"));
         writer.append("</ol></p>");
 
@@ -70,9 +72,18 @@ public class JPAServlet extends HttpServlet {
         prostorZrno.getProstoriCriteriaAPI().stream().forEach( p -> writer.append("<li>"+ p.toString() + "</li>"));
         writer.append("</ol></p>");
 
-
+        //POPRAVITI?
         //writer.append("<h1>Test</h1>");
         //zaposleniZrno.getDelovnoMesto().stream().forEach( z -> writer.append("<li>"+ z.toString() + "</li>"));
+
+        ProstorDTO prostorDTO = new ProstorDTO();
+        prostorDTO.setProstorId(3);
+        prostorDTO.setImeProstora("Bazen");
+        prostorDTO.setKvadratovPoOsebi(10);
+        prostorDTO.setKvadratura(1000);
+        prostorDTO.setStVrat(7);
+        prostorDTO.setTrenutnoOseb(100);
+        //Prostor p = UpravljanjeProstorovZrno.createProstor(prostorDTO);
 
     }
 }

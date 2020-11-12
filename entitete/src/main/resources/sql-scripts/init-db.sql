@@ -2,9 +2,9 @@ INSERT INTO zaposleni (ime, priimek) VALUES ('Shaquille', 'ONeal');
 INSERT INTO zaposleni (ime, priimek) VALUES ('Hakeem', 'Olajuwon');
 INSERT INTO zaposleni (ime, priimek) VALUES ('Kareem', 'Abdul-Jabbar');
 
-INSERT INTO prostor (ime_prostora, st_vrat, trenutno_oseb, omejitev_oseb) VALUES ('Trgovina', 2, 0, 10);
+INSERT INTO prostor (ime_prostora, st_vrat, trenutno_oseb, kvadratov_po_osebi, kvadratura) VALUES ('Trgovina', 2, 0, 10, 200);
 
-INSERT INTO prostor (ime_prostora, st_vrat, trenutno_oseb, omejitev_oseb) VALUES ('Lekarna', 1, 2, 5);
+INSERT INTO prostor (ime_prostora, st_vrat, trenutno_oseb, kvadratov_po_osebi, kvadratura) VALUES ('Lekarna', 1, 3, 20, 50);
 
 INSERT INTO vrata (st_vstopov, st_izstopov, prostor_id, zaposleni_id) VALUES (20, 11, 1, 1);
 INSERT INTO vrata (st_vstopov, st_izstopov, prostor_id, zaposleni_id) VALUES (9, 18, 1, 2);
