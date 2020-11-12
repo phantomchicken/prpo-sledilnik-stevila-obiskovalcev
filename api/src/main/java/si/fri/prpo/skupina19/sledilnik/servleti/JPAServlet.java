@@ -32,7 +32,7 @@ public class JPAServlet extends HttpServlet {
     public void izpis(PrintWriter writer, char c){
         writer.append("<ol>");
         if (c=='z') zaposleniZrno.getZaposleni().stream().forEach( z -> writer.append("<li>" + z + "</li>"));
-        if (c=='v') vrataZrno.getSt().stream().forEach( v -> writer.append("<li>" + v + "</li>"));
+        if (c=='v') vrataZrno.getVsaVrata().stream().forEach( v -> writer.append("<li>" + v + "</li>"));
         if (c=='p') prostorZrno.getProstori().stream().forEach( p -> writer.append("<li>" + p + "</li>"));
         writer.append("</ol></p>");
     }

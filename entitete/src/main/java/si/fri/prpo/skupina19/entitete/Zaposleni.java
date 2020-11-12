@@ -56,6 +56,11 @@ public class Zaposleni {
 
     @Override
     public String toString() {
-        return "ime: " + this.ime + "\n"  + "priimek: " + this.priimek +"\n" + "vrata: " + vrata+ "\n";
+        //+ "vrata: " + vrata.toString()+ "\n"
+        //+ "vrata: " + vrataRez + "\n"
+        //+ "vrata: " + vrata.getId() + "\n"
+        //String vrataRez =vrata.toString();
+        //System.out.println(vrata);
+        return "ime: " + this.ime + "\n"  + "priimek: " + this.priimek +"\n" ;
     }
 }

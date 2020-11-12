@@ -52,13 +52,21 @@ public class Vrata {
         return stIzstopov;
     }
 
-    public void setStIzstopov(Integer stIzstopov) {
-        this.stIzstopov = stIzstopov;
-    }
+    public void setStIzstopov(Integer stIzstopov) { this.stIzstopov = stIzstopov; }
+
+    public Zaposleni getZaposleni() { return zaposleni; }
+
+    public void setZaposleni(Zaposleni zaposleni) { this.zaposleni = zaposleni; }
+
+    public Prostor getProstor() { return prostor; }
+
+    public void setProstor(Prostor prostor) { this.prostor = prostor; }
 
     @Override
     public String toString() {
-        return Integer.toString(this.stVstopov) + " " + Integer.toString(this.stIzstopov);
+        return "zaposleniID: " + zaposleni + "\n" +  "stVstopov: " +stVstopov+ "\n" + "stIzstopov" + stIzstopov +"\n";
+        // "ID: " + id +"\n"  +
+        //"prostorID: " + prostor.toString() + "\n"
     }
 
 }
