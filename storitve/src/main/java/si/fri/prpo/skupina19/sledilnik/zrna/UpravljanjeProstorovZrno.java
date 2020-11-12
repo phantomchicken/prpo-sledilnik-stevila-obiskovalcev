@@ -44,7 +44,7 @@ public class UpravljanjeProstorovZrno {
             noviProstor.setTrenutnoOseb(prostorDTO.getTrenutnoOseb());
             return prostorZrno.createProstor(noviProstor);
         } else {
-            log.info("Ne morem ustvariti novega nakupovalnega seznama. Uporabnik ne obstaja.");
+            log.info("Ne morem ustvariti novega prostora!");
             return null;
         }
     }

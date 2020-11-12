@@ -94,8 +94,15 @@ public class Prostor {
         for (Vrata vrata: seznamVrat){
             sb.append(vrata.getId() + ", ");
         }
-        String vrataString = sb.substring(0,sb.length()-2);
-        //String vrataString = sb.toString();
+        String vrataString = "";
+
+        // če vrata niso nastavljena
+        if (sb.length()>2){
+            vrataString = sb.substring(0,sb.length()-2);
+        } else {
+            vrataString = sb.toString();
+        }
+
         return "ime " + imeProstora + "\n" + "stVrat " + stVrat + "\n" + "kvadratura " + kvadratura +"\n" + "kvadratovPoOsebi " + kvadratovPoOsebi + "\n" + "trenutnoOseb " + trenutnoOseb + "\n"  +"ID-ji vrat " + vrataString + "\n";
         //return String.format("ime %s%n stVrat %d%n kvadratura %d%n kvadratovPoOsebi %d%n trenutnoOseb %d%n",imeProstora, stVrat, kvadratura, kvadratovPoOsebi, trenutnoOseb);
     }

@@ -56,6 +56,6 @@ public class Zaposleni {
 
     @Override
     public String toString() {
-        return "ime: " + this.ime + "\n"  + "priimek: " + this.priimek +"\n" + "vrata: " + vrata;
+        return "ime: " + this.ime + "\n"  + "priimek: " + this.priimek +"\n" + "vrata: " + vrata+ "\n";
     }
 }
