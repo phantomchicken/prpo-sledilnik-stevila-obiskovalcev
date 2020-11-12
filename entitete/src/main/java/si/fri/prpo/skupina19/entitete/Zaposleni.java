@@ -42,17 +42,13 @@ public class Zaposleni {
         this.ime = ime;
     }
 
-    public String getPriimek() {
-        return priimek;
-    }
+    public String getPriimek() { return priimek; }
 
     public void setPriimek(String priimek) {
         this.priimek = priimek;
     }
 
-    public Vrata getVrata() {
-        return vrata;
-    }
+    public Vrata getVrata() { return vrata; }
 
     public void setVrata(Vrata vrata) {
         this.vrata = vrata;
@@ -60,6 +56,6 @@ public class Zaposleni {
 
     @Override
     public String toString() {
-        return this.ime + " " + this.priimek;
+        return "ime: " + this.ime + "\n"  + "priimek: " + this.priimek +"\n" + "vrata: " + vrata;
     }
 }

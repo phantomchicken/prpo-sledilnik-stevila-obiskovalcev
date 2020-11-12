@@ -19,6 +19,9 @@ public class Prostor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name="kvadratura")
+    private Integer kvadratura;
+
     @Column(name="ime_prostora")
     private String imeProstora;
 
@@ -28,8 +31,8 @@ public class Prostor {
     @Column(name="trenutno_oseb")
     private Integer trenutnoOseb;
 
-    @Column(name="omejitev_oseb")
-    private Integer omejitevOseb;
+    @Column(name="kvadratov_po_osebi")
+    private Integer kvadratovPoOsebi;
 
     @OneToMany(mappedBy = "prostor")
     private List<Vrata> seznamVrat;
@@ -67,12 +70,10 @@ public class Prostor {
         this.trenutnoOseb = trenutnoOseb;
     }
 
-    public Integer getOmejitevOseb() {
-        return omejitevOseb;
-    }
+    public Integer getKvadratPoOsebi() { return kvadratovPoOsebi; }
 
-    public void setOmejitevOseb(Integer omejitevOseb) {
-        this.omejitevOseb = omejitevOseb;
+    public void setKvadratovPoOsebi(Integer kvadratPoOsebi) {
+        this.kvadratovPoOsebi = kvadratPoOsebi;
     }
 
     public List<Vrata> getSeznamVrat() {
@@ -83,8 +84,19 @@ public class Prostor {
         this.seznamVrat = seznamVrat;
     }
 
+    public Integer getKvadratura() { return kvadratura; }
+
+    public void setKvadratura(Integer kvadratura) { this.kvadratura = kvadratura; }
+
     @Override
     public String toString() {
-        return this.imeProstora;
+        StringBuilder sb = new StringBuilder();
+        for (Vrata vrata: seznamVrat){
+            sb.append(vrata.getId() + ", ");
+        }
+        String vrataString = sb.substring(0,sb.length()-2);
+        //String vrataString = sb.toString();
+        return "ime " + imeProstora + "\n" + "stVrat " + stVrat + "\n" + "kvadratura " + kvadratura +"\n" + "kvadratovPoOsebi " + kvadratovPoOsebi + "\n" + "trenutnoOseb " + trenutnoOseb + "\n"  +"ID-ji vrat " + vrataString + "\n";
+        //return String.format("ime %s%n stVrat %d%n kvadratura %d%n kvadratovPoOsebi %d%n trenutnoOseb %d%n",imeProstora, stVrat, kvadratura, kvadratovPoOsebi, trenutnoOseb);
     }
 }
