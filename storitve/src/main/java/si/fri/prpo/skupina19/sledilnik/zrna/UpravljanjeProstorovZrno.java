@@ -35,10 +35,7 @@ public class UpravljanjeProstorovZrno {
     private EntityManager em;
 
     public Prostor createProstor (ProstorDTO prostorDTO) {
-        Prostor prostor = prostorZrno.getProstor(prostorDTO.getProstorId());
-
-        //ce obstaja ze uporabnik s tem emailom ne naredi novega uporabnika
-        if (prostor != null) {
+        if (prostorDTO.getProstorId()!=null){
             log.info("Prostor s tem id-jem ze obstaja");
             return null;
         }

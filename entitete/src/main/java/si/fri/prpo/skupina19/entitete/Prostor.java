@@ -103,7 +103,7 @@ public class Prostor {
             vrataString = sb.toString();
         }
 
-        return "ime " + imeProstora + "\n" + "stVrat " + stVrat + "\n" + "kvadratura " + kvadratura +"\n" + "kvadratovPoOsebi " + kvadratovPoOsebi + "\n" + "trenutnoOseb " + trenutnoOseb + "\n"  +"ID-ji vrat " + vrataString + "\n";
+        return "ID: " + id + "\n" + "ime " + imeProstora + "\n" + "stVrat " + stVrat + "\n" + "kvadratura " + kvadratura +"\n" + "kvadratovPoOsebi " + kvadratovPoOsebi + "\n" + "trenutnoOseb " + trenutnoOseb + "\n"  +"ID-ji vrat " + vrataString + "\n";
         //return String.format("ime %s%n stVrat %d%n kvadratura %d%n kvadratovPoOsebi %d%n trenutnoOseb %d%n",imeProstora, stVrat, kvadratura, kvadratovPoOsebi, trenutnoOseb);
     }
 }

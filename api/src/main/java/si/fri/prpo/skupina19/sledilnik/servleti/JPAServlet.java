@@ -98,7 +98,7 @@ public class JPAServlet extends HttpServlet {
         //zaposleniZrno.getDelovnoMesto().stream().forEach( z -> writer.append("<li>"+ z.toString() + "</li>"));
 
         ProstorDTO prostorDTO = new ProstorDTO();
-        prostorDTO.setProstorId(3);
+        //prostorDTO.setProstorId(3);
         prostorDTO.setImeProstora("Bazen");
         prostorDTO.setKvadratovPoOsebi(10);
         prostorDTO.setKvadratura(1000);
@@ -121,7 +121,7 @@ public class JPAServlet extends HttpServlet {
         izpis(writer,'p');*/
 
         ZaposleniDTO zaposleniDTO = new ZaposleniDTO();
-        zaposleniDTO.setId(4);
+        //zaposleniDTO.setId(4);
         zaposleniDTO.setIme("Marko");
         zaposleniDTO.setPriimek("Ivanovski");
         //zaposleniDTO.setVrata();
