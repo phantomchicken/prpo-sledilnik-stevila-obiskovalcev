@@ -13,7 +13,6 @@ import si.fri.prpo.skupina19.entitete.*;
 import si.fri.prpo.skupina19.sledilnik.dtos.ProstorDTO;
 import si.fri.prpo.skupina19.sledilnik.dtos.ZaposleniDTO;
 import si.fri.prpo.skupina19.sledilnik.dtos.VrataDTO;
-import si.fri.prpo.skupina19.sledilnik.zrna.UpravljanjeProstorovZrno;
 import si.fri.prpo.skupina19.sledilnik.zrna.*;
 
 @WebServlet("/servlet")
@@ -33,6 +32,9 @@ public class JPAServlet extends HttpServlet {
 
     @Inject
     UpravljanjeZaposlenihZrno upravljanjeZaposlenihZrno;
+
+    @Inject
+    UpravljanjeVrataZrno upravljanjeVrataZrno;
 
     public void izpis(PrintWriter writer, char c){
         writer.append("<ol>");
@@ -65,7 +67,7 @@ public class JPAServlet extends HttpServlet {
         //izpis imen in priimkov zaposlenih
         writer.append("<h3>Zaposleni z DB</h3>");
         writer.append("<p>Zaposleni so:");
-        izpis(writer,'z');
+        izpisCriteria(writer,'z');
 
         /*izpis vseh uporabnikov s CriteriaAPI
         writer.append("<h3>Zaposleni s CriteriaAPI</h3>");
@@ -124,7 +126,7 @@ public class JPAServlet extends HttpServlet {
         zaposleniDTO.setId(4);
         zaposleniDTO.setIme("Marko");
         zaposleniDTO.setPriimek("Ivanovski");
-        //zaposleniDTO.setVrata();
+        //zaposleniDTO.setVrata(vrataDTO);
         Zaposleni z = upravljanjeZaposlenihZrno.createZaposleni(zaposleniDTO);
 
         /*writer.append("<h3>Create zaposleni</h3><p>");
@@ -133,9 +135,17 @@ public class JPAServlet extends HttpServlet {
         zaposleni.setPriimek("Ewing");
         zaposleni.setId(4);
         zaposleniZrno.createZaposleni(zaposleni);
-        izpis(writer,'z');
+        izpis(writer,'z');*/
 
-        writer.append("<h3>Update prostor</h3><p>");
+        VrataDTO vrataDTO = new VrataDTO();
+        vrataDTO.setVrataId(4);
+        vrataDTO.setStVstopov(23);
+        vrataDTO.setStIzstopov(24);
+        vrataDTO.setProstor(p);
+        vrataDTO.setZaposleni(z);
+        Vrata v = upravljanjeVrataZrno.createVrata(vrataDTO);
+
+        /*writer.append("<h3>Update prostor</h3><p>");
         prostor.setImeProstora("BazenNEW");
         prostorZrno.updateProstor(3,prostor);
         izpis(writer,'p');
