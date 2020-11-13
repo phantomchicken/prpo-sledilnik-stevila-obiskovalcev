@@ -1,15 +1,12 @@
 package si.fri.prpo.skupina19.sledilnik.zrna;
 
-import si.fri.prpo.skupina19.entitete.Prostor;
-import si.fri.prpo.skupina19.entitete.Zaposleni;
 import si.fri.prpo.skupina19.entitete.Vrata;
-import si.fri.prpo.skupina19.sledilnik.dtos.ProstorDTO;
-import si.fri.prpo.skupina19.sledilnik.dtos.ZaposleniDTO;
 import si.fri.prpo.skupina19.sledilnik.dtos.VrataDTO;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -22,7 +19,7 @@ public class UpravljanjeVrataZrno {
     private String idZ;
 
     @Inject
-    private VrataZrno varataZrno;
+    private VrataZrno vrataZrno;
 
     @PostConstruct
     private void initialization(){
@@ -39,8 +36,7 @@ public class UpravljanjeVrataZrno {
     private EntityManager em;
 
     public Vrata createVrata (VrataDTO vrataDTO) {
-        Vrata vrata = varataZrno.getVrata(vrataDTO.getVrataId());
-
+        Vrata vrata = vrataZrno.getVrata(vrataDTO.getVrataId());
         if (vrata != null) {
             log.info("Vrata s tem id-jem ze obstajajo");
             return null;
@@ -52,7 +48,15 @@ public class UpravljanjeVrataZrno {
         novaVrata.setStIzstopov(vrataDTO.getStIzstopov());
         novaVrata.setProstor(vrataDTO.getProstor());
         novaVrata.setZaposleni(vrataDTO.getZaposleni());
-        return varataZrno.createVrata(novaVrata);
+        return vrataZrno.createVrata(novaVrata);
+    }
+
+    public Integer deleteVrata (VrataDTO vrataDTO){
+        if (vrataDTO.getVrataId()==null) {
+            log.info("Zaposleni s tem ID-jem ne obstaja");
+            return null;
+        }
+        return vrataZrno.deleteVrata(vrataDTO.getVrataId());
     }
 
 }

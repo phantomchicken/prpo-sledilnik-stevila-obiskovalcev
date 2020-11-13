@@ -6,6 +6,7 @@ import si.fri.prpo.skupina19.entitete.Vrata;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.persistence.*;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
