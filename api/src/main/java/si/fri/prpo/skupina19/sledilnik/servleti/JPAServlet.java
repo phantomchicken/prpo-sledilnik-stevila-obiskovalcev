@@ -64,37 +64,6 @@ public class JPAServlet extends HttpServlet {
 
         writer.append("<h1>Enostavne GET operacije</h1>");
 
-        //izpis imen in priimkov zaposlenih
-        writer.append("<h3>Zaposleni z DB</h3>");
-        writer.append("<p>Zaposleni so:");
-        izpisCriteria(writer,'z');
-
-        /*izpis vseh uporabnikov s CriteriaAPI
-        writer.append("<h3>Zaposleni s CriteriaAPI</h3>");
-        writer.append("<p>Zaposleni so:");
-        izpisCriteria(writer,'z');*/
-
-        //izpis stanja vrat
-        writer.append("<h3>Vrata z DB </h3>");
-        writer.append("<p>Stanja vrat so:");
-        izpis(writer,'v');
-
-        /*izpis stanja vrat s CriteriaAPI
-        writer.append("<h3>Vrata s CriteriaAPI</h3>");
-        writer.append("<p>Stanja vrat  so:");
-        izpisCriteria(writer,'v');*/
-
-        //izpis prostorov
-        writer.append("<h3>Prostori z DB </h3>");
-        writer.append("<p>Prostori so:");
-        //writer.append(prostorZrno.getProstori().toString());
-        izpis(writer,'p');
-
-        /*izpis vseh prostorov s CriteriaAPI
-        writer.append("<h3>Prostori s CriteriaAPI</h3>");
-        writer.append("<p>Prostori so:");
-        izpisCriteria(writer,'p');*/
-
         //POPRAVITI?
         //writer.append("<h1>Test</h1>");
         //zaposleniZrno.getDelovnoMesto().stream().forEach( z -> writer.append("<li>"+ z.toString() + "</li>"));
@@ -107,7 +76,7 @@ public class JPAServlet extends HttpServlet {
         prostorDTO.setStVrat(7);
         prostorDTO.setTrenutnoOseb(100);
         Prostor p = upravljanjeProstorovZrno.createProstor(prostorDTO);
-        izpis(writer,'p');
+        //izpis(writer,'p');
         //writer.append(upravljanjeProstorovZrno.getOmejitev(prostorDTO).toString());
 
         /*writer.append("<hr>");
@@ -130,11 +99,11 @@ public class JPAServlet extends HttpServlet {
         zaposleniDTO.setPriimek("Ivanovski");
         //zaposleniDTO.setVrata(vrataDTO);
         Zaposleni z = upravljanjeZaposlenihZrno.createZaposleni(zaposleniDTO);
-        izpis(writer,'z');
+        //izpis(writer,'z');
 
-        zaposleniDTO.setId(4);
+        //zaposleniDTO.setId(4);
         //upravljanjeZaposlenihZrno.deleteZaposleni(zaposleniDTO);
-        izpis(writer,'z');
+        //izpis(writer,'z');
 
         /*writer.append("<h3>Create zaposleni</h3><p>");
         Zaposleni zaposleni = new Zaposleni();
@@ -169,5 +138,36 @@ public class JPAServlet extends HttpServlet {
         writer.append("<h3>Delete zaposleni</h3><p>");
         zaposleniZrno.deleteZaposleni(4);
         izpis(writer,'z');*/
+
+        //izpis imen in priimkov zaposlenih
+        writer.append("<h3>Zaposleni z DB</h3>");
+        writer.append("<p>Zaposleni so:");
+        izpisCriteria(writer,'z');
+
+        /*izpis vseh uporabnikov s CriteriaAPI
+        writer.append("<h3>Zaposleni s CriteriaAPI</h3>");
+        writer.append("<p>Zaposleni so:");
+        izpisCriteria(writer,'z');*/
+
+        //izpis stanja vrat
+        writer.append("<h3>Vrata z DB </h3>");
+        writer.append("<p>Stanja vrat so:");
+        izpis(writer,'v');
+
+        /*izpis stanja vrat s CriteriaAPI
+        writer.append("<h3>Vrata s CriteriaAPI</h3>");
+        writer.append("<p>Stanja vrat  so:");
+        izpisCriteria(writer,'v');*/
+
+        //izpis prostorov
+        writer.append("<h3>Prostori z DB </h3>");
+        writer.append("<p>Prostori so:");
+        //writer.append(prostorZrno.getProstori().toString());
+        izpis(writer,'p');
+
+        /*izpis vseh prostorov s CriteriaAPI
+        writer.append("<h3>Prostori s CriteriaAPI</h3>");
+        writer.append("<p>Prostori so:");
+        izpisCriteria(writer,'p');*/
     }
 }
