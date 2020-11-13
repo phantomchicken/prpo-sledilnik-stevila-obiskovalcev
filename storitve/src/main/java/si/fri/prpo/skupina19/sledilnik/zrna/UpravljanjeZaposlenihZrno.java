@@ -48,6 +48,18 @@ public class UpravljanjeZaposlenihZrno {
         return zaposleniZrno.createZaposleni(noviZaposleni);
     }
 
+    /*public Zaposleni updateZaposleni (ZaposleniDTO zaposleniDTO) {
+        if (zaposleniDTO.getZaposleniId()==null) {
+            log.info("Zaposleni s tem ID-jem ne obstaja");
+            return null;
+        }
+        Zaposleni noviZaposleni = new Zaposleni();
+        noviZaposleni.setIme(zaposleniDTO.getIme());
+        noviZaposleni.setPriimek(zaposleniDTO.getPriimek());
+        noviZaposleni.setVrata(zaposleniDTO.getVrata());
+        return zaposleniZrno.updateZaposleni(noviZaposleni);
+    }*/
+
     public Integer deleteZaposleni (ZaposleniDTO zaposleniDTO){
         if (zaposleniDTO.getZaposleniId()==null) {
             log.info("Zaposleni s tem ID-jem ne obstaja");

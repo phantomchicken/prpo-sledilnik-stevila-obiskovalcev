@@ -121,6 +121,8 @@ public class JPAServlet extends HttpServlet {
         vrataDTO.setZaposleni(z);
         Vrata v = upravljanjeVrataZrno.createVrata(vrataDTO);
 
+        //zaposleniZrno.updateZrno(zaposleniDTO);
+
         /*writer.append("<h3>Update prostor</h3><p>");
         prostor.setImeProstora("BazenNEW");
         prostorZrno.updateProstor(3,prostor);
