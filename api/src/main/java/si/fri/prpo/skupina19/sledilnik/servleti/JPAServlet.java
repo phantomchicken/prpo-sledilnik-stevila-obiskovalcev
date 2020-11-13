@@ -86,7 +86,7 @@ public class JPAServlet extends HttpServlet {
         //izpis(writer,'z');
 
         VrataDTO vrataDTO = new VrataDTO();
-        vrataDTO.setVrataId(4);
+        //vrataDTO.setVrataId(4);
         vrataDTO.setStVstopov(23);
         vrataDTO.setStIzstopov(24);
         vrataDTO.setProstor(p);
