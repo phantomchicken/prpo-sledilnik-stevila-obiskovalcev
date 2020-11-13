@@ -133,7 +133,7 @@ public class JPAServlet extends HttpServlet {
         izpis(writer,'z');
 
         zaposleniDTO.setId(4);
-        upravljanjeZaposlenihZrno.deleteZaposleni(zaposleniDTO);
+        //upravljanjeZaposlenihZrno.deleteZaposleni(zaposleniDTO);
         izpis(writer,'z');
 
         /*writer.append("<h3>Create zaposleni</h3><p>");
