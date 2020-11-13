@@ -63,7 +63,6 @@ public class JPAServlet extends HttpServlet {
         writer.append("<h1>Enostavne GET operacije</h1>");
 
         ProstorDTO prostorDTO = new ProstorDTO();
-        //prostorDTO.setProstorId(3);
         prostorDTO.setImeProstora("Bazen");
         prostorDTO.setKvadratovPoOsebi(10);
         prostorDTO.setKvadratura(500);
@@ -74,7 +73,6 @@ public class JPAServlet extends HttpServlet {
         //writer.append(upravljanjeProstorovZrno.getOmejitev(prostorDTO).toString());
 
         ZaposleniDTO zaposleniDTO = new ZaposleniDTO();
-        //zaposleniDTO.setId(4);
         zaposleniDTO.setIme("Marko");
         zaposleniDTO.setPriimek("Ivanovski");
         //zaposleniDTO.setVrata(vrataDTO);
@@ -86,7 +84,6 @@ public class JPAServlet extends HttpServlet {
         //izpis(writer,'z');
 
         VrataDTO vrataDTO = new VrataDTO();
-        //vrataDTO.setVrataId(4);
         vrataDTO.setStVstopov(23);
         vrataDTO.setStIzstopov(24);
         vrataDTO.setProstor(p);
