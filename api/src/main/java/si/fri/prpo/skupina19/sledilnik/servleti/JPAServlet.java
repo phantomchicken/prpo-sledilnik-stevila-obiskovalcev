@@ -54,8 +54,6 @@ public class JPAServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-
         // izpis zaposlenih na spletni strani
         resp.setContentType("text/html; charset=UTF-8");
         resp.setCharacterEncoding("UTF-8");
@@ -63,10 +61,6 @@ public class JPAServlet extends HttpServlet {
         PrintWriter writer = resp.getWriter();
 
         writer.append("<h1>Enostavne GET operacije</h1>");
-
-        //POPRAVITI?
-        //writer.append("<h1>Test</h1>");
-        //zaposleniZrno.getDelovnoMesto().stream().forEach( z -> writer.append("<li>"+ z.toString() + "</li>"));
 
         ProstorDTO prostorDTO = new ProstorDTO();
         //prostorDTO.setProstorId(3);
@@ -78,20 +72,6 @@ public class JPAServlet extends HttpServlet {
         Prostor p = upravljanjeProstorovZrno.createProstor(prostorDTO);
         //izpis(writer,'p');
         //writer.append(upravljanjeProstorovZrno.getOmejitev(prostorDTO).toString());
-
-        /*writer.append("<hr>");
-        writer.append("<h1>Testiranje CRUD operacij</h1>");
-
-        writer.append("<h3>Create prostor</h3><p>");
-        Prostor prostor = new Prostor();
-        prostor.setId(3);
-        prostor.setImeProstora("Bazen");
-        prostor.setKvadratovPoOsebi(10);
-        prostor.setKvadratura(1000);
-        prostor.setStVrat(7);
-        prostor.setTrenutnoOseb(100);
-        prostorZrno.createProstor(prostor);
-        izpis(writer,'p');*/
 
         ZaposleniDTO zaposleniDTO = new ZaposleniDTO();
         //zaposleniDTO.setId(4);
@@ -105,14 +85,6 @@ public class JPAServlet extends HttpServlet {
         //upravljanjeZaposlenihZrno.deleteZaposleni(zaposleniDTO);
         //izpis(writer,'z');
 
-        /*writer.append("<h3>Create zaposleni</h3><p>");
-        Zaposleni zaposleni = new Zaposleni();
-        zaposleni.setIme("Patrick");
-        zaposleni.setPriimek("Ewing");
-        zaposleni.setId(4);
-        zaposleniZrno.createZaposleni(zaposleni);
-        izpis(writer,'z');*/
-
         VrataDTO vrataDTO = new VrataDTO();
         vrataDTO.setVrataId(4);
         vrataDTO.setStVstopov(23);
@@ -121,55 +93,16 @@ public class JPAServlet extends HttpServlet {
         vrataDTO.setZaposleni(z);
         Vrata v = upravljanjeVrataZrno.createVrata(vrataDTO);
 
-        //zaposleniZrno.updateZrno(zaposleniDTO);
-
-        /*writer.append("<h3>Update prostor</h3><p>");
-        prostor.setImeProstora("BazenNEW");
-        prostorZrno.updateProstor(3,prostor);
-        izpis(writer,'p');
-
-        writer.append("<h3>Update zaposleni</h3><p>");
-        zaposleni.setIme("Patrick Aloysius");
-        zaposleniZrno.updateZaposleni(4,zaposleni);
-        izpis(writer,'z');
-
-        writer.append("<h3>Delete prostor</h3><p>");
-        prostorZrno.deleteProstor(3);
-        izpis(writer,'p');
-
-        writer.append("<h3>Delete zaposleni</h3><p>");
-        zaposleniZrno.deleteZaposleni(4);
-        izpis(writer,'z');*/
-
-        //izpis imen in priimkov zaposlenih
         writer.append("<h3>Zaposleni z DB</h3>");
         writer.append("<p>Zaposleni so:");
         izpisCriteria(writer,'z');
 
-        /*izpis vseh uporabnikov s CriteriaAPI
-        writer.append("<h3>Zaposleni s CriteriaAPI</h3>");
-        writer.append("<p>Zaposleni so:");
-        izpisCriteria(writer,'z');*/
-
-        //izpis stanja vrat
         writer.append("<h3>Vrata z DB </h3>");
         writer.append("<p>Stanja vrat so:");
         izpis(writer,'v');
 
-        /*izpis stanja vrat s CriteriaAPI
-        writer.append("<h3>Vrata s CriteriaAPI</h3>");
-        writer.append("<p>Stanja vrat  so:");
-        izpisCriteria(writer,'v');*/
-
-        //izpis prostorov
         writer.append("<h3>Prostori z DB </h3>");
         writer.append("<p>Prostori so:");
-        //writer.append(prostorZrno.getProstori().toString());
         izpis(writer,'p');
-
-        /*izpis vseh prostorov s CriteriaAPI
-        writer.append("<h3>Prostori s CriteriaAPI</h3>");
-        writer.append("<p>Prostori so:");
-        izpisCriteria(writer,'p');*/
     }
 }

@@ -1,6 +1,7 @@
 package si.fri.prpo.skupina19.sledilnik.zrna;
 
 import si.fri.prpo.skupina19.entitete.Prostor;
+import si.fri.prpo.skupina19.entitete.Vrata;
 import si.fri.prpo.skupina19.entitete.Zaposleni;
 import si.fri.prpo.skupina19.sledilnik.dtos.ProstorDTO;
 import si.fri.prpo.skupina19.sledilnik.dtos.ZaposleniDTO;
@@ -66,6 +67,21 @@ public class UpravljanjeZaposlenihZrno {
             return null;
         }
         return zaposleniZrno.deleteZaposleni(zaposleniDTO.getZaposleniId());
+    }
+
+    public Integer povecajStevilo (ZaposleniDTO zaposleniDTO){
+        if (zaposleniDTO.getZaposleniId()==null) {
+            log.info("Zaposleni s tem ID-jem ne obstaja");
+            return null;
+        }
+        Vrata vrataZaposlenega = zaposleniDTO.getVrata();
+        if (vrataZaposlenega == null) return null;
+        Prostor prostorVrat = vrataZaposlenega.getProstor();
+        if (prostorVrat == null) return null;
+        Integer trenutno = prostorVrat.getTrenutnoOseb();
+        Integer novo = trenutno++;
+        prostorVrat.setTrenutnoOseb(novo);
+        return novo;
     }
 
 }
