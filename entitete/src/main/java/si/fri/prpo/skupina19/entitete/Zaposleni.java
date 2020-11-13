@@ -61,6 +61,10 @@ public class Zaposleni {
         //+ "vrata: " + vrata.getId() + "\n"
         //String vrataRez =vrata.toString();
         //System.out.println(vrata);
-        return "ID: " + id + "\n" + "ime: " + this.ime + "\n"  + "priimek: " + this.priimek +"\n" + "vrata: " + vrata + "\n";
+        String vrataString = "null";
+        if (vrata != null && vrata.getId()!= null){
+            vrataString=vrata.getId().toString();
+        }
+        return "ID: " + id + "\n" + "ime: " + this.ime + "\n"  + "priimek: " + this.priimek +"\n" + "vrata: " + vrataString + "\n";
     }
 }
