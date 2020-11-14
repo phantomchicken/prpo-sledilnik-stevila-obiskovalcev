@@ -42,13 +42,14 @@ public class UpravljanjeProstorovZrno {
         Prostor noviProstor = new Prostor();
         noviProstor.setImeProstora(prostorDTO.getImeProstora());
         noviProstor.setKvadratovPoOsebi(prostorDTO.getKvadratovPoOsebi());
-        noviProstor.setKvadratura(prostorDTO.getKvadratovPoOsebi());
+        noviProstor.setKvadratura(prostorDTO.getKvadratura());
         noviProstor.setStVrat(prostorDTO.getStVrat());
         noviProstor.setTrenutnoOseb(prostorDTO.getTrenutnoOseb());
         return prostorZrno.createProstor(noviProstor);
     }
 
     public Integer getOmejitev (ProstorDTO prostorDTO){
+        log.info(prostorDTO.toString());
         log.info(prostorDTO.getKvadratura().toString());
         log.info(prostorDTO.getProstorId().toString());
 

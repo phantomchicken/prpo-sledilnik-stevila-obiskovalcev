@@ -62,6 +62,18 @@ writer.append("<h1>Testiranje CRUD operacij</h1>");
          //writer.append("<h1>Test</h1>");
          //zaposleniZrno.getDelovnoMesto().stream().forEach( z -> writer.append("<li>"+ z.toString() + "</li>"));
          
+                Prostor lekarna = prostorZrno.getProstor(2);
+                 ProstorDTO prostorDTO2 = new ProstorDTO();
+                 prostorDTO2.setImeProstora(lekarna.getImeProstora());
+                 prostorDTO2.setKvadratovPoOsebi(lekarna.getKvadratPoOsebi());
+                 prostorDTO2.setKvadratura(lekarna.getKvadratura());
+                 prostorDTO2.setStVrat(lekarna.getStVrat());
+                 prostorDTO2.setTrenutnoOseb(lekarna.getTrenutnoOseb());
+                 prostorDTO2.setProstorId(lekarna.getId());
+         
+         
+                 writer.append(upravljanjeProstorovZrno.getOmejitev(prostorDTO2).toString());
+         
  ### Scopes
  
         VrataDTO vrataDTO2 = new VrataDTO();
@@ -75,3 +87,4 @@ writer.append("<h1>Testiranje CRUD operacij</h1>");
          upravljanjeVrataZrno.deleteVrata(vrataDTO);
          VrataZrno --> RequestScoped
          refresh
+  

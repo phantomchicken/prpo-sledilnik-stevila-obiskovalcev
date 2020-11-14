@@ -1,5 +1,7 @@
 package si.fri.prpo.skupina19.sledilnik.dtos;
 
+import si.fri.prpo.skupina19.entitete.Prostor;
+
 public class ProstorDTO {
     private Integer prostorId;
     private String imeProstora;
@@ -54,5 +56,10 @@ public class ProstorDTO {
 
     public void setTrenutnoOseb(Integer trenutnoOseb) {
         this.trenutnoOseb = trenutnoOseb;
+    }
+
+    @Override
+    public String toString(){
+        return  prostorId +" "+ imeProstora +" " + kvadratovPoOsebi + " " +kvadratura + " " + stVrat   +" " + trenutnoOseb +" ";
     }
 }

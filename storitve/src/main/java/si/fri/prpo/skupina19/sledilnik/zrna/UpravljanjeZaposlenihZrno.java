@@ -84,4 +84,13 @@ public class UpravljanjeZaposlenihZrno {
         return novo;
     }
 
+    public Prostor getProstorZaposlenega (ZaposleniDTO zaposleniDTO){
+        if (zaposleniDTO.getZaposleniId()==null) {
+            log.info("Zaposleni s tem ID-jem ne obstaja");
+            return null;
+        }
+        Vrata vrataZaposlenega = zaposleniDTO.getVrata();
+        if (vrataZaposlenega == null) return null;
+        return vrataZaposlenega.getProstor();
+    }
 }
