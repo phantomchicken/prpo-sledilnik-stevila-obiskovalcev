@@ -49,10 +49,6 @@ public class UpravljanjeProstorovZrno {
     }
 
     public Integer getOmejitev (ProstorDTO prostorDTO){
-        log.info(prostorDTO.toString());
-        log.info(prostorDTO.getKvadratura().toString());
-        log.info(prostorDTO.getProstorId().toString());
-
         if (prostorDTO.getProstorId()==null){
             log.info("Prostor s tem id-jem ne obstaja");
             return null;

@@ -89,8 +89,12 @@ public class UpravljanjeZaposlenihZrno {
             log.info("Zaposleni s tem ID-jem ne obstaja");
             return null;
         }
+        log.info(zaposleniDTO.getIme());
+        log.info(zaposleniDTO.getZaposleniId().toString());
+        log.info(zaposleniDTO.getVrata().toString());
         Vrata vrataZaposlenega = zaposleniDTO.getVrata();
         if (vrataZaposlenega == null) return null;
+        log.info(vrataZaposlenega.toString());
         return vrataZaposlenega.getProstor();
     }
 }
