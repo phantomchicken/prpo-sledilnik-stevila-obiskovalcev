@@ -63,7 +63,6 @@ public class JPAServlet extends HttpServlet {
         writer.append("<h1>Enostavne GET operacije</h1>");
 
         ProstorDTO prostorDTO = new ProstorDTO();
-        //prostorDTO.setProstorId(3);
         prostorDTO.setImeProstora("Bazen");
         prostorDTO.setKvadratovPoOsebi(10);
         prostorDTO.setKvadratura(500);

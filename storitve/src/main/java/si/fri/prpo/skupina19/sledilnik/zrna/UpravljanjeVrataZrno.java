@@ -1,15 +1,17 @@
 package si.fri.prpo.skupina19.sledilnik.zrna;
 
+import si.fri.prpo.skupina19.entitete.Prostor;
 import si.fri.prpo.skupina19.entitete.Vrata;
+import si.fri.prpo.skupina19.entitete.Zaposleni;
 import si.fri.prpo.skupina19.sledilnik.dtos.VrataDTO;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 import java.util.UUID;
 import java.util.logging.Logger;
 
@@ -20,6 +22,10 @@ public class UpravljanjeVrataZrno {
 
     @Inject
     private VrataZrno vrataZrno;
+    @Inject
+    private ProstorZrno prostorZrno;
+    @Inject
+    private ZaposleniZrno zaposleniZrno;
 
     @PostConstruct
     private void initialization(){
@@ -36,7 +42,8 @@ public class UpravljanjeVrataZrno {
     private EntityManager em;
 
     public Vrata createVrata (VrataDTO vrataDTO) {
-        if (vrataDTO.getVrataId() != null) {
+
+        if (vrataDTO.getVrataId() != null){
             log.info("Vrata s tem id-jem ze obstajajo");
             return null;
         }
@@ -46,7 +53,21 @@ public class UpravljanjeVrataZrno {
         novaVrata.setStIzstopov(vrataDTO.getStIzstopov());
         novaVrata.setProstor(vrataDTO.getProstor());
         novaVrata.setZaposleni(vrataDTO.getZaposleni());
-        return vrataZrno.createVrata(novaVrata);
+
+        novaVrata = vrataZrno.createVrata(novaVrata);
+        novaVrata.getZaposleni().setVrata(novaVrata);
+
+        List<Vrata> seznamVrat = novaVrata.getProstor().getSeznamVrat();
+        seznamVrat.add(novaVrata);
+        novaVrata.getProstor().setSeznamVrat(seznamVrat);
+
+        Prostor noviProstor = novaVrata.getProstor();
+        prostorZrno.updateProstor(noviProstor.getId(),noviProstor);
+
+        Zaposleni noviZaposleni = novaVrata.getZaposleni();
+        zaposleniZrno.updateZaposleni(noviZaposleni.getId(),noviZaposleni);
+
+        return novaVrata;
     }
 
     public Integer deleteVrata (VrataDTO vrataDTO){

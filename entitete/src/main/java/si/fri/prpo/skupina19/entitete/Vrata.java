@@ -64,7 +64,11 @@ public class Vrata {
 
     @Override
     public String toString() {
-        return "ID: " + id + "\n" + "\n" +  "stVstopov: " +stVstopov+ "\n" + "stIzstopov" + stIzstopov +"\n";
+        String zaposleniString ="";
+        String prostorString = "";
+        if (zaposleni.getId()!=null) zaposleniString = zaposleni.getId().toString();
+        if (prostor.getId()!=null) prostorString = prostor.getId().toString();
+        return "ID: " + id + "\n" + "prostorID: "+ prostorString  + "\n" + "zaposleniID: "+ zaposleniString  + "\n" + "stVstopov: " +stVstopov+ "\n" + "stIzstopov" + stIzstopov +"\n";
         // "ID: " + id +"\n"  +
         //"prostorID: " + prostor.toString() + "\n"
     }
