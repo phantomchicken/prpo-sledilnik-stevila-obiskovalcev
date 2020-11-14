@@ -23,7 +23,7 @@ public class Zaposleni {
     @Column(name="priimek")
     private String priimek;
 
-    @OneToOne(mappedBy = "zaposleni")
+    @OneToOne(mappedBy = "zaposleni", cascade = CascadeType.ALL)
     private Vrata vrata;
 
     public Integer getId() {

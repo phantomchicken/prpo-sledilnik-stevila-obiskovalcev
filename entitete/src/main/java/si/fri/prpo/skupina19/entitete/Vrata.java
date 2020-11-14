@@ -24,7 +24,7 @@ public class Vrata {
     @Column(name="st_izstopov")
     private Integer stIzstopov;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "zaposleni_id")
     private Zaposleni zaposleni;
 

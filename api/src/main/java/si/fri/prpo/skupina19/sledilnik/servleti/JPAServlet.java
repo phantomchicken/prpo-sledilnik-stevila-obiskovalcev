@@ -74,11 +74,11 @@ public class JPAServlet extends HttpServlet {
         //writer.append(upravljanjeProstorovZrno.getOmejitev(prostorDTO).toString());
 
         ZaposleniDTO zaposleniDTO = new ZaposleniDTO();
-        //zaposleniDTO.setId(4);
         zaposleniDTO.setIme("Marko");
         zaposleniDTO.setPriimek("Ivanovski");
         //zaposleniDTO.setVrata(vrataDTO);
         Zaposleni z = upravljanjeZaposlenihZrno.createZaposleni(zaposleniDTO);
+        zaposleniDTO.setId(z.getId());
         //izpis(writer,'z');
 
         //zaposleniDTO.setId(4);
@@ -86,12 +86,13 @@ public class JPAServlet extends HttpServlet {
         //izpis(writer,'z');
 
         VrataDTO vrataDTO = new VrataDTO();
-        vrataDTO.setVrataId(4);
         vrataDTO.setStVstopov(23);
         vrataDTO.setStIzstopov(24);
         vrataDTO.setProstor(p);
         vrataDTO.setZaposleni(z);
         Vrata v = upravljanjeVrataZrno.createVrata(vrataDTO);
+        zaposleniDTO.setId(v.getId());
+        zaposleniDTO.setVrata(v);
 
         writer.append("<h3>Zaposleni z DB</h3>");
         writer.append("<p>Zaposleni so:");
@@ -102,6 +103,13 @@ public class JPAServlet extends HttpServlet {
         izpis(writer,'v');
 
         writer.append("<h3>Prostori z DB </h3>");
+        writer.append("<p>Prostori so:");
+        izpis(writer,'p');
+
+        Integer novo = upravljanjeZaposlenihZrno.povecajStevilo(zaposleniDTO);
+        prostorDTO.setTrenutnoOseb(novo);
+
+        writer.append("<h3>Po povecanju</h3>");
         writer.append("<p>Prostori so:");
         izpis(writer,'p');
     }

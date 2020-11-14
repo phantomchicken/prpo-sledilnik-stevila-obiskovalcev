@@ -36,12 +36,10 @@ public class UpravljanjeVrataZrno {
     private EntityManager em;
 
     public Vrata createVrata (VrataDTO vrataDTO) {
-        Vrata vrata = vrataZrno.getVrata(vrataDTO.getVrataId());
-        if (vrata != null) {
+        if (vrataDTO.getVrataId() != null) {
             log.info("Vrata s tem id-jem ze obstajajo");
             return null;
         }
-
         Vrata novaVrata = new Vrata();
         novaVrata.setId(vrataDTO.getVrataId());
         novaVrata.setStVstopov(vrataDTO.getStVstopov());

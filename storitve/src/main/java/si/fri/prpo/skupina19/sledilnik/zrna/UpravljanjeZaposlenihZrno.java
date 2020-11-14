@@ -70,17 +70,27 @@ public class UpravljanjeZaposlenihZrno {
     }
 
     public Integer povecajStevilo (ZaposleniDTO zaposleniDTO){
-        if (zaposleniDTO.getZaposleniId()==null) {
+        if (zaposleniDTO.getZaposleniId() == null) {
             log.info("Zaposleni s tem ID-jem ne obstaja");
-            return null;
+            return -1;
         }
+        System.out.printf("zaps: %d\n", zaposleniDTO.getZaposleniId());
         Vrata vrataZaposlenega = zaposleniDTO.getVrata();
-        if (vrataZaposlenega == null) return null;
+        System.out.printf("vrata: %d\n", zaposleniDTO.getVrata().getId());
+        System.out.printf("vrataZaposlenega: %d\n", vrataZaposlenega.getId());
+        if (vrataZaposlenega == null)  {
+            log.info("vrataZaposlenega s tem ID-jem ne obstaja");
+            return -1;
+        }
         Prostor prostorVrat = vrataZaposlenega.getProstor();
-        if (prostorVrat == null) return null;
+        if (prostorVrat == null)  {
+            log.info("prostorVrat s tem ID-jem ne obstaja");
+            return -1;
+        }
         Integer trenutno = prostorVrat.getTrenutnoOseb();
-        Integer novo = trenutno++;
-        prostorVrat.setTrenutnoOseb(novo);
+        Integer novo = trenutno + 1;
+        System.out.println(novo);
+        //prostorVrat.setTrenutnoOseb(novo);
         return novo;
     }
 

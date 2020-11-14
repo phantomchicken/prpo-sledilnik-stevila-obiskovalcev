@@ -57,19 +57,6 @@ public class ZaposleniZrno {
         return zaposleniId;
     }
 
-    @Transactional
-    public void updateZaposleni (int zaposleniId, Zaposleni noviZ) {
-        Zaposleni z = em.find(Zaposleni.class, zaposleniId);
-        if (z!= null){
-            // ali modularno? , String ime, String priimek, Vrata vrata
-            z.setId(noviZ.getId());
-            z.setIme(noviZ.getIme());
-            z.setPriimek(noviZ.getPriimek());
-            z.setVrata(noviZ.getVrata());
-            em.merge(noviZ);
-        }
-    }
-    
     //vrne vse zaposlene
     public List<String> getZaposleni() {
         TypedQuery<Object[]> query = em.createNamedQuery("Zaposleni.getAll", Object[].class);
