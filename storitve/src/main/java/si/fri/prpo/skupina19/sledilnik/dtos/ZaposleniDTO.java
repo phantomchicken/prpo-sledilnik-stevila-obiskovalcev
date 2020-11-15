@@ -4,6 +4,7 @@ import si.fri.prpo.skupina19.entitete.Vrata;
 
 public class ZaposleniDTO {
     private Integer zaposleniId;
+    private String vzdevek;
     private String ime;
     private String priimek;
     private Vrata vrata;
@@ -14,6 +15,14 @@ public class ZaposleniDTO {
 
     public void setId(Integer zaposleniId) {
         this.zaposleniId = zaposleniId;
+    }
+
+    public String getVzdevek() {
+        return vzdevek;
+    }
+
+    public void setVzdevek(String vzdevek) {
+        this.vzdevek = vzdevek;
     }
 
     public String getIme() {
@@ -39,4 +48,6 @@ public class ZaposleniDTO {
     public void setVrata(Vrata vrata) {
         this.vrata = vrata;
     }
+
+
 }

@@ -6,6 +6,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
@@ -30,7 +31,7 @@ public class ZaposleniZrno {
     private void destruction(){
         log.info("Uničeno ZaposleniZrno z ID-jem: " + idZ);
     }
-    
+
     @PersistenceContext(unitName = "sledilnik-stevila-obiskovalcev-jpa")
     private EntityManager em;
 
@@ -45,6 +46,7 @@ public class ZaposleniZrno {
         if (zaposleni != null) {
             em.persist(zaposleni);
         }
+
         return zaposleni;
     }
 
@@ -90,4 +92,17 @@ public class ZaposleniZrno {
 
         return delovnoMesto;
     }
+
+    //vrnitev uporabnika z določenim vzdevekom , če obstaja
+    public Zaposleni getZaposleniVzdevek (String vzdevek) {
+        Zaposleni zaposleni = null;
+        try {
+            zaposleni = (Zaposleni)em.createNamedQuery("Zaposleni.getZaposleniVzdevek").setParameter("vzdevek", vzdevek).getSingleResult();
+        }
+        catch (NoResultException nre) { }
+
+        return zaposleni;
+    }
+
+
 }

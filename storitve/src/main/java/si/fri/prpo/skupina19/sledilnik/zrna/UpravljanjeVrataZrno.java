@@ -47,25 +47,28 @@ public class UpravljanjeVrataZrno {
             log.info("Vrata s tem id-jem ze obstajajo");
             return null;
         }
+
         Vrata novaVrata = new Vrata();
+
         novaVrata.setId(vrataDTO.getVrataId());
         novaVrata.setStVstopov(vrataDTO.getStVstopov());
         novaVrata.setStIzstopov(vrataDTO.getStIzstopov());
         novaVrata.setProstor(vrataDTO.getProstor());
-        novaVrata.setZaposleni(vrataDTO.getZaposleni());
-
         novaVrata = vrataZrno.createVrata(novaVrata);
-        novaVrata.getZaposleni().setVrata(novaVrata);
 
-        List<Vrata> seznamVrat = novaVrata.getProstor().getSeznamVrat();
-        seznamVrat.add(novaVrata);
-        novaVrata.getProstor().setSeznamVrat(seznamVrat);
 
-        Prostor noviProstor = novaVrata.getProstor();
-        prostorZrno.updateProstor(noviProstor.getId(),noviProstor);
 
-        Zaposleni noviZaposleni = novaVrata.getZaposleni();
-        zaposleniZrno.updateZaposleni(noviZaposleni.getId(),noviZaposleni);
+        ////novaVrata.getZaposleni().setVrata(novaVrata);
+
+        ////     List<Vrata> seznamVrat = novaVrata.getProstor().getSeznamVrat();
+        ////     seznamVrat.add(novaVrata);
+        ////     novaVrata.getProstor().setSeznamVrat(seznamVrat);
+
+        ////     Prostor noviProstor = novaVrata.getProstor();
+        ////     prostorZrno.updateProstor(noviProstor.getId(),noviProstor);
+
+        //Zaposleni noviZaposleni = novaVrata.getZaposleni();
+        //zaposleniZrno.updateZaposleni(noviZaposleni.getId(),noviZaposleni);
 
         return novaVrata;
     }
@@ -78,4 +81,17 @@ public class UpravljanjeVrataZrno {
         return vrataZrno.deleteVrata(vrataDTO.getVrataId());
     }
 
+    public void updateSpremenjeneProstore(List<Vrata> spremenjena) {
+
+        spremenjena.forEach((v) -> {
+            Integer novo = 0;
+            Prostor p = v.getProstor();
+            novo = p.getTrenutnoOseb()+ v.getStVstopov() - v.getStIzstopov();
+            if (novo<0) novo=0;
+            p.setTrenutnoOseb(novo);
+
+            prostorZrno.updateProstor(p.getId(), p);
+
+        });
+    }
 }

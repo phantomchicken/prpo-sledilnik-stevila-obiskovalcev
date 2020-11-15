@@ -11,7 +11,8 @@ import java.util.List;
                 @NamedQuery(name = "Prostor.getAll", query = "SELECT p FROM Prostor p"),
                 @NamedQuery(name = "Prostor.getIme", query = "SELECT p.imeProstora FROM Prostor p"),
                 @NamedQuery(name = "Prostor.getStVrat", query = "SELECT p.stVrat FROM Prostor p"),
-                @NamedQuery(name = "Prostor.getTrOseb", query = "SELECT p.trenutnoOseb FROM Prostor p")
+                @NamedQuery(name = "Prostor.getTrOseb", query = "SELECT p.trenutnoOseb FROM Prostor p"),
+                @NamedQuery(name = "Prostor.getProstorZImenom", query = "SELECT p FROM Prostor p WHERE p.imeProstora = :ime")
         })
 
 public class Prostor {
@@ -66,8 +67,8 @@ public class Prostor {
         return trenutnoOseb;
     }
 
-    public void setTrenutnoOseb(Integer trenutnoOseb) {
-        this.trenutnoOseb = trenutnoOseb;
+    public void setTrenutnoOseb(Integer oseb) {
+        this.trenutnoOseb = oseb;
     }
 
     public Integer getKvadratPoOsebi() { return kvadratovPoOsebi; }
