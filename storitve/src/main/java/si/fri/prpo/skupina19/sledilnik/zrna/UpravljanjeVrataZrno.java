@@ -80,18 +80,4 @@ public class UpravljanjeVrataZrno {
         }
         return vrataZrno.deleteVrata(vrataDTO.getVrataId());
     }
-
-    public void updateSpremenjeneProstore(List<Vrata> spremenjena) {
-
-        spremenjena.forEach((v) -> {
-            Integer novo = 0;
-            Prostor p = v.getProstor();
-            novo = p.getTrenutnoOseb()+ v.getStVstopov() - v.getStIzstopov();
-            if (novo<0) novo=0;
-            p.setTrenutnoOseb(novo);
-
-            prostorZrno.updateProstor(p.getId(), p);
-
-        });
-    }
 }

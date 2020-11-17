@@ -57,20 +57,4 @@ public class UpravljanjeProstorovZrno {
         noviProstor.setTrenutnoOseb(prostorDTO.getTrenutnoOseb());
         return prostorZrno.createProstor(noviProstor);
     }
-
-    public Integer getOmejitev (ProstorDTO prostorDTO){
-        if (prostorDTO.getProstorId()==null){
-            log.info("Prostor s tem id-jem ne obstaja");
-            return null;
-        }
-        Integer kv = prostorDTO.getKvadratura();
-        Integer kvPoOsebi = prostorDTO.getKvadratovPoOsebi();
-
-        //System.out.println("kv je "+kv);
-        //System.out.println("kvPoOSebi je " + kvPoOsebi);
-        if (kv == null || kvPoOsebi == null) return null;
-        else return kv/kvPoOsebi;
-    }
-
-
 }

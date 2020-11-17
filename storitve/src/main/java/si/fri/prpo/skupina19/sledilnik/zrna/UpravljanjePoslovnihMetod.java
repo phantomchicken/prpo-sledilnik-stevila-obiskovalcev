@@ -57,19 +57,31 @@ public class UpravljanjePoslovnihMetod {
                         if (g >0)
                             z.getVrata().setStIzstopov(z.getVrata().getStIzstopov()+rand.nextInt(g) + 1);
                         //  System.out.printf("g: %d\n", g);
-
                         z.getVrata().setStVstopov(z.getVrata().getStVstopov()+rand.nextInt(5) + 1);
                         spremenjenaVrata.add(vrataZaposlenega);
+
                     } else log.info("Ni prostora!");
                 } else log.info("Ni zaposlenega!");
             } else log.info("Ni vrat!");
-
-            //ne more v da izadje nego sto ih je unutra
 
         });
         return spremenjenaVrata;
     }
 
+    public boolean presezenaMeja(Prostor p){
+        if(p.getTrenutnoOseb()!=null) {
+            Integer g = p.getTrenutnoOseb();
+            ProstorDTO pDTO = new ProstorDTO();
+            pDTO.setProstorId(p.getId());
+            pDTO.setTrenutnoOseb(p.getId());
+            pDTO.setStVrat(p.getStVrat());
+            pDTO.setKvadratura(p.getKvadratura());
+            pDTO.setKvadratovPoOsebi(p.getKvadratPoOsebi());
+            pDTO.setImeProstora(p.getImeProstora());
+            if (g > getOmejitev(pDTO)) return true;
+        }
+        return false;
+    }
 
     public Integer getOmejitev (ProstorDTO prostorDTO){
         if (prostorDTO.getProstorId()==null){
@@ -78,24 +90,24 @@ public class UpravljanjePoslovnihMetod {
         }
         Integer kv = prostorDTO.getKvadratura();
         Integer kvPoOsebi = prostorDTO.getKvadratovPoOsebi();
-
-        //System.out.println("kv je "+kv);
-        //System.out.println("kvPoOSebi je " + kvPoOsebi);
         if (kv == null || kvPoOsebi == null) return null;
         else return kv/kvPoOsebi;
     }
 
     public void updateSpremenjeneProstore(List<Vrata> spremenjena) {
-
         spremenjena.forEach((v) -> {
             Integer novo = 0;
             Prostor p = v.getProstor();
             novo = p.getTrenutnoOseb()+ v.getStVstopov() - v.getStIzstopov();
             if (novo<0) novo=0;
-            p.setTrenutnoOseb(novo);
 
-            prostorZrno.updateProstor(p.getId(), p);
-
+            if (presezenaMeja(p)) {
+                log.info("V prostoru " + p.getId() + " je presezena meja");
+            }
+            else {
+                p.setTrenutnoOseb(novo);
+                prostorZrno.updateProstor(p.getId(), p);
+            }
         });
     }
 }

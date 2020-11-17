@@ -37,6 +37,9 @@ public class JPAServlet extends HttpServlet {
     @Inject
     UpravljanjeVrataZrno upravljanjeVrataZrno;
 
+    @Inject
+    private UpravljanjePoslovnihMetod upravljanjePoslovnihMetod;
+
     public void izpis(PrintWriter writer, char c){
         writer.append("<ol>");
         if (c=='z') zaposleniZrno.getZaposleni().stream().forEach( z -> writer.append("<li>" + z + "</li>"));
@@ -152,8 +155,8 @@ public class JPAServlet extends HttpServlet {
 
         // Integer novo = upravljanjeZaposlenihZrno.povecajStevilo(zaposleniDTO);
         //  prostorDTO.setTrenutnoOseb(novo);
-        List<Vrata> spremenjeni = upravljanjeZaposlenihZrno.spremeniSteviloOsebPoZaposlenim();
-        upravljanjeVrataZrno.updateSpremenjeneProstore(spremenjeni);
+        List<Vrata> spremenjeni = upravljanjePoslovnihMetod.spremeniSteviloOsebPoZaposlenim();
+        upravljanjePoslovnihMetod.updateSpremenjeneProstore(spremenjeni);
 
         writer.append("<p>Spremenjeno stevilo oseb v prostorih</p>");
         writer.append("<h3>Prostori z DB </h3>");
