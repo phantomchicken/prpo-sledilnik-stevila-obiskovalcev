@@ -8,6 +8,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 import java.util.UUID;
 import java.util.logging.Logger;
 
@@ -35,10 +36,19 @@ public class UpravljanjeProstorovZrno {
     private EntityManager em;
 
     public Prostor createProstor (ProstorDTO prostorDTO) {
+
         if (prostorDTO.getProstorId()!=null){
             log.info("Prostor s tem id-jem ze obstaja");
             return null;
         }
+
+        Prostor uporabljenoIme = prostorZrno.getProstorZImenom(prostorDTO.getImeProstora());
+        //ce obstaja ze prostor s tem imenom ne naredi novega prostora
+        if (uporabljenoIme != null) {
+            log.info("Prostor s tem imenom že obstaja");
+            return null;
+        }
+
         Prostor noviProstor = new Prostor();
         noviProstor.setImeProstora(prostorDTO.getImeProstora());
         noviProstor.setKvadratovPoOsebi(prostorDTO.getKvadratovPoOsebi());
@@ -56,9 +66,11 @@ public class UpravljanjeProstorovZrno {
         Integer kv = prostorDTO.getKvadratura();
         Integer kvPoOsebi = prostorDTO.getKvadratovPoOsebi();
 
-        System.out.println("kv je "+kv);
-        System.out.println("kvPoOSebi je " + kvPoOsebi);
+        //System.out.println("kv je "+kv);
+        //System.out.println("kvPoOSebi je " + kvPoOsebi);
         if (kv == null || kvPoOsebi == null) return null;
         else return kv/kvPoOsebi;
     }
+
+
 }

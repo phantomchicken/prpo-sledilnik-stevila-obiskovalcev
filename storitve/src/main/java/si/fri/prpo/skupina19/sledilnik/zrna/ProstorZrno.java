@@ -92,4 +92,15 @@ public class ProstorZrno {
         return em.createQuery(query).getResultList();
     }
 
+    //vrnitev prostor z določenim imenom , če obstaja
+    public Prostor getProstorZImenom (String ime) {
+        Prostor prostor = null;
+        try {
+            prostor = (Prostor)em.createNamedQuery("Prostor.getProstorZImenom").setParameter("ime", ime).getSingleResult();
+        }
+        catch (NoResultException nre) { }
+        //System.out.println(prostor);
+        return prostor;
+    }
+
 }

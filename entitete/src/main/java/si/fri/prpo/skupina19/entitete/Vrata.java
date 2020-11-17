@@ -24,13 +24,21 @@ public class Vrata {
     @Column(name="st_izstopov")
     private Integer stIzstopov;
 
-    @OneToOne
-    @JoinColumn(name = "zaposleni_id")
+    //@OneToOne(fetch = FetchType.EAGER)
+    //@JoinColumn(name = "zaposleni_id")
+    //private Zaposleni zaposleni;
+
+
+    @OneToOne(fetch = FetchType.LAZY,
+            mappedBy = "vrata")
     private Zaposleni zaposleni;
+
 
     @ManyToOne
     @JoinColumn(name = "prostor_id")
     private Prostor prostor;
+
+
 
     public Integer getId() {
         return id;
@@ -66,8 +74,8 @@ public class Vrata {
     public String toString() {
         String zaposleniString ="";
         String prostorString = "";
-        if (zaposleni.getId()!=null) zaposleniString = zaposleni.getId().toString();
-        if (prostor.getId()!=null) prostorString = prostor.getId().toString();
+        if (zaposleni!=null) if (zaposleni.getId()!=null) zaposleniString = zaposleni.getId().toString();
+        if (prostor!=null) if (prostor.getId()!=null) prostorString = prostor.getId().toString();
         return "ID: " + id + "\n" + "prostorID: "+ prostorString  + "\n" + "zaposleniID: "+ zaposleniString  + "\n" + "stVstopov: " +stVstopov+ "\n" + "stIzstopov" + stIzstopov +"\n";
         // "ID: " + id +"\n"  +
         //"prostorID: " + prostor.toString() + "\n"

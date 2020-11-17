@@ -3,6 +3,7 @@ package si.fri.prpo.skupina19.sledilnik.servleti;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -61,6 +62,35 @@ public class JPAServlet extends HttpServlet {
         PrintWriter writer = resp.getWriter();
 
         writer.append("<h1>Enostavne GET operacije</h1>");
+        /// System.out.println("Zaposleni vrata: "+z.getVrata());
+        ////    zaposleniDTO.setId(z.getId());
+        //izpis(writer,'z');
+
+        //zaposleniDTO.setId(4);
+        //upravljanjeZaposlenihZrno.deleteZaposleni(zaposleniDTO);
+        //izpis(writer,'z');
+
+
+        //zaposleniDTO.setId(v.getId());
+        //System.out.println("nova vrata: "+v);
+        //zaposleniDTO.setVrata(v);
+
+        writer.append("<h3>Prostori z DB </h3>");
+        writer.append("<p>Prostori so:");
+        izpis(writer,'p');
+
+        writer.append("<h3>Vrata z DB </h3>");
+        writer.append("<p>Stanja vrat so:");
+        izpis(writer,'v');
+
+        writer.append("<h3>Zaposleni z DB</h3>");
+        writer.append("<p>Zaposleni so:");
+        izpisCriteria(writer,'z');
+
+
+
+
+        writer.append("<h3>Po povecanju</h3>");
 
         ProstorDTO prostorDTO = new ProstorDTO();
         prostorDTO.setImeProstora("Bazen");
@@ -69,45 +99,63 @@ public class JPAServlet extends HttpServlet {
         prostorDTO.setStVrat(7);
         prostorDTO.setTrenutnoOseb(100);
         Prostor p = upravljanjeProstorovZrno.createProstor(prostorDTO);
-        prostorDTO.setProstorId(p.getId());
-        //izpis(writer,'p');
-        writer.append(upravljanjeProstorovZrno.getOmejitev(prostorDTO).toString());
+        Vrata v = null;
+
+        if(p != null && p.getId() != null) {
+            writer.append("<p>Ustvarjen nov prostor in vrata</p>");
+
+            VrataDTO vrataDTO = new VrataDTO();
+            vrataDTO.setStVstopov(23);
+            vrataDTO.setStIzstopov(24);
+            vrataDTO.setProstor(p);
+            v = upravljanjeVrataZrno.createVrata(vrataDTO);
+
+            writer.append("<h3>Prostori z DB </h3>");
+            writer.append("<p>Prostori so:");
+            izpis(writer,'p');
+
+            writer.append("<h3>Vrata z DB </h3>");
+            writer.append("<p>Stanja vrat so:");
+            izpis(writer,'v');
+
+
+        }
+        else {
+            writer.append("<p>Novega prostora z obstojecim imenom ni mogoce dodati</p>");
+        }
+
 
         ZaposleniDTO zaposleniDTO = new ZaposleniDTO();
+        zaposleniDTO.setVzdevek("markos");
         zaposleniDTO.setIme("Marko");
         zaposleniDTO.setPriimek("Ivanovski");
+        zaposleniDTO.setVrata(v);
 
         Zaposleni z = upravljanjeZaposlenihZrno.createZaposleni(zaposleniDTO);
-        zaposleniDTO.setId(z.getId());
-        //izpis(writer,'z');
 
-        //zaposleniDTO.setId(4);
-        //upravljanjeZaposlenihZrno.deleteZaposleni(zaposleniDTO);
-        //izpis(writer,'z');
+        if(z != null && z.getId() != null) {
+            writer.append("<p>Dodat novi zaposleni</p>");
 
-        VrataDTO vrataDTO = new VrataDTO();
-        vrataDTO.setStVstopov(23);
-        vrataDTO.setStIzstopov(24);
-        vrataDTO.setProstor(p);
-        vrataDTO.setZaposleni(z);
-        Vrata v = upravljanjeVrataZrno.createVrata(vrataDTO);
-        zaposleniDTO.setVrata(v);
-        writer.append("<h3>Zaposleni z DB</h3>");
-        writer.append("<p>Zaposleni so:");
-        izpisCriteria(writer,'z');
+            writer.append("<h3>Zaposleni z DB</h3>");
+            writer.append("<p>Zaposleni so:");
+            izpisCriteria(writer,'z');
 
-        writer.append("<h3>Vrata z DB </h3>");
-        writer.append("<p>Stanja vrat so:");
-        izpis(writer,'v');
+        }
+        else {
+            writer.append("<p>Novega zaposlenega z obstojecim vzdevkom ni mogoce dodati</p>");
+        }
 
+
+        // Integer novo = upravljanjeZaposlenihZrno.povecajStevilo(zaposleniDTO);
+        //  prostorDTO.setTrenutnoOseb(novo);
+        List<Vrata> spremenjeni=upravljanjeZaposlenihZrno.spremeniSteviloOsebPoZaposlenim();
+        upravljanjeVrataZrno.updateSpremenjeneProstore(spremenjeni);
+
+        writer.append("<p>Spremenjeno stevilo oseb v prostorih</p>");
         writer.append("<h3>Prostori z DB </h3>");
         writer.append("<p>Prostori so:");
         izpis(writer,'p');
 
-        writer.append(upravljanjeZaposlenihZrno.getProstorZaposlenega(zaposleniDTO).toString());
 
-        upravljanjeZaposlenihZrno.deleteZaposleni(zaposleniDTO);
-        izpis(writer,'z');
-        izpis(writer,'v');
     }
 }
