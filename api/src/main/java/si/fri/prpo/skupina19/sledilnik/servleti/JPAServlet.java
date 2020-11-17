@@ -146,9 +146,13 @@ public class JPAServlet extends HttpServlet {
         }
 
 
+
+        //prostorZrno.deleteProstor(3);
+        //izpis(writer,'p');
+
         // Integer novo = upravljanjeZaposlenihZrno.povecajStevilo(zaposleniDTO);
         //  prostorDTO.setTrenutnoOseb(novo);
-        List<Vrata> spremenjeni=upravljanjeZaposlenihZrno.spremeniSteviloOsebPoZaposlenim();
+        List<Vrata> spremenjeni = upravljanjeZaposlenihZrno.spremeniSteviloOsebPoZaposlenim();
         upravljanjeVrataZrno.updateSpremenjeneProstore(spremenjeni);
 
         writer.append("<p>Spremenjeno stevilo oseb v prostorih</p>");
@@ -156,6 +160,20 @@ public class JPAServlet extends HttpServlet {
         writer.append("<p>Prostori so:");
         izpis(writer,'p');
 
+        writer.append("<hr>");
+        Vrata v1 = new Vrata();
+        v1.setId(1);
+        v1.setProstor(null);
+        v1.setStIzstopov(0);
+        v1.setStVstopov(0);
+        v1.setZaposleni(null);
+        vrataZrno.updateVrata(1,v1);
+        izpis(writer,'v');
+
+        vrataZrno.deleteVrata(4);
+        izpis(writer,'v');
+        izpis(writer,'z');
+        izpis(writer,'p');
 
     }
 }

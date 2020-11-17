@@ -30,7 +30,7 @@ public class Vrata {
 
 
     @OneToOne(fetch = FetchType.LAZY,
-            mappedBy = "vrata")
+            mappedBy = "vrata", cascade = CascadeType.ALL)
     private Zaposleni zaposleni;
 
 

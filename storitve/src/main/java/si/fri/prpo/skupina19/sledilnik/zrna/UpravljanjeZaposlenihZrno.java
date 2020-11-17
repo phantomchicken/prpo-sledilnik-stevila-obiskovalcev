@@ -90,16 +90,24 @@ public class UpravljanjeZaposlenihZrno {
         List<Vrata>  spremenjenaVrata = new ArrayList<Vrata>();
 
         zaposleniZrno.getZaposleniCriteriaAPI().forEach((z) -> {
-            Vrata vrataZaposlenega = z.getVrata();
-            Prostor p= z.getVrata().getProstor();
-            Integer g =p.getTrenutnoOseb();
-            //ne moze vise da izadje nego sto ih je unutra
-            if (g >0)
-                z.getVrata().setStIzstopov(z.getVrata().getStIzstopov()+rand.nextInt(g) + 1);
-            //  System.out.printf("g: %d\n", g);
+            if (z.getVrata()!=null) {
+                Vrata vrataZaposlenega = z.getVrata();
+                if (vrataZaposlenega.getProstor()!=null) {
+                    Prostor p= z.getVrata().getProstor();
+                    if(p.getTrenutnoOseb()!=null){
+                        Integer g =p.getTrenutnoOseb();
+                        if (g >0)
+                            z.getVrata().setStIzstopov(z.getVrata().getStIzstopov()+rand.nextInt(g) + 1);
+                        //  System.out.printf("g: %d\n", g);
 
-            z.getVrata().setStVstopov(z.getVrata().getStVstopov()+rand.nextInt(5) + 1);
-            spremenjenaVrata.add(vrataZaposlenega);
+                        z.getVrata().setStVstopov(z.getVrata().getStVstopov()+rand.nextInt(5) + 1);
+                        spremenjenaVrata.add(vrataZaposlenega);
+                    } else log.info("Ni prostora!");
+                } else log.info("Ni zaposlenega!");
+            } else log.info("Ni vrat!");
+
+            //ne more v da izadje nego sto ih je unutra
+
         });
         return spremenjenaVrata;
     }
