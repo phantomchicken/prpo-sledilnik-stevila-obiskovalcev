@@ -43,6 +43,7 @@ public class ZaposleniZrno {
 
     @Transactional
     public Zaposleni createZaposleni (Zaposleni zaposleni) {
+        //em.find(Zaposleni.class,zaposleni.getId());
         if (zaposleni != null) {
             em.persist(zaposleni);
         }
@@ -59,7 +60,18 @@ public class ZaposleniZrno {
         return zaposleniId;
     }
 
-
+    @Transactional
+    public void updateZaposleni (int zaposleniId, Zaposleni noviZ) {
+        Zaposleni z = em.find(Zaposleni.class, zaposleniId);
+        if (z!= null){
+            z.setId(noviZ.getId());
+            z.setVrata(noviZ.getVrata());
+            z.setIme(noviZ.getIme());
+            z.setPriimek(noviZ.getPriimek());
+            z.setVzdevek(noviZ.getVzdevek());
+            em.merge(noviZ);
+        }
+    }
 
 
     //vrne vse zaposlene

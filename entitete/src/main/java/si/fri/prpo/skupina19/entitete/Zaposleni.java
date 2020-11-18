@@ -30,7 +30,7 @@ public class Zaposleni {
     //@OneToOne(mappedBy = "zaposleni", cascade = CascadeType.ALL)
     //private Vrata vrata;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Vrata vrata;
 
     public Integer getId() {
