@@ -59,6 +59,9 @@ public class ZaposleniZrno {
         return zaposleniId;
     }
 
+
+
+
     //vrne vse zaposlene
     public List<String> getZaposleni() {
         TypedQuery<Object[]> query = em.createNamedQuery("Zaposleni.getAll", Object[].class);

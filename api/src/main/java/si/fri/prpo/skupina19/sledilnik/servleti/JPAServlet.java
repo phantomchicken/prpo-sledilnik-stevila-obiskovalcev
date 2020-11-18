@@ -65,18 +65,6 @@ public class JPAServlet extends HttpServlet {
         PrintWriter writer = resp.getWriter();
 
         writer.append("<h1>Enostavne GET operacije</h1>");
-        /// System.out.println("Zaposleni vrata: "+z.getVrata());
-        ////    zaposleniDTO.setId(z.getId());
-        //izpis(writer,'z');
-
-        //zaposleniDTO.setId(4);
-        //upravljanjeZaposlenihZrno.deleteZaposleni(zaposleniDTO);
-        //izpis(writer,'z');
-
-
-        //zaposleniDTO.setId(v.getId());
-        //System.out.println("nova vrata: "+v);
-        //zaposleniDTO.setVrata(v);
 
         writer.append("<h3>Prostori z DB </h3>");
         writer.append("<p>Prostori so:");
@@ -89,10 +77,6 @@ public class JPAServlet extends HttpServlet {
         writer.append("<h3>Zaposleni z DB</h3>");
         writer.append("<p>Zaposleni so:");
         izpisCriteria(writer,'z');
-
-
-
-
         writer.append("<h3>Po povecanju</h3>");
 
         ProstorDTO prostorDTO = new ProstorDTO();
@@ -113,6 +97,14 @@ public class JPAServlet extends HttpServlet {
             vrataDTO.setProstor(p);
             v = upravljanjeVrataZrno.createVrata(vrataDTO);
 
+            ArrayList<Vrata> noviSeznam = new ArrayList<>();
+            for (int i=0;i<p.getSeznamVrat().size();i++){
+                noviSeznam.add(p.getSeznamVrat().get(i));
+            }
+            noviSeznam.add(v);
+            p.setSeznamVrat(noviSeznam);
+            prostorZrno.updateProstor(p.getId(),p);
+
             writer.append("<h3>Prostori z DB </h3>");
             writer.append("<p>Prostori so:");
             izpis(writer,'p');
@@ -120,7 +112,6 @@ public class JPAServlet extends HttpServlet {
             writer.append("<h3>Vrata z DB </h3>");
             writer.append("<p>Stanja vrat so:");
             izpis(writer,'v');
-
 
         }
         else {
