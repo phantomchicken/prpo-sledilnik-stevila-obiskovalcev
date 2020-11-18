@@ -41,19 +41,19 @@ public class JPAServlet extends HttpServlet {
     private UpravljanjePoslovnihMetod upravljanjePoslovnihMetod;
 
     public void izpis(PrintWriter writer, char c){
-        writer.append("<ol>");
+        writer.append("<ul>");
         if (c=='z') zaposleniZrno.getZaposleni().stream().forEach( z -> writer.append("<li>" + z + "</li>"));
         if (c=='v') vrataZrno.getVsaVrata().stream().forEach( v -> writer.append("<li>" + v + "</li>"));
         if (c=='p') prostorZrno.getProstori().stream().forEach( p -> writer.append("<li>" + p + "</li>"));
-        writer.append("</ol></p>");
+        writer.append("</ul></p>");
     }
 
     public void izpisCriteria(PrintWriter writer, char c){
-        writer.append("<ol>");
+        writer.append("<ul>");
         if (c=='z') zaposleniZrno.getZaposleniCriteriaAPI().stream().forEach( z -> writer.append("<li>" + z + "</li>"));
         if (c=='v') vrataZrno.getStCriteriaAPI().stream().forEach( v -> writer.append("<li>" + v + "</li>"));
         if (c=='p') prostorZrno.getProstoriCriteriaAPI().stream().forEach( p -> writer.append("<li>" + p + "</li>"));
-        writer.append("</ol></p>");
+        writer.append("</ul></p>");
     }
 
     @Override
@@ -61,11 +61,9 @@ public class JPAServlet extends HttpServlet {
         // izpis zaposlenih na spletni strani
         resp.setContentType("text/html; charset=UTF-8");
         resp.setCharacterEncoding("UTF-8");
-
         PrintWriter writer = resp.getWriter();
 
         writer.append("<h1>Enostavne GET operacije</h1>");
-
         writer.append("<h3>Prostori z DB </h3>");
         writer.append("<p>Prostori so:");
         izpis(writer,'p');
@@ -77,7 +75,9 @@ public class JPAServlet extends HttpServlet {
         writer.append("<h3>Zaposleni z DB</h3>");
         writer.append("<p>Zaposleni so:");
         izpisCriteria(writer,'z');
+        writer.append("<hr>");
 
+        //ustvarjanje novega prostora
         ProstorDTO prostorDTO = new ProstorDTO();
         prostorDTO.setImeProstora("Bazen");
         prostorDTO.setKvadratovPoOsebi(10);
@@ -86,10 +86,11 @@ public class JPAServlet extends HttpServlet {
         prostorDTO.setTrenutnoOseb(100);
         Prostor p = upravljanjeProstorovZrno.createProstor(prostorDTO);
         Vrata v = null;
-        writer.append("<hr>");
-        if(p != null && p.getId() != null) {
+
+           if (p != null && p.getId() != null) {
             writer.append("<p>Ustvarjen nov prostor in vrata</p>");
 
+            //ustvarjanje novih vrat
             VrataDTO vrataDTO = new VrataDTO();
             vrataDTO.setStVstopov(23);
             vrataDTO.setStIzstopov(24);
@@ -107,22 +108,21 @@ public class JPAServlet extends HttpServlet {
             writer.append("<h3>Prostori z DB </h3>");
             writer.append("<p>Prostori so:");
             izpis(writer,'p');
-
         }
         else {
             writer.append("<p>Novega prostora z obstojecim imenom ni mogoce dodati</p>");
         }
 
+        //ustvarjen nov zaposleni
         ZaposleniDTO zaposleniDTO = new ZaposleniDTO();
         zaposleniDTO.setVzdevek("markos");
         zaposleniDTO.setIme("Marko");
         zaposleniDTO.setPriimek("Ivanovski");
         zaposleniDTO.setVrata(v);
-
         Zaposleni z = upravljanjeZaposlenihZrno.createZaposleni(zaposleniDTO);
 
         if(z != null && z.getId() != null) {
-            writer.append("<p>Dodat novi zaposleni</p>");
+            writer.append("<p>Dodan novi zaposleni</p>");
             writer.append("<h3>Zaposleni z DB</h3>");
             writer.append("<p>Zaposleni so:");
             izpisCriteria(writer,'z');
@@ -131,6 +131,7 @@ public class JPAServlet extends HttpServlet {
             writer.append("<p>Novega zaposlenega z obstojecim vzdevkom ni mogoce dodati</p>");
         }
 
+        // nastavljen zaposleni na vratih
         if(v != null && v.getId() != null) {
             writer.append("<h3>Vrata z DB </h3>");
             writer.append("<p>Stanja vrat so:");
@@ -138,32 +139,17 @@ public class JPAServlet extends HttpServlet {
             vrataZrno.updateVrata(v.getId(), v);
             izpis(writer, 'v');
         } else {
-            writer.append("<p>Novega zaposlenega z obstojecim vzdevkom ni mogoce dodati</p>");
+            writer.append("<p>Novih vrat ni mogoce dodati</p>");
         }
-        writer.append("<hr>");
-        List<Vrata> spremenjeni = upravljanjePoslovnihMetod.spremeniSteviloOsebPoZaposlenim();
-        upravljanjePoslovnihMetod.updateSpremenjeneProstore(spremenjeni);
 
-        writer.append("<p>Spremenjeno stevilo oseb v prostorih</p>");
-        writer.append("<h3>Prostori z DB </h3>");
+        writer.append("<hr>");
+        upravljanjePoslovnihMetod.randomiziraj();
+
+        writer.append("<h3>Spremenjeno stevilo oseb v prostorih</h3>");
         writer.append("<p>Prostori so:");
         izpis(writer,'p');
         writer.append("<p>Vrata so:");
         izpis(writer,'v');
         writer.append("<hr>");
-        /*Vrata v1 = new Vrata();
-        v1.setId(1);
-        v1.setProstor(null);
-        v1.setStIzstopov(0);
-        v1.setStVstopov(0);
-        v1.setZaposleni(null);
-        vrataZrno.updateVrata(1,v1);
-        izpis(writer,'v');
-
-        vrataZrno.deleteVrata(4);
-        izpis(writer,'v');
-        izpis(writer,'z');
-        izpis(writer,'p');*/
-
     }
 }

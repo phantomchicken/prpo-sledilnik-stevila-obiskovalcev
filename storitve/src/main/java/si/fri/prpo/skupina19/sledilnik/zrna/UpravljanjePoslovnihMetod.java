@@ -2,6 +2,7 @@ package si.fri.prpo.skupina19.sledilnik.zrna;
 
 import si.fri.prpo.skupina19.entitete.Prostor;
 import si.fri.prpo.skupina19.entitete.Vrata;
+import si.fri.prpo.skupina19.entitete.Zaposleni;
 import si.fri.prpo.skupina19.sledilnik.dtos.ProstorDTO;
 
 import javax.annotation.PostConstruct;
@@ -42,30 +43,37 @@ public class UpravljanjePoslovnihMetod {
     @PersistenceContext(unitName = "sledilnik-stevila-obiskovalcev-jpa")
     private EntityManager em;
 
-    public List<Vrata> spremeniSteviloOsebPoZaposlenim(){
+    public void randomiziraj(){
         Random rand=new Random();
-
         List<Vrata>  spremenjenaVrata = new ArrayList<Vrata>();
-
         zaposleniZrno.getZaposleniCriteriaAPI().forEach((z) -> {
-            if (z.getVrata()!=null) {
-                Vrata vrataZaposlenega = z.getVrata();
-                if (vrataZaposlenega.getProstor()!=null) {
-                    Prostor p= z.getVrata().getProstor();
-                    if(p.getTrenutnoOseb()!=null){
-                        Integer g =p.getTrenutnoOseb();
-                        if (g >0)
-                            z.getVrata().setStIzstopov(z.getVrata().getStIzstopov()+rand.nextInt(g) + 1);
-                        //  System.out.printf("g: %d\n", g);
-                        z.getVrata().setStVstopov(z.getVrata().getStVstopov()+rand.nextInt(5) + 1);
-                        spremenjenaVrata.add(vrataZaposlenega);
-
-                    } else log.info("Ni prostora!");
-                } else log.info("Ni zaposlenega!");
-            } else log.info("Ni vrat!");
-
+            Integer vstopov = rand.nextInt((2 - 1) + 1) + 1;
+            Integer izstopov = rand.nextInt((1 - 1) + 1) + 1;
+            if (spremeniSteviloOsebPoZaposlenim(z,vstopov,izstopov))
+                spremenjenaVrata.add(z.getVrata());
+            else
+                log.info("Na vratih " + z.getVrata().getId() + " stanje nespremenjeno");
         });
-        return spremenjenaVrata;
+    }
+
+    public boolean spremeniSteviloOsebPoZaposlenim(Zaposleni z, Integer vstopov, Integer izstopov){
+        if (z.getVrata()!=null) {
+            Vrata v = z.getVrata();
+            if (v.getProstor()!=null) {
+                Prostor p= z.getVrata().getProstor();
+                if(p.getTrenutnoOseb()!=null){
+                    v.setStIzstopov(v.getStIzstopov()+izstopov);
+                    v.setStVstopov(v.getStVstopov()+vstopov);
+                    vrataZrno.updateVrata(v.getId(),v);
+                    p.setTrenutnoOseb(p.getTrenutnoOseb()+vstopov-izstopov);
+                    if (presezenaMeja(p))
+                        log.info("V prostoru " + p.getId() + " je presezena meja.");
+                        prostorZrno.updateProstor(p.getId(), p);
+                    return true;
+                } else log.info("Ni prostora!");
+            } else log.info("Ni zaposlenega!");
+        } else log.info("Ni vrat!");
+        return false;
     }
 
     public boolean presezenaMeja(Prostor p){
@@ -92,22 +100,5 @@ public class UpravljanjePoslovnihMetod {
         Integer kvPoOsebi = prostorDTO.getKvadratovPoOsebi();
         if (kv == null || kvPoOsebi == null) return null;
         else return kv/kvPoOsebi;
-    }
-
-    public void updateSpremenjeneProstore(List<Vrata> spremenjena) {
-        spremenjena.forEach((v) -> {
-            Integer novo = 0;
-            Prostor p = v.getProstor();
-            novo = p.getTrenutnoOseb()+ v.getStVstopov() - v.getStIzstopov();
-            if (novo<0) novo=0;
-
-            if (presezenaMeja(p)) {
-                log.info("V prostoru " + p.getId() + " je presezena meja");
-            }
-            else {
-                p.setTrenutnoOseb(novo);
-                prostorZrno.updateProstor(p.getId(), p);
-            }
-        });
     }
 }
