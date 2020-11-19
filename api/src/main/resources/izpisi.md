@@ -17,44 +17,54 @@
        
  ## CRUD:
  
- /*writer.append("<hr>");
-writer.append("<h1>Testiranje CRUD operacij</h1>"); 
+ writer.append("<h1>Testiranje CRUD operacij</h1>");
          writer.append("<h3>Create prostor</h3><p>");
          Prostor prostor = new Prostor();
-         prostor.setId(3);
          prostor.setImeProstora("Bazen");
          prostor.setKvadratovPoOsebi(10);
          prostor.setKvadratura(1000);
          prostor.setStVrat(7);
          prostor.setTrenutnoOseb(100);
          prostorZrno.createProstor(prostor);
-         izpis(writer,'p');*/
-    
-/*writer.append("<h3>Create zaposleni</h3><p>");
-        Zaposleni zaposleni = new Zaposleni();
-        zaposleni.setIme("Patrick");
-        zaposleni.setPriimek("Ewing");
-        zaposleni.setId(4);
-        zaposleniZrno.createZaposleni(zaposleni);
-        izpis(writer,'z');*/
-        
- /*writer.append("<h3>Update prostor</h3><p>");
+         izpis(writer,'p');
+ 
+ 
+ writer.append("<h3>Create zaposleni</h3><p>");
+         Zaposleni zaposleni = new Zaposleni();
+         zaposleni.setIme("Patrick");
+         zaposleni.setPriimek("Ewing");
+         zaposleniZrno.createZaposleni(zaposleni);
+         izpis(writer,'z');
+ 
+         writer.append("<h3>Update prostor</h3><p>");
          prostor.setImeProstora("BazenNEW");
-         prostorZrno.updateProstor(3,prostor);
+         prostorZrno.updateProstor(4,prostor);
          izpis(writer,'p');
  
          writer.append("<h3>Update zaposleni</h3><p>");
          zaposleni.setIme("Patrick Aloysius");
-         zaposleniZrno.updateZaposleni(4,zaposleni);
+         zaposleniZrno.updateZaposleni(5,zaposleni);
          izpis(writer,'z');
  
          writer.append("<h3>Delete prostor</h3><p>");
-         prostorZrno.deleteProstor(3);
+         prostorZrno.deleteProstor(4);
          izpis(writer,'p');
  
          writer.append("<h3>Delete zaposleni</h3><p>");
-         zaposleniZrno.deleteZaposleni(4);
-         izpis(writer,'z');*/         
+         zaposleniZrno.deleteZaposleni(5);
+         izpis(writer,'z');        
+         
+         
+        Zaposleni z2 = zaposleniZrno.getZaposleni(1);
+        if (z2!=null) z2.setVzdevek("yeaa boi");
+        zaposleniZrno.updateZaposleni(1,z2);
+        izpis(writer,'z');
+        zaposleniZrno.deleteZaposleni(1);
+        izpis(writer,'z');
+        vrataZrno.deleteVrata(1);
+        izpis(writer,'v');
+        prostorZrno.deleteProstor(1);
+        izpis(writer,'p');
          
  ### Poslovne operacije
  

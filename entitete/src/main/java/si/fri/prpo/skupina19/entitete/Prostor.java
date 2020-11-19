@@ -35,7 +35,7 @@ public class Prostor {
     @Column(name="kvadratov_po_osebi")
     private Integer kvadratovPoOsebi;
 
-    @OneToMany(mappedBy = "prostor", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "prostor", cascade = CascadeType.REMOVE)
     private List<Vrata> seznamVrat;
 
 

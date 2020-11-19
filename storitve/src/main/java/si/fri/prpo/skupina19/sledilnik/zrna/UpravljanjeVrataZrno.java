@@ -56,20 +56,6 @@ public class UpravljanjeVrataZrno {
         novaVrata.setProstor(vrataDTO.getProstor());
         novaVrata = vrataZrno.createVrata(novaVrata);
 
-
-
-        ////novaVrata.getZaposleni().setVrata(novaVrata);
-
-        ////     List<Vrata> seznamVrat = novaVrata.getProstor().getSeznamVrat();
-        ////     seznamVrat.add(novaVrata);
-        ////     novaVrata.getProstor().setSeznamVrat(seznamVrat);
-
-        ////     Prostor noviProstor = novaVrata.getProstor();
-        ////     prostorZrno.updateProstor(noviProstor.getId(),noviProstor);
-
-        //Zaposleni noviZaposleni = novaVrata.getZaposleni();
-        //zaposleniZrno.updateZaposleni(noviZaposleni.getId(),noviZaposleni);
-
         return novaVrata;
     }
 

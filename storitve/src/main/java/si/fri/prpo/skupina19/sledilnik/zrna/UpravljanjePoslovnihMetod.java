@@ -45,13 +45,10 @@ public class UpravljanjePoslovnihMetod {
 
     public void randomiziraj(){
         Random rand=new Random();
-        List<Vrata>  spremenjenaVrata = new ArrayList<Vrata>();
         zaposleniZrno.getZaposleniCriteriaAPI().forEach((z) -> {
             Integer vstopov = rand.nextInt((2 - 1) + 1) + 1;
             Integer izstopov = rand.nextInt((1 - 1) + 1) + 1;
-            if (spremeniSteviloOsebPoZaposlenim(z,vstopov,izstopov))
-                spremenjenaVrata.add(z.getVrata());
-            else
+            if (!spremeniSteviloOsebPoZaposlenim(z,vstopov,izstopov))
                 log.info("Na vratih " + z.getVrata().getId() + " stanje nespremenjeno");
         });
     }
