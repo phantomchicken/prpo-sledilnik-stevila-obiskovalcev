@@ -71,7 +71,7 @@ public class Vrata {
         String prostorString = "";
         if (zaposleni!=null) if (zaposleni.getId()!=null) zaposleniString = zaposleni.getId().toString();
         if (prostor!=null) if (prostor.getId()!=null) prostorString = prostor.getId().toString();
-        return "ID: " + id + "\n" + "prostorID: "+ prostorString  + "\n" + "zaposleniID: "+ zaposleniString  + "\n" + "stVstopov: " +stVstopov+ "\n" + "stIzstopov" + stIzstopov +"\n";
+        return "ID: " + id + "\n" + "prostorID: "+ prostorString  + "\n" + "zaposleniID: "+ zaposleniString  + "\n" + "stVstopov: " +stVstopov+ "\n" + "stIzstopov: " + stIzstopov +"\n";
         // "ID: " + id +"\n"  +
         //"prostorID: " + prostor.toString() + "\n"
     }

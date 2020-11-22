@@ -1,7 +1,10 @@
 package si.fri.prpo.skupina19.sledilnik.api.v1.viri;
 
+import si.fri.prpo.skupina19.entitete.Prostor;
+import si.fri.prpo.skupina19.entitete.Vrata;
 import si.fri.prpo.skupina19.entitete.Zaposleni;
 import si.fri.prpo.skupina19.sledilnik.dtos.ZaposleniDTO;
+import si.fri.prpo.skupina19.sledilnik.zrna.UpravljanjePoslovnihMetod;
 import si.fri.prpo.skupina19.sledilnik.zrna.ZaposleniZrno;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -17,6 +20,9 @@ import javax.ws.rs.core.Response;
 public class ZaposleniVir {
     @Inject
     ZaposleniZrno zaposleniZrno;
+
+    @Inject
+    UpravljanjePoslovnihMetod upravljanjePoslovnihMetod;
 
     @GET
     @Path("{id}")
@@ -59,5 +65,23 @@ public class ZaposleniVir {
                 .status(Response.Status.NO_CONTENT)
                 .entity(zaposleniZrno.deleteZaposleni(id))
                 .build();
+    }
+
+    // Poslovna metoda 3: spremeni stanje stevila oseb v prostoru, kjer je podani zaposleni
+    @PUT
+    @Path("{id}/{vstopov}/{izstopov}")
+    public Response updateStOseb(@PathParam("id") Integer id, @PathParam("vstopov") Integer vstopov, @PathParam("izstopov") Integer izstopov) {
+        //ZaposleniDTO zaposleniDTO = upravljanjePoslovnihMetod.getZaposleniDTOFromId(id);
+        Zaposleni z = zaposleniZrno.getZaposleni(id);
+        upravljanjePoslovnihMetod.spremeniSteviloOsebPoZaposlenim(z,vstopov,izstopov);
+        Vrata v = z.getVrata();
+        Prostor p = v.getProstor();
+        if (v!=null && p!=null)
+        return Response
+                .status(Response.Status.CREATED)
+                .entity(p.toString() +"\n" + v.toString())
+                .build();
+        else return Response
+                .status(Response.Status.NOT_FOUND).build();
     }
 }

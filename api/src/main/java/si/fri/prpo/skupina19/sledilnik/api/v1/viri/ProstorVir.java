@@ -1,7 +1,9 @@
 package si.fri.prpo.skupina19.sledilnik.api.v1.viri;
 
 import si.fri.prpo.skupina19.entitete.Prostor;
+import si.fri.prpo.skupina19.sledilnik.dtos.ProstorDTO;
 import si.fri.prpo.skupina19.sledilnik.zrna.ProstorZrno;
+import si.fri.prpo.skupina19.sledilnik.zrna.UpravljanjePoslovnihMetod;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -16,6 +18,9 @@ import javax.ws.rs.core.Response;
 public class ProstorVir {
     @Inject
     ProstorZrno prostorZrno;
+
+    @Inject
+    UpravljanjePoslovnihMetod upravljanjePoslovnihMetod;
 
     @GET
     @Path("{id}")
@@ -58,5 +63,36 @@ public class ProstorVir {
                 .status(Response.Status.NO_CONTENT)
                 .entity(prostorZrno.deleteProstor(id))
                 .build();
+    }
+
+    // Poslovna metoda 1: pridobi omejitev oseb v podanem prostoru
+    @GET
+    @Path("{id}/omejitev")
+    public Response getOmejitev(@PathParam("id") Integer id){
+        ProstorDTO prostorDTO = upravljanjePoslovnihMetod.getProstorDTOFromId(id);
+        if (prostorDTO != null) {
+            Integer omejitev = upravljanjePoslovnihMetod.getOmejitev(prostorDTO);
+            return Response.ok(omejitev).build();
+        }
+        else {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
+
+    // Poslovna metoda 2: doloci ce je v podanem prostoru ze presezena omejitev ljudi
+    @GET
+    @Path("{id}/presezeno")
+    public Response getPresezenaMeja(@PathParam("id") Integer id){
+        //ProstorDTO prostorDTO = upravljanjePoslovnihMetod.getProstorDTOFromId(id);
+        Prostor p = prostorZrno.getProstor(id);
+        String odgovor;
+        if (p != null) {
+            if(upravljanjePoslovnihMetod.presezenaMeja(p))  odgovor = "Meja presezena!";
+            else odgovor = "Meja ni presezena.";
+            return Response.ok(odgovor).build();
+        }
+        else {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
     }
 }

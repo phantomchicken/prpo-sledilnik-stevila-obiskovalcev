@@ -4,6 +4,7 @@ import si.fri.prpo.skupina19.entitete.Prostor;
 import si.fri.prpo.skupina19.entitete.Vrata;
 import si.fri.prpo.skupina19.entitete.Zaposleni;
 import si.fri.prpo.skupina19.sledilnik.dtos.ProstorDTO;
+import si.fri.prpo.skupina19.sledilnik.dtos.ZaposleniDTO;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -97,5 +98,34 @@ public class UpravljanjePoslovnihMetod {
         Integer kvPoOsebi = prostorDTO.getKvadratovPoOsebi();
         if (kv == null || kvPoOsebi == null) return null;
         else return kv/kvPoOsebi;
+    }
+
+    public ProstorDTO getProstorDTOFromId(Integer id){
+        Prostor p = prostorZrno.getProstor(id);
+        if (p!=null){
+            ProstorDTO prostorDTO = new ProstorDTO();
+            prostorDTO.setImeProstora(p.getImeProstora());
+            prostorDTO.setKvadratovPoOsebi(p.getKvadratPoOsebi());
+            prostorDTO.setKvadratura(p.getKvadratura());
+            prostorDTO.setStVrat(p.getStVrat());
+            prostorDTO.setTrenutnoOseb(p.getTrenutnoOseb());
+            prostorDTO.setProstorId(p.getId());
+            //seznamVrat??
+            return prostorDTO;
+        } else return null;
+    }
+
+    public ZaposleniDTO getZaposleniDTOFromId(Integer id){
+        Zaposleni z = zaposleniZrno.getZaposleni(id);
+        if (z!=null){
+            ZaposleniDTO zaposleniDTO = new ZaposleniDTO();
+            zaposleniDTO.setId(z.getId());
+            zaposleniDTO.setIme(z.getIme());
+            zaposleniDTO.setPriimek(z.getPriimek());
+            zaposleniDTO.setVzdevek(z.getVzdevek());
+            zaposleniDTO.setVrata(z.getVrata());
+            // setVrata?
+            return zaposleniDTO;
+        } else return null;
     }
 }
