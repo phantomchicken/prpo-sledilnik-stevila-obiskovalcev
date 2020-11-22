@@ -83,11 +83,10 @@ public class ProstorVir {
     @GET
     @Path("{id}/presezeno")
     public Response getPresezenaMeja(@PathParam("id") Integer id){
-        //ProstorDTO prostorDTO = upravljanjePoslovnihMetod.getProstorDTOFromId(id);
-        Prostor p = prostorZrno.getProstor(id);
+        ProstorDTO prostorDTO = upravljanjePoslovnihMetod.getProstorDTOFromId(id);
         String odgovor;
-        if (p != null) {
-            if(upravljanjePoslovnihMetod.presezenaMeja(p))  odgovor = "Meja presezena!";
+        if (prostorDTO != null) {
+            if(upravljanjePoslovnihMetod.presezenaMeja(prostorDTO))  odgovor = "Meja presezena!";
             else odgovor = "Meja ni presezena.";
             return Response.ok(odgovor).build();
         }

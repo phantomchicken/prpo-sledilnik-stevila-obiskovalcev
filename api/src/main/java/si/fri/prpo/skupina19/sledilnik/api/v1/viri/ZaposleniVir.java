@@ -3,6 +3,8 @@ package si.fri.prpo.skupina19.sledilnik.api.v1.viri;
 import si.fri.prpo.skupina19.entitete.Prostor;
 import si.fri.prpo.skupina19.entitete.Vrata;
 import si.fri.prpo.skupina19.entitete.Zaposleni;
+import si.fri.prpo.skupina19.sledilnik.dtos.ProstorDTO;
+import si.fri.prpo.skupina19.sledilnik.dtos.VrataDTO;
 import si.fri.prpo.skupina19.sledilnik.dtos.ZaposleniDTO;
 import si.fri.prpo.skupina19.sledilnik.zrna.UpravljanjePoslovnihMetod;
 import si.fri.prpo.skupina19.sledilnik.zrna.ZaposleniZrno;
@@ -71,15 +73,17 @@ public class ZaposleniVir {
     @PUT
     @Path("{id}/{vstopov}/{izstopov}")
     public Response updateStOseb(@PathParam("id") Integer id, @PathParam("vstopov") Integer vstopov, @PathParam("izstopov") Integer izstopov) {
-        //ZaposleniDTO zaposleniDTO = upravljanjePoslovnihMetod.getZaposleniDTOFromId(id);
+        ZaposleniDTO zaposleniDTO = upravljanjePoslovnihMetod.getZaposleniDTOFromId(id);
         Zaposleni z = zaposleniZrno.getZaposleni(id);
-        upravljanjePoslovnihMetod.spremeniSteviloOsebPoZaposlenim(z,vstopov,izstopov);
-        Vrata v = z.getVrata();
+        upravljanjePoslovnihMetod.spremeniSteviloOsebPoZaposlenim(zaposleniDTO,vstopov,izstopov);
+        Vrata v = zaposleniDTO.getVrata();
+        VrataDTO vrataDTO = upravljanjePoslovnihMetod.getVrataDTOFromId(v.getId());
         Prostor p = v.getProstor();
+        ProstorDTO prostorDTO = upravljanjePoslovnihMetod.getProstorDTOFromId(p.getId());
         if (v!=null && p!=null)
         return Response
                 .status(Response.Status.CREATED)
-                .entity(p.toString() +"\n" + v.toString())
+                .entity(prostorDTO.toString() +"\n" + vrataDTO.toString())
                 .build();
         else return Response
                 .status(Response.Status.NOT_FOUND).build();

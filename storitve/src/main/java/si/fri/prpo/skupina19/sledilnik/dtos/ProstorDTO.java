@@ -1,6 +1,8 @@
 package si.fri.prpo.skupina19.sledilnik.dtos;
 
-import si.fri.prpo.skupina19.entitete.Prostor;
+import si.fri.prpo.skupina19.entitete.Vrata;
+
+import java.util.List;
 
 public class ProstorDTO {
     private Integer prostorId;
@@ -9,6 +11,7 @@ public class ProstorDTO {
     private Integer kvadratura;
     private Integer stVrat;
     private Integer trenutnoOseb;
+    private List<Vrata> seznamVrat;
 
     public Integer getProstorId() {
         return prostorId;
@@ -58,8 +61,21 @@ public class ProstorDTO {
         this.trenutnoOseb = trenutnoOseb;
     }
 
+    public List<Vrata> getSeznamVrat() { return seznamVrat; }
+
+    public void setSeznamVrat(List<Vrata> seznamVrat) { this.seznamVrat = seznamVrat; }
+
     @Override
-    public String toString(){
-        return  prostorId +" "+ imeProstora +" " + kvadratovPoOsebi + " " +kvadratura + " " + stVrat   +" " + trenutnoOseb +" ";
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (Vrata vrata: seznamVrat)
+            sb.append(vrata.getId() + ", ");
+
+        String vrataString = "";
+
+        // če vrata niso nastavljena
+        if (sb.length()>2) vrataString = sb.substring(0,sb.length()-2);
+        else vrataString = sb.toString();
+        return "ID: " + prostorId + "\n" + "ime " + imeProstora + "\n" + "stVrat " + stVrat + "\n" + "kvadratura " + kvadratura +"\n" + "kvadratovPoOsebi " + kvadratovPoOsebi + "\n" + "trenutnoOseb " + trenutnoOseb + "\n"  +"ID-ji vrat " + vrataString + "\n";
     }
 }

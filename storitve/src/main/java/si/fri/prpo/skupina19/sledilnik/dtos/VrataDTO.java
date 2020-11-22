@@ -49,4 +49,13 @@ public class VrataDTO {
     public void setZaposleni(Zaposleni zaposleni) {
         this.zaposleni = zaposleni;
     }
+
+    @Override
+    public String toString() {
+        String zaposleniString ="";
+        String prostorString = "";
+        if (zaposleni!=null) if (zaposleni.getId()!=null) zaposleniString = zaposleni.getId().toString();
+        if (prostor!=null) if (prostor.getId()!=null) prostorString = prostor.getId().toString();
+        return "ID: " + vrataId + "\n" + "prostorID: "+ prostorString  + "\n" + "zaposleniID: "+ zaposleniString  + "\n" + "stVstopov: " +stVstopov+ "\n" + "stIzstopov: " + stIzstopov +"\n";
+    }
 }

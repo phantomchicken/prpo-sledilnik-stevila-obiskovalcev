@@ -1,20 +1,22 @@
 package si.fri.prpo.skupina19.sledilnik.servleti;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
+import si.fri.prpo.skupina19.entitete.Prostor;
+import si.fri.prpo.skupina19.entitete.Vrata;
+import si.fri.prpo.skupina19.entitete.Zaposleni;
+import si.fri.prpo.skupina19.sledilnik.dtos.ProstorDTO;
+import si.fri.prpo.skupina19.sledilnik.dtos.VrataDTO;
+import si.fri.prpo.skupina19.sledilnik.dtos.ZaposleniDTO;
+import si.fri.prpo.skupina19.sledilnik.zrna.*;
+
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import si.fri.prpo.skupina19.entitete.*;
-import si.fri.prpo.skupina19.sledilnik.dtos.ProstorDTO;
-import si.fri.prpo.skupina19.sledilnik.dtos.ZaposleniDTO;
-import si.fri.prpo.skupina19.sledilnik.dtos.VrataDTO;
-import si.fri.prpo.skupina19.sledilnik.zrna.*;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 
 @WebServlet("/servlet")
 public class JPAServlet extends HttpServlet {

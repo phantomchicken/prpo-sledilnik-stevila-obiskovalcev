@@ -4,6 +4,7 @@ import si.fri.prpo.skupina19.entitete.Prostor;
 import si.fri.prpo.skupina19.entitete.Vrata;
 import si.fri.prpo.skupina19.entitete.Zaposleni;
 import si.fri.prpo.skupina19.sledilnik.dtos.ProstorDTO;
+import si.fri.prpo.skupina19.sledilnik.dtos.VrataDTO;
 import si.fri.prpo.skupina19.sledilnik.dtos.ZaposleniDTO;
 
 import javax.annotation.PostConstruct;
@@ -12,8 +13,6 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 import java.util.logging.Logger;
@@ -49,22 +48,22 @@ public class UpravljanjePoslovnihMetod {
         zaposleniZrno.getZaposleniCriteriaAPI().forEach((z) -> {
             Integer vstopov = rand.nextInt((2 - 1) + 1) + 1;
             Integer izstopov = rand.nextInt((1 - 1) + 1) + 1;
-            if (!spremeniSteviloOsebPoZaposlenim(z,vstopov,izstopov))
+            if (!spremeniSteviloOsebPoZaposlenim(getZaposleniDTOFromId(z.getId()),vstopov,izstopov))
                 log.info("Na vratih " + z.getVrata().getId() + " stanje nespremenjeno");
         });
     }
 
-    public boolean spremeniSteviloOsebPoZaposlenim(Zaposleni z, Integer vstopov, Integer izstopov){
-        if (z.getVrata()!=null) {
-            Vrata v = z.getVrata();
+    public boolean spremeniSteviloOsebPoZaposlenim(ZaposleniDTO zaposleniDTO, Integer vstopov, Integer izstopov){
+        if (zaposleniDTO.getVrata()!=null) {
+            Vrata v = zaposleniDTO.getVrata();
             if (v.getProstor()!=null) {
-                Prostor p= z.getVrata().getProstor();
+                Prostor p= zaposleniDTO.getVrata().getProstor();
                 if(p.getTrenutnoOseb()!=null){
                     v.setStIzstopov(v.getStIzstopov()+izstopov);
                     v.setStVstopov(v.getStVstopov()+vstopov);
                     vrataZrno.updateVrata(v.getId(),v);
                     p.setTrenutnoOseb(p.getTrenutnoOseb()+vstopov-izstopov);
-                    if (presezenaMeja(p))
+                    if (presezenaMeja(getProstorDTOFromId(p.getId())))
                         log.info("V prostoru " + p.getId() + " je presezena meja.");
                         prostorZrno.updateProstor(p.getId(), p);
                     return true;
@@ -74,17 +73,10 @@ public class UpravljanjePoslovnihMetod {
         return false;
     }
 
-    public boolean presezenaMeja(Prostor p){
-        if(p.getTrenutnoOseb()!=null) {
-            Integer g = p.getTrenutnoOseb();
-            ProstorDTO pDTO = new ProstorDTO();
-            pDTO.setProstorId(p.getId());
-            pDTO.setTrenutnoOseb(p.getId());
-            pDTO.setStVrat(p.getStVrat());
-            pDTO.setKvadratura(p.getKvadratura());
-            pDTO.setKvadratovPoOsebi(p.getKvadratPoOsebi());
-            pDTO.setImeProstora(p.getImeProstora());
-            if (g > getOmejitev(pDTO)) return true;
+    public boolean presezenaMeja(ProstorDTO prostorDTO){
+        if(prostorDTO.getTrenutnoOseb()!=null) {
+            Integer g = prostorDTO.getTrenutnoOseb();
+            if (g > getOmejitev(prostorDTO)) return true;
         }
         return false;
     }
@@ -110,7 +102,7 @@ public class UpravljanjePoslovnihMetod {
             prostorDTO.setStVrat(p.getStVrat());
             prostorDTO.setTrenutnoOseb(p.getTrenutnoOseb());
             prostorDTO.setProstorId(p.getId());
-            //seznamVrat??
+            prostorDTO.setSeznamVrat(p.getSeznamVrat());
             return prostorDTO;
         } else return null;
     }
@@ -124,8 +116,20 @@ public class UpravljanjePoslovnihMetod {
             zaposleniDTO.setPriimek(z.getPriimek());
             zaposleniDTO.setVzdevek(z.getVzdevek());
             zaposleniDTO.setVrata(z.getVrata());
-            // setVrata?
             return zaposleniDTO;
+        } else return null;
+    }
+
+    public VrataDTO getVrataDTOFromId(Integer id){
+        Vrata v = vrataZrno.getVrata(id);
+        if (v!=null){
+            VrataDTO vrataDTO = new VrataDTO();
+            vrataDTO.setVrataId(v.getId());
+            vrataDTO.setStVstopov(v.getStVstopov());
+            vrataDTO.setStIzstopov(v.getStIzstopov());
+            vrataDTO.setZaposleni(v.getZaposleni());
+            vrataDTO.setProstor(v.getProstor());
+            return vrataDTO;
         } else return null;
     }
 }
