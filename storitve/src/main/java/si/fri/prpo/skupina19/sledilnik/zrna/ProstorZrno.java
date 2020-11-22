@@ -57,7 +57,7 @@ public class ProstorZrno {
     }
 
     @Transactional
-    public void updateProstor (int prostorId, Prostor noviP) {
+    public Prostor updateProstor (int prostorId, Prostor noviP) {
         Prostor p = em.find(Prostor.class, prostorId);
         if (p!= null){
             // ali modularno? , Integer kvadratura, Integer stVrat, Integer trenutnoOseb, Integer kvadratovPoOsebi, String imeProstora
@@ -69,6 +69,7 @@ public class ProstorZrno {
             p.setTrenutnoOseb(noviP.getTrenutnoOseb());
             em.merge(noviP);
         }
+        return noviP;
     }
 
     //implementacija

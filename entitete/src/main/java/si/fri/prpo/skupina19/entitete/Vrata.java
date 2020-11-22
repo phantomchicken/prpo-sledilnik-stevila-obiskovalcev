@@ -1,5 +1,6 @@
 package si.fri.prpo.skupina19.entitete;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 
 
@@ -24,15 +25,9 @@ public class Vrata {
     @Column(name="st_izstopov")
     private Integer stIzstopov;
 
-    //@OneToOne(fetch = FetchType.EAGER)
-    //@JoinColumn(name = "zaposleni_id")
-    //private Zaposleni zaposleni;
-
-
     @OneToOne(fetch = FetchType.LAZY,
             mappedBy = "vrata", cascade = CascadeType.REMOVE)
     private Zaposleni zaposleni;
-
 
     @ManyToOne
     @JoinColumn(name = "prostor_id")

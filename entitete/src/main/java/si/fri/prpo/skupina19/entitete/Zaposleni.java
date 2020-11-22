@@ -1,5 +1,6 @@
 package si.fri.prpo.skupina19.entitete;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 
 
@@ -29,7 +30,7 @@ public class Zaposleni {
 
     //@OneToOne(mappedBy = "zaposleni", cascade = CascadeType.ALL)
     //private Vrata vrata;
-
+    @JsonbTransient
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Vrata vrata;
 

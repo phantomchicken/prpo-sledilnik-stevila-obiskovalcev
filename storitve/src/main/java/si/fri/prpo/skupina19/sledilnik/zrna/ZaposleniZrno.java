@@ -61,7 +61,7 @@ public class ZaposleniZrno {
     }
 
     @Transactional
-    public void updateZaposleni (int zaposleniId, Zaposleni noviZ) {
+    public Zaposleni updateZaposleni (int zaposleniId, Zaposleni noviZ) {
         Zaposleni z = em.find(Zaposleni.class, zaposleniId);
         if (z!= null){
             z.setId(noviZ.getId());
@@ -71,6 +71,7 @@ public class ZaposleniZrno {
             z.setVzdevek(noviZ.getVzdevek());
             em.merge(noviZ);
         }
+        return noviZ;
     }
 
 

@@ -20,7 +20,6 @@
             <groupId>com.kumuluz.ee</groupId>
             <artifactId>kumuluzee-jta-narayana</artifactId>
         </dependency>
-
         <dependency>
             <groupId>si.fri.prpo.skupina19</groupId>
             <artifactId>entitete</artifactId>

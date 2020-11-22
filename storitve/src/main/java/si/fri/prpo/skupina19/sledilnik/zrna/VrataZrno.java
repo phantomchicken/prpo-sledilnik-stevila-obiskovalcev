@@ -63,7 +63,7 @@ public class VrataZrno {
     }
 
     @Transactional
-    public void updateVrata (int vrataId, Vrata novaV) {
+    public Vrata updateVrata (int vrataId, Vrata novaV) {
         Vrata v = em.find(Vrata.class, vrataId);
         if (v!= null){
             // ali modularno? Integer prostor, Integer zaposleni, Integer stIzstopov, Integer stVstopov
@@ -74,6 +74,7 @@ public class VrataZrno {
             v.setZaposleni(novaV.getZaposleni());
             em.merge(novaV);
         }
+        return novaV;
     }
 
     public List<String> getVsaVrata() {

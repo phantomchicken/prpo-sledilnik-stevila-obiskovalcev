@@ -17,7 +17,7 @@
     </modules>
 
     <name>Sledilnik števila obiskovalcev</name>
-    <description>test</description>
+    <description>Aplikacija namenjena sledenju številu oseb v prostorih.</description>
 
     <properties>
         <maven.compiler.source>14</maven.compiler.source>

@@ -1,5 +1,6 @@
 package si.fri.prpo.skupina19.entitete;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class Prostor {
 
     @Column(name="kvadratov_po_osebi")
     private Integer kvadratovPoOsebi;
-
+    @JsonbTransient
     @OneToMany(mappedBy = "prostor", cascade = CascadeType.REMOVE)
     private List<Vrata> seznamVrat;
 
