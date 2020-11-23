@@ -3,6 +3,7 @@ package si.fri.prpo.skupina19.sledilnik.api.v1.viri;
 import si.fri.prpo.skupina19.entitete.Prostor;
 import si.fri.prpo.skupina19.entitete.Vrata;
 import si.fri.prpo.skupina19.entitete.Zaposleni;
+import si.fri.prpo.skupina19.sledilnik.anotacije.BeleziKlice;
 import si.fri.prpo.skupina19.sledilnik.dtos.ProstorDTO;
 import si.fri.prpo.skupina19.sledilnik.dtos.VrataDTO;
 import si.fri.prpo.skupina19.sledilnik.dtos.ZaposleniDTO;
@@ -70,6 +71,7 @@ public class ZaposleniVir {
     }
 
     // Poslovna metoda 3: spremeni stanje stevila oseb v prostoru, kjer je podani zaposleni
+    @BeleziKlice
     @PUT
     @Path("{id}/{vstopov}/{izstopov}")
     public Response updateStOseb(@PathParam("id") Integer id, @PathParam("vstopov") Integer vstopov, @PathParam("izstopov") Integer izstopov) {
