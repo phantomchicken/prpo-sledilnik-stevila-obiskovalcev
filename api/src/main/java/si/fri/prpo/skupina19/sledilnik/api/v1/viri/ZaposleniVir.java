@@ -71,7 +71,6 @@ public class ZaposleniVir {
     }
 
     // Poslovna metoda 3: spremeni stanje stevila oseb v prostoru, kjer je podani zaposleni
-    @BeleziKlice
     @PUT
     @Path("{id}/{vstopov}/{izstopov}")
     public Response updateStOseb(@PathParam("id") Integer id, @PathParam("vstopov") Integer vstopov, @PathParam("izstopov") Integer izstopov) {

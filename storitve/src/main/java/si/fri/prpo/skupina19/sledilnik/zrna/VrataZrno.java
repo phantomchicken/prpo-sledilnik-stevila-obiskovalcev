@@ -2,6 +2,7 @@ package si.fri.prpo.skupina19.sledilnik.zrna;
 
 import si.fri.prpo.skupina19.entitete.Prostor;
 import si.fri.prpo.skupina19.entitete.Vrata;
+import si.fri.prpo.skupina19.sledilnik.anotacije.BeleziKlice;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -40,11 +41,13 @@ public class VrataZrno {
     private EntityManager em;
 
     //CRUD
+    @BeleziKlice
     public Vrata getVrata (int vrataId) {
         Vrata vrata = em.find(Vrata.class, vrataId);
         return vrata;
     }
 
+    @BeleziKlice
     @Transactional
     public Vrata createVrata (Vrata vrata) {
         if (vrata != null) {
@@ -53,6 +56,7 @@ public class VrataZrno {
         return vrata;
     }
 
+    @BeleziKlice
     @Transactional
     public Integer deleteVrata (int vrataId) {
         Vrata vrata = getVrata(vrataId);
@@ -62,6 +66,7 @@ public class VrataZrno {
         return vrataId;
     }
 
+    @BeleziKlice
     @Transactional
     public Vrata updateVrata (int vrataId, Vrata novaV) {
         Vrata v = em.find(Vrata.class, vrataId);
@@ -77,6 +82,7 @@ public class VrataZrno {
         return novaV;
     }
 
+    @BeleziKlice
     public List<String> getVsaVrata() {
         Query query = em.createNamedQuery("Vrata.getAll");
         List <Object> results = query.getResultList();
@@ -87,6 +93,7 @@ public class VrataZrno {
         return resultsString;
     }
 
+    @BeleziKlice
     public List<String> getSt() {
         TypedQuery<Object[]> query = em.createNamedQuery("Vrata.getSt", Object[].class);
         List<Object[]> results = query.getResultList();
@@ -99,6 +106,7 @@ public class VrataZrno {
     }
 
     // CriteriaAPI
+    @BeleziKlice
     public List<Vrata> getStCriteriaAPI () {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<Vrata> query = criteriaBuilder.createQuery(Vrata.class);

@@ -1,6 +1,7 @@
 package si.fri.prpo.skupina19.sledilnik.zrna;
 
 import si.fri.prpo.skupina19.entitete.*;
+import si.fri.prpo.skupina19.sledilnik.anotacije.BeleziKlice;
 
 import javax.annotation.*;
 import javax.enterprise.context.ApplicationScoped;
@@ -39,6 +40,7 @@ public class ProstorZrno {
         return prostor;
     }
 
+    @BeleziKlice
     @Transactional
     public Prostor createProstor (Prostor prostor) {
         if (prostor != null) {
@@ -47,6 +49,7 @@ public class ProstorZrno {
         return prostor;
     }
 
+    @BeleziKlice
     @Transactional
     public Integer deleteProstor (int prostorId) {
         Prostor prostor = getProstor(prostorId);
@@ -56,6 +59,7 @@ public class ProstorZrno {
         return prostorId;
     }
 
+    @BeleziKlice
     @Transactional
     public Prostor updateProstor (int prostorId, Prostor noviP) {
         Prostor p = em.find(Prostor.class, prostorId);
@@ -73,6 +77,7 @@ public class ProstorZrno {
     }
 
     //implementacija
+    @BeleziKlice
     public List<String> getProstori() {
 
         Query query = em.createNamedQuery("Prostor.getAll");
@@ -85,6 +90,7 @@ public class ProstorZrno {
     }
 
     // CriteriaAPI
+    @BeleziKlice
     public List<Prostor> getProstoriCriteriaAPI () {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<Prostor> query = criteriaBuilder.createQuery(Prostor.class);
@@ -94,6 +100,7 @@ public class ProstorZrno {
     }
 
     //vrnitev prostor z določenim imenom , če obstaja
+    @BeleziKlice
     public Prostor getProstorZImenom (String ime) {
         Prostor prostor = null;
         try {

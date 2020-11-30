@@ -1,5 +1,6 @@
 package si.fri.prpo.skupina19.sledilnik.zrna;
 
+import si.fri.prpo.skupina19.sledilnik.anotacije.BeleziKlice;
 import si.fri.prpo.skupina19.sledilnik.dtos.*;
 import si.fri.prpo.skupina19.entitete.*;
 import javax.annotation.PostConstruct;
@@ -35,6 +36,7 @@ public class UpravljanjeProstorovZrno {
     @PersistenceContext(unitName = "sledilnik-stevila-obiskovalcev-jpa")
     private EntityManager em;
 
+    @BeleziKlice
     public Prostor createProstor (ProstorDTO prostorDTO) {
 
         if (prostorDTO.getProstorId()!=null){

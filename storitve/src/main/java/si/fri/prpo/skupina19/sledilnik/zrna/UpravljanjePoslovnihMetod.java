@@ -3,6 +3,7 @@ package si.fri.prpo.skupina19.sledilnik.zrna;
 import si.fri.prpo.skupina19.entitete.Prostor;
 import si.fri.prpo.skupina19.entitete.Vrata;
 import si.fri.prpo.skupina19.entitete.Zaposleni;
+import si.fri.prpo.skupina19.sledilnik.anotacije.BeleziKlice;
 import si.fri.prpo.skupina19.sledilnik.dtos.ProstorDTO;
 import si.fri.prpo.skupina19.sledilnik.dtos.VrataDTO;
 import si.fri.prpo.skupina19.sledilnik.dtos.ZaposleniDTO;
@@ -43,6 +44,7 @@ public class UpravljanjePoslovnihMetod {
     @PersistenceContext(unitName = "sledilnik-stevila-obiskovalcev-jpa")
     private EntityManager em;
 
+    @BeleziKlice
     public void randomiziraj(){
         Random rand=new Random();
         zaposleniZrno.getZaposleniCriteriaAPI().forEach((z) -> {
@@ -53,6 +55,7 @@ public class UpravljanjePoslovnihMetod {
         });
     }
 
+    @BeleziKlice
     public boolean spremeniSteviloOsebPoZaposlenim(ZaposleniDTO zaposleniDTO, Integer vstopov, Integer izstopov){
         if (zaposleniDTO.getVrata()!=null) {
             Vrata v = zaposleniDTO.getVrata();
@@ -73,6 +76,7 @@ public class UpravljanjePoslovnihMetod {
         return false;
     }
 
+    @BeleziKlice
     public boolean presezenaMeja(ProstorDTO prostorDTO){
         if(prostorDTO.getTrenutnoOseb()!=null) {
             Integer g = prostorDTO.getTrenutnoOseb();
@@ -81,6 +85,7 @@ public class UpravljanjePoslovnihMetod {
         return false;
     }
 
+    @BeleziKlice
     public Integer getOmejitev (ProstorDTO prostorDTO){
         if (prostorDTO.getProstorId()==null){
             log.info("Prostor s tem id-jem ne obstaja");
@@ -92,6 +97,7 @@ public class UpravljanjePoslovnihMetod {
         else return kv/kvPoOsebi;
     }
 
+    @BeleziKlice
     public ProstorDTO getProstorDTOFromId(Integer id){
         Prostor p = prostorZrno.getProstor(id);
         if (p!=null){
@@ -107,6 +113,7 @@ public class UpravljanjePoslovnihMetod {
         } else return null;
     }
 
+    @BeleziKlice
     public ZaposleniDTO getZaposleniDTOFromId(Integer id){
         Zaposleni z = zaposleniZrno.getZaposleni(id);
         if (z!=null){
@@ -120,6 +127,7 @@ public class UpravljanjePoslovnihMetod {
         } else return null;
     }
 
+    @BeleziKlice
     public VrataDTO getVrataDTOFromId(Integer id){
         Vrata v = vrataZrno.getVrata(id);
         if (v!=null){

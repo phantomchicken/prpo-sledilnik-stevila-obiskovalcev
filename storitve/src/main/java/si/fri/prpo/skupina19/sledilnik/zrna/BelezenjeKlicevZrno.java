@@ -12,4 +12,5 @@ public class BelezenjeKlicevZrno {
         stKlicev ++;
         log.info("Stevilo klicev je " + stKlicev);
     }
+    //context.getMethod().getName()
 }

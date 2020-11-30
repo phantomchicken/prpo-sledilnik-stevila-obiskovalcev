@@ -3,6 +3,7 @@ package si.fri.prpo.skupina19.sledilnik.zrna;
 import si.fri.prpo.skupina19.entitete.Prostor;
 import si.fri.prpo.skupina19.entitete.Vrata;
 import si.fri.prpo.skupina19.entitete.Zaposleni;
+import si.fri.prpo.skupina19.sledilnik.anotacije.BeleziKlice;
 import si.fri.prpo.skupina19.sledilnik.dtos.VrataDTO;
 
 import javax.annotation.PostConstruct;
@@ -41,6 +42,7 @@ public class UpravljanjeVrataZrno {
     @PersistenceContext(unitName = "sledilnik-stevila-obiskovalcev-jpa")
     private EntityManager em;
 
+    @BeleziKlice
     public Vrata createVrata (VrataDTO vrataDTO) {
 
         if (vrataDTO.getVrataId() != null){
@@ -59,6 +61,7 @@ public class UpravljanjeVrataZrno {
         return novaVrata;
     }
 
+    @BeleziKlice
     public Integer deleteVrata (VrataDTO vrataDTO){
         if (vrataDTO.getVrataId()==null) {
             log.info("Zaposleni s tem ID-jem ne obstaja");

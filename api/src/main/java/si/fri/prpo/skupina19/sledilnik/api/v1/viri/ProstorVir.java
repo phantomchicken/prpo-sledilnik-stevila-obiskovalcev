@@ -67,7 +67,6 @@ public class ProstorVir {
     }
 
     // Poslovna metoda 1: pridobi omejitev oseb v podanem prostoru
-    @BeleziKlice
     @GET
     @Path("{id}/omejitev")
     public Response getOmejitev(@PathParam("id") Integer id){
@@ -82,7 +81,6 @@ public class ProstorVir {
     }
 
     // Poslovna metoda 2: doloci ce je v podanem prostoru ze presezena omejitev ljudi
-    @BeleziKlice
     @GET
     @Path("{id}/presezeno")
     public Response getPresezenaMeja(@PathParam("id") Integer id){

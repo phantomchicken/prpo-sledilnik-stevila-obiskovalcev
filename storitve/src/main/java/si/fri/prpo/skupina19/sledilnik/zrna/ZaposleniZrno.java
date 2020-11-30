@@ -1,6 +1,7 @@
 package si.fri.prpo.skupina19.sledilnik.zrna;
 
 import si.fri.prpo.skupina19.entitete.*;
+import si.fri.prpo.skupina19.sledilnik.anotacije.BeleziKlice;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -36,11 +37,13 @@ public class ZaposleniZrno {
     private EntityManager em;
 
     //CRUD
+    @BeleziKlice
     public Zaposleni getZaposleni (int zaposleniId) {
         Zaposleni zaposleni = em.find(Zaposleni.class, zaposleniId);
         return zaposleni;
     }
 
+    @BeleziKlice
     @Transactional
     public Zaposleni createZaposleni (Zaposleni zaposleni) {
         //em.find(Zaposleni.class,zaposleni.getId());
@@ -51,6 +54,7 @@ public class ZaposleniZrno {
         return zaposleni;
     }
 
+    @BeleziKlice
     @Transactional
     public Integer deleteZaposleni (int zaposleniId) {
         Zaposleni zaposleni = getZaposleni(zaposleniId);
@@ -60,6 +64,7 @@ public class ZaposleniZrno {
         return zaposleniId;
     }
 
+    @BeleziKlice
     @Transactional
     public Zaposleni updateZaposleni (int zaposleniId, Zaposleni noviZ) {
         Zaposleni z = em.find(Zaposleni.class, zaposleniId);
@@ -76,6 +81,7 @@ public class ZaposleniZrno {
 
 
     //vrne vse zaposlene
+    @BeleziKlice
     public List<String> getZaposleni() {
         TypedQuery<Object[]> query = em.createNamedQuery("Zaposleni.getAll", Object[].class);
         List<Object[]> results = query.getResultList();
@@ -87,6 +93,7 @@ public class ZaposleniZrno {
     }
 
     //vrne vse zaposlene z CriteriaAPI
+    @BeleziKlice
     public List<Zaposleni> getZaposleniCriteriaAPI () {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<Zaposleni> query = criteriaBuilder.createQuery(Zaposleni.class);
@@ -96,6 +103,7 @@ public class ZaposleniZrno {
     }
 
     //vrne prostor v katerem zaposleni dela
+    @BeleziKlice
     public List<String> getDelovnoMesto() {
 
         // implementacija
@@ -110,6 +118,7 @@ public class ZaposleniZrno {
     }
 
     //vrnitev uporabnika z določenim vzdevekom , če obstaja
+    @BeleziKlice
     public Zaposleni getZaposleniVzdevek (String vzdevek) {
         Zaposleni zaposleni = null;
         try {
