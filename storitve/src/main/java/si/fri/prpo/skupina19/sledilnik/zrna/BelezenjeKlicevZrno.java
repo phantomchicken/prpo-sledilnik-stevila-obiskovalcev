@@ -6,11 +6,8 @@ import javax.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class BelezenjeKlicevZrno {
     private Logger log = Logger.getLogger(BelezenjeKlicevZrno.class.getName());
-    private static Integer stKlicev = 0;
 
-    public void povecajStevecKlicev() {
-        stKlicev ++;
-        log.info("Stevilo klicev je " + stKlicev);
+    public void povecajStevecKlicev(String metoda, Integer trStevec) {
+        log.info("Stevec za metodo " + metoda +" je " + trStevec);
     }
-    //context.getMethod().getName()
 }

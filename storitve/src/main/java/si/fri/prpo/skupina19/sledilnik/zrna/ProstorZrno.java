@@ -35,6 +35,7 @@ public class ProstorZrno {
     private EntityManager em;
 
     //CRUD
+    @BeleziKlice
     public Prostor getProstor (int prostorId) {
         Prostor prostor = em.find(Prostor.class, prostorId);
         return prostor;
