@@ -2,7 +2,8 @@ package si.fri.prpo.skupina19.sledilnik.zrna;
 
 import si.fri.prpo.skupina19.entitete.*;
 import si.fri.prpo.skupina19.sledilnik.anotacije.BeleziKlice;
-
+import com.kumuluz.ee.rest.beans.QueryParameters;
+import com.kumuluz.ee.rest.utils.JPAUtils;
 import javax.annotation.*;
 import javax.enterprise.context.ApplicationScoped;
 import java.util.List;
@@ -77,18 +78,29 @@ public class ProstorZrno {
         return noviP;
     }
 
-    //implementacija
+
     @BeleziKlice
-    public List<String> getProstori() {
+    public List<Prostor> getProstori() {
 
         Query query = em.createNamedQuery("Prostor.getAll");
         List <Object> results = query.getResultList();
-        ArrayList <String> resultsString = new ArrayList<String>();
+        ArrayList <Prostor> resultsPr = new ArrayList<Prostor>();
         for (Object result : results) {
-            resultsString.add(result.toString());
+            resultsPr.add((Prostor) result);
         }
-        return resultsString;
+        return resultsPr;
     }
+
+    @BeleziKlice
+    public List<Prostor> getProstori(QueryParameters query) {
+        List <Prostor> prostori = JPAUtils.queryEntities(em, Prostor.class, query);
+        return prostori;
+    }
+
+    public Long getProstoriCount(QueryParameters query) {
+        return JPAUtils.queryEntitiesCount(em, Prostor.class, query);
+    }
+
 
     // CriteriaAPI
     @BeleziKlice

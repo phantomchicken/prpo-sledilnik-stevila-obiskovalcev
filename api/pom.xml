@@ -25,6 +25,11 @@
             <artifactId>kumuluzee-jax-rs-jersey</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.kumuluz.ee.rest</groupId>
+            <artifactId>kumuluzee-rest-core</artifactId>
+            <version>${kumuluzee-rest.version}</version>
+        </dependency>
+        <dependency>
             <groupId>si.fri.prpo.skupina19</groupId>
             <artifactId>storitve</artifactId>
         </dependency>

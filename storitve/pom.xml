@@ -21,6 +21,10 @@
             <artifactId>kumuluzee-jta-narayana</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.kumuluz.ee.rest</groupId>
+            <artifactId>kumuluzee-rest-core</artifactId>
+        </dependency>
+        <dependency>
             <groupId>si.fri.prpo.skupina19</groupId>
             <artifactId>entitete</artifactId>
         </dependency>

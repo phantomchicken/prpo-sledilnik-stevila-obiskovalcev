@@ -1,5 +1,6 @@
 package si.fri.prpo.skupina19.sledilnik.api.v1.viri;
 
+import com.kumuluz.ee.rest.beans.QueryParameters;
 import si.fri.prpo.skupina19.entitete.Prostor;
 import si.fri.prpo.skupina19.entitete.Vrata;
 import si.fri.prpo.skupina19.entitete.Zaposleni;
@@ -13,19 +14,33 @@ import si.fri.prpo.skupina19.sledilnik.zrna.ZaposleniZrno;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 
 @ApplicationScoped
 @Path("zaposleni")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class ZaposleniVir {
+    @Context
+    protected UriInfo uriInfo;
+
     @Inject
     ZaposleniZrno zaposleniZrno;
 
     @Inject
     UpravljanjePoslovnihMetod upravljanjePoslovnihMetod;
+
+    @GET
+    public Response getZaposleni(){
+        QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
+
+        Long prostoriCount = zaposleniZrno.getZaposleniCount(query);
+        return Response .ok(zaposleniZrno.getZaposleni(query)) .header("X-Total-Count", prostoriCount) .build();
+    }
+
 
     @GET
     @Path("{id}")

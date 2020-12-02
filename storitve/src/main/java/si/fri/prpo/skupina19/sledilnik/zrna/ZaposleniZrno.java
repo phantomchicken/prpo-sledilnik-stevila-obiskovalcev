@@ -2,14 +2,12 @@ package si.fri.prpo.skupina19.sledilnik.zrna;
 
 import si.fri.prpo.skupina19.entitete.*;
 import si.fri.prpo.skupina19.sledilnik.anotacije.BeleziKlice;
-
+import com.kumuluz.ee.rest.beans.QueryParameters;
+import com.kumuluz.ee.rest.utils.JPAUtils;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
+import javax.persistence.*;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.UUID;
@@ -82,14 +80,24 @@ public class ZaposleniZrno {
 
     //vrne vse zaposlene
     @BeleziKlice
-    public List<String> getZaposleni() {
+    public List<Zaposleni> getZaposleni() {
         TypedQuery<Object[]> query = em.createNamedQuery("Zaposleni.getAll", Object[].class);
         List<Object[]> results = query.getResultList();
-        ArrayList<String> resultsString = new ArrayList<String>();
+        ArrayList<Zaposleni> resultsZ = new ArrayList<Zaposleni>();
         for (Object result : results) {
-            resultsString.add(result.toString());
+            resultsZ.add((Zaposleni)result);
         }
-        return resultsString;
+        return resultsZ;
+    }
+    @BeleziKlice
+    public List<Zaposleni> getZaposleni(QueryParameters query) {
+        List <Zaposleni> zaposleni = JPAUtils.queryEntities(em, Zaposleni.class, query);
+        return zaposleni;
+    }
+
+
+    public Long getZaposleniCount(QueryParameters query) {
+        return JPAUtils.queryEntitiesCount(em, Zaposleni.class, query);
     }
 
     //vrne vse zaposlene z CriteriaAPI

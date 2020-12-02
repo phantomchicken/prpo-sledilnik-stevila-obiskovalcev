@@ -7,7 +7,8 @@ import si.fri.prpo.skupina19.sledilnik.anotacije.BeleziKlice;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.RequestScoped;
+import com.kumuluz.ee.rest.beans.QueryParameters;
+import com.kumuluz.ee.rest.utils.JPAUtils;
 import javax.persistence.*;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -80,6 +81,16 @@ public class VrataZrno {
             em.merge(novaV);
         }
         return novaV;
+    }
+
+    @BeleziKlice
+    public List<Vrata> getVrata(QueryParameters query) {
+        List <Vrata> vrata = JPAUtils.queryEntities(em, Vrata.class, query);
+        return vrata;
+    }
+
+    public Long getVrataCount(QueryParameters query) {
+        return JPAUtils.queryEntitiesCount(em, Vrata.class, query);
     }
 
     @BeleziKlice

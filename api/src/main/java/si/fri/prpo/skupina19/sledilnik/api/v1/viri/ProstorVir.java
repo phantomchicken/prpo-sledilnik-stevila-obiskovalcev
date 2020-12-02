@@ -1,7 +1,6 @@
 package si.fri.prpo.skupina19.sledilnik.api.v1.viri;
 
 import si.fri.prpo.skupina19.entitete.Prostor;
-import si.fri.prpo.skupina19.sledilnik.anotacije.BeleziKlice;
 import si.fri.prpo.skupina19.sledilnik.dtos.ProstorDTO;
 import si.fri.prpo.skupina19.sledilnik.zrna.ProstorZrno;
 import si.fri.prpo.skupina19.sledilnik.zrna.UpravljanjePoslovnihMetod;
@@ -9,19 +8,34 @@ import si.fri.prpo.skupina19.sledilnik.zrna.UpravljanjePoslovnihMetod;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
+import java.util.List;
+import com.kumuluz.ee.rest.beans.QueryParameters;
 
 @ApplicationScoped
 @Path("prostori")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class ProstorVir {
+    @Context
+    protected UriInfo uriInfo;
+
     @Inject
     ProstorZrno prostorZrno;
 
     @Inject
     UpravljanjePoslovnihMetod upravljanjePoslovnihMetod;
+
+    @GET
+    public Response getProstori(){
+        QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
+
+        Long prostoriCount = prostorZrno.getProstoriCount(query);
+        return Response .ok(prostorZrno.getProstori(query)) .header("X-Total-Count", prostoriCount) .build();
+    }
 
     @GET
     @Path("{id}")
