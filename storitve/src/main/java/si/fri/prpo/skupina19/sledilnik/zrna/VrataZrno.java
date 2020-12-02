@@ -3,7 +3,6 @@ package si.fri.prpo.skupina19.sledilnik.zrna;
 import si.fri.prpo.skupina19.entitete.Prostor;
 import si.fri.prpo.skupina19.entitete.Vrata;
 import si.fri.prpo.skupina19.sledilnik.anotacije.BeleziKlice;
-
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;

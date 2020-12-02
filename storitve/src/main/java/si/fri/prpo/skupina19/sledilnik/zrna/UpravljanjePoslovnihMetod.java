@@ -7,6 +7,7 @@ import si.fri.prpo.skupina19.sledilnik.anotacije.BeleziKlice;
 import si.fri.prpo.skupina19.sledilnik.dtos.ProstorDTO;
 import si.fri.prpo.skupina19.sledilnik.dtos.VrataDTO;
 import si.fri.prpo.skupina19.sledilnik.dtos.ZaposleniDTO;
+import si.fri.prpo.skupina19.sledilnik.izjeme.NeveljavnaEntitetaIzjema;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -57,11 +58,11 @@ public class UpravljanjePoslovnihMetod {
 
     @BeleziKlice
     public boolean spremeniSteviloOsebPoZaposlenim(ZaposleniDTO zaposleniDTO, Integer vstopov, Integer izstopov){
-        if (zaposleniDTO.getVrata()!=null) {
+        if (zaposleniDTO!=null && zaposleniDTO.getVrata()!=null) {
             Vrata v = zaposleniDTO.getVrata();
-            if (v.getProstor()!=null) {
+            if (v!=null && v.getProstor()!=null) {
                 Prostor p= zaposleniDTO.getVrata().getProstor();
-                if(p.getTrenutnoOseb()!=null){
+                if(p!=null && p.getTrenutnoOseb()!=null){
                     v.setStIzstopov(v.getStIzstopov()+izstopov);
                     v.setStVstopov(v.getStVstopov()+vstopov);
                     vrataZrno.updateVrata(v.getId(),v);
@@ -70,10 +71,18 @@ public class UpravljanjePoslovnihMetod {
                         log.info("V prostoru " + p.getId() + " je presezena meja.");
                         prostorZrno.updateProstor(p.getId(), p);
                     return true;
-                } else log.info("Ni prostora!");
-            } else log.info("Ni zaposlenega!");
-        } else log.info("Ni vrat!");
-        return false;
+                } else {
+                    log.info("Ni prostora!");
+                    throw new NeveljavnaEntitetaIzjema("Ni prostora!");
+                }
+            } else {
+                log.info("Ni vrat!");
+                throw new NeveljavnaEntitetaIzjema("Ni vrat ali vrata ne pripadajo nobenemu prostoru!");
+            }
+        } else {
+            log.info("Ni zaposlenega!");
+            throw new NeveljavnaEntitetaIzjema("Ni zaposlenega ali zaposleni nima določenih vrat!");
+        }
     }
 
     @BeleziKlice
