@@ -35,8 +35,9 @@ public class Prostor {
 
     @Column(name="kvadratov_po_osebi")
     private Integer kvadratovPoOsebi;
+
     @JsonbTransient
-    @OneToMany(mappedBy = "prostor", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "prostor", cascade = CascadeType.ALL)
     private List<Vrata> seznamVrat;
 
 
@@ -72,7 +73,7 @@ public class Prostor {
         this.trenutnoOseb = oseb;
     }
 
-    public Integer getKvadratPoOsebi() { return kvadratovPoOsebi; }
+    public Integer getKvadratovPoOsebi() { return kvadratovPoOsebi; }
 
     public void setKvadratovPoOsebi(Integer kvadratovPoOsebi) {
         this.kvadratovPoOsebi = kvadratovPoOsebi;

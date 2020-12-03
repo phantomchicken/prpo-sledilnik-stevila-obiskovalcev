@@ -49,5 +49,10 @@ public class ZaposleniDTO {
         this.vrata = vrata;
     }
 
-
+    @Override
+    public String toString() {
+        String vrataString = "";
+        if (vrata!=null) if (vrata.getId()!=null) vrataString = vrata.getId().toString();
+        return "ID: " + zaposleniId + "\n" + "vzdevek: "+ vzdevek  + "\n" + "ime: "+ ime  + "\n" + "priimek: " +priimek+ "\n" + "vrata: " + vrataString +"\n";
+    }
 }

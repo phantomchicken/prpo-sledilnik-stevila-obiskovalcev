@@ -69,7 +69,7 @@ public class ProstorZrno {
             // ali modularno? , Integer kvadratura, Integer stVrat, Integer trenutnoOseb, Integer kvadratovPoOsebi, String imeProstora
             p.setId(noviP.getId());
             p.setImeProstora(noviP.getImeProstora());
-            p.setKvadratovPoOsebi(noviP.getKvadratPoOsebi());
+            p.setKvadratovPoOsebi(noviP.getKvadratovPoOsebi());
             p.setKvadratura(noviP.getKvadratura());
             p.setStVrat(noviP.getStVrat());
             p.setTrenutnoOseb(noviP.getTrenutnoOseb());

@@ -112,7 +112,7 @@ public class UpravljanjePoslovnihMetod {
         if (p!=null){
             ProstorDTO prostorDTO = new ProstorDTO();
             prostorDTO.setImeProstora(p.getImeProstora());
-            prostorDTO.setKvadratovPoOsebi(p.getKvadratPoOsebi());
+            prostorDTO.setKvadratovPoOsebi(p.getKvadratovPoOsebi());
             prostorDTO.setKvadratura(p.getKvadratura());
             prostorDTO.setStVrat(p.getStVrat());
             prostorDTO.setTrenutnoOseb(p.getTrenutnoOseb());

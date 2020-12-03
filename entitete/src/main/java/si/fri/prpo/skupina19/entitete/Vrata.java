@@ -25,6 +25,7 @@ public class Vrata {
     @Column(name="st_izstopov")
     private Integer stIzstopov;
 
+    @JsonbTransient
     @OneToOne(fetch = FetchType.LAZY,
             mappedBy = "vrata", cascade = CascadeType.REMOVE)
     private Zaposleni zaposleni;

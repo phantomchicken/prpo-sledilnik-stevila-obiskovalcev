@@ -30,7 +30,7 @@ public class Zaposleni {
 
     //@OneToOne(mappedBy = "zaposleni", cascade = CascadeType.ALL)
     //private Vrata vrata;
-    @JsonbTransient
+    //@JsonbTransient
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Vrata vrata;
 
