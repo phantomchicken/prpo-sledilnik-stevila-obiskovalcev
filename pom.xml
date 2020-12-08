@@ -26,6 +26,8 @@
         <kumuluzee.version>3.11.0</kumuluzee.version>
         <kumuluzee-rest.version>1.4.0</kumuluzee-rest.version>
         <postgresql.version>42.2.18</postgresql.version>
+        <kumuluzee-config-mp.version>1.4.0</kumuluzee-config-mp.version>
+        <kumuluzee-openapi-mp.version>1.4.0</kumuluzee-openapi-mp.version>
     </properties>
 
     <dependencyManagement>
@@ -41,6 +43,21 @@
                 <groupId>com.kumuluz.ee.rest</groupId>
                 <artifactId>kumuluzee-rest-core</artifactId>
                 <version>${kumuluzee-rest.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.kumuluz.ee.config</groupId>
+                <artifactId>kumuluzee-config-mp</artifactId>
+                <version>${kumuluzee-config-mp.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.kumuluz.ee.openapi</groupId>
+                <artifactId>kumuluzee-openapi-mp</artifactId>
+                <version>${kumuluzee-openapi-mp.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.kumuluz.ee.openapi</groupId>
+                <artifactId>kumuluzee-openapi-mp-ui</artifactId>
+                <version>${kumuluzee-openapi-mp.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.postgresql</groupId>
@@ -67,5 +84,23 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <!---<build>
+        <plugins>
+            <plugin>
+                <artifactId>kumuluzee-openapi-mp-maven-plugin</artifactId>
+                <groupId>com.kumuluz.ee.openapi</groupId>
+                <version>${kumuluzee-openapi-mp.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>-->
+
 
 </project>
