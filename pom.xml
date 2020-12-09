@@ -28,6 +28,7 @@
         <postgresql.version>42.2.18</postgresql.version>
         <kumuluzee-config-mp.version>1.4.0</kumuluzee-config-mp.version>
         <kumuluzee-openapi-mp.version>1.4.0</kumuluzee-openapi-mp.version>
+        <!---<kumuluzee-swagger.version>1.2.1</kumuluzee-swagger.version>-->
     </properties>
 
     <dependencyManagement>
@@ -59,6 +60,11 @@
                 <artifactId>kumuluzee-openapi-mp-ui</artifactId>
                 <version>${kumuluzee-openapi-mp.version}</version>
             </dependency>
+            <!---<dependency>
+                <groupId>com.kumuluz.ee.swagger</groupId>
+                <artifactId>kumuluzee-swagger-ui</artifactId>
+                <version>${kumuluzee-swagger.version}</version>
+            </dependency>-->
             <dependency>
                 <groupId>org.postgresql</groupId>
                 <artifactId>postgresql</artifactId>
