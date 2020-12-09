@@ -11,6 +11,4 @@ kumuluzee:
 
   openapi-mp:
     ui:
-      server-auto-config:
-        enabled: true
-        original-uri-check: false
+      enabled: true
