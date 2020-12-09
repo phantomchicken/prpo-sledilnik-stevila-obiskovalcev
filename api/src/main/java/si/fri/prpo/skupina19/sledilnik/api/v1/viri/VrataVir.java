@@ -12,6 +12,14 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.headers.Header;
+import org.eclipse.microprofile.openapi.annotations.media.Content;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
+import org.eclipse.microprofile.openapi.annotations.tags.Tag;
+
 @ApplicationScoped
 @Path("vrata")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -24,6 +32,17 @@ public class VrataVir {
     VrataZrno vrataZrno;
 
     @GET
+    @Operation(summary = "Pridobi podrobnosti vrat", description = "Vrne podrobnosti vrat.")
+    @Tag(name="GET")
+    @APIResponses({
+            @APIResponse(description = "Podrobnosti vrat",
+                    responseCode = "200",
+                    content = @Content(
+                            schema = @Schema(implementation = Vrata.class)),
+                    headers = {@Header(name = "X-Total-Count",
+                            description = "Stevilo vrnjenih vrat")}),
+            @APIResponse(description = "Vrata niso najdena!", responseCode = "404" )
+    })
     public Response getVrata(){
         QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
 
@@ -34,6 +53,12 @@ public class VrataVir {
 
     @GET
     @Path("{id}")
+    @Operation(summary = "Pridobi podrobnosti vrat", description = "Vrne podrobnosti vrat.")
+    @Tag(name="GET")
+    @APIResponses({
+            @APIResponse(description = "Podrobnosti vrat", responseCode = "200", content = @Content(schema = @Schema(implementation = Vrata.class))),
+            @APIResponse(description = "Vrata niso najdena!", responseCode = "404")
+    })
     public Response getVrata(@PathParam("id") Integer id) {
         Vrata vrata = vrataZrno.getVrata(id);
         if (vrata != null) {
@@ -45,6 +70,12 @@ public class VrataVir {
     }
 
     @POST
+    @Operation(summary = "Kreiraj nova vrata", description = "Ustvari nova vrata.")
+    @Tag(name="POST")
+    @APIResponses({
+            @APIResponse(description = "Ustvarjena nova vrata", responseCode = "201", content = @Content(schema = @Schema(implementation = Vrata.class))),
+            @APIResponse(description = "vrata ze obstajajo!", responseCode = "409", content = @Content(schema = @Schema(implementation = Vrata.class)))
+    })
     public Response createVrata(Vrata vrata) { //ali VrataDTO?
         vrataZrno.createVrata(vrata);
         if (vrata == null) {
@@ -59,6 +90,12 @@ public class VrataVir {
 
     @PUT
     @Path("{id}")
+    @Operation(summary = "Posodabljanje vrat", description = "Posodobi vrata.")
+    @Tag(name="PUT")
+    @APIResponses({
+            @APIResponse(description = "Posodobljena vrata", responseCode = "200", content = @Content(schema = @Schema(implementation = Vrata.class))),
+            @APIResponse(description = "Vrata niso najdena!", responseCode = "404")
+    })
     public Response updateVrata(@PathParam("id") Integer id, Vrata vrata) {
         return Response
                 .status(Response.Status.CREATED)
@@ -68,6 +105,12 @@ public class VrataVir {
 
     @DELETE
     @Path("{id}")
+    @Operation(summary = "Brisanje vrat", description = "Pobriše vrata.")
+    @Tag(name="DELETE")
+    @APIResponses({
+            @APIResponse(description = "Izbrisan vrata", responseCode = "204", content = @Content(schema = @Schema(implementation = Vrata.class))),
+            @APIResponse(description = "Vrata niso najdena!", responseCode = "404")
+    })
     public Response deleteVrata(@PathParam("id") Integer id) {
         return Response
                 .status(Response.Status.NO_CONTENT)
