@@ -19,6 +19,12 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.media.Content;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
+
 @ApplicationScoped
 @Path("zaposleni")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -41,7 +47,23 @@ public class ZaposleniVir {
         return Response .ok(zaposleniZrno.getZaposleni(query)) .header("X-Total-Count", prostoriCount) .build();
     }
 
-
+    @Operation(description = "Vrne seznam zaposlenih.", summary = "Seznam zaposlenih",
+        @APIResponses({
+                @APIResponse(
+                    responseCode = "200",
+                    description = "Seznam zaposlenih",
+                    content = @Content(
+                            schema = @Schema(implementation = Zaposleni.class)
+                    )
+                    //schema = @Schema(implementation = Zaposleni.class)
+                /*content = @Content(
+                        array = @ArraySchema(
+                                schema = @Schema(implementation = Zaposleni.class)
+                        )),
+                headers = {@Header(name = "X-Total-Count", description = "Stevilo vrnjenih zaposlenih")}*/
+                )
+        })
+    )
     @GET
     @Path("{id}")
     public Response getZaposleni(@PathParam("id") Integer id) {
