@@ -20,10 +20,12 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.headers.Header;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
+import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 @ApplicationScoped
 @Path("zaposleni")
@@ -40,6 +42,17 @@ public class ZaposleniVir {
     UpravljanjePoslovnihMetod upravljanjePoslovnihMetod;
 
     @GET
+    @Operation(summary = "Pridobi podrobnosti zaposlenih", description = "Vrne podrobnosti zaposlenih.")
+    @Tag(name="GET")
+    @APIResponses({
+            @APIResponse(description = "Podrobnosti zaposlenih",
+                    responseCode = "200",
+                    content = @Content(
+                            schema = @Schema(implementation = Zaposleni.class)),
+                            headers = {@Header(name = "X-Total-Count",
+                                    description = "Stevilo vrnjenih zaposlenih")}),
+            @APIResponse(description = "Zaposleni niso najdeni!", responseCode = "404" )
+    })
     public Response getZaposleni(){
         QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
 
@@ -47,25 +60,15 @@ public class ZaposleniVir {
         return Response .ok(zaposleniZrno.getZaposleni(query)) .header("X-Total-Count", prostoriCount) .build();
     }
 
-    @Operation(description = "Vrne seznam zaposlenih.", summary = "Seznam zaposlenih",
-        @APIResponses({
-                @APIResponse(
-                    responseCode = "200",
-                    description = "Seznam zaposlenih",
-                    content = @Content(
-                            schema = @Schema(implementation = Zaposleni.class)
-                    )
-                    //schema = @Schema(implementation = Zaposleni.class)
-                /*content = @Content(
-                        array = @ArraySchema(
-                                schema = @Schema(implementation = Zaposleni.class)
-                        )),
-                headers = {@Header(name = "X-Total-Count", description = "Stevilo vrnjenih zaposlenih")}*/
-                )
-        })
-    )
+
     @GET
     @Path("{id}")
+    @Operation(summary = "Pridobi podrobnosti zaposlenega", description = "Vrne podrobnosti zaposlenega.")
+    @Tag(name="GET")
+    @APIResponses({
+            @APIResponse(description = "Podrobnosti zaposlenega", responseCode = "200", content = @Content(schema = @Schema(implementation = Zaposleni.class))),
+            @APIResponse(description = "Zaposleni ni najden!", responseCode = "404")
+    })
     public Response getZaposleni(@PathParam("id") Integer id) {
         Zaposleni zaposleni = zaposleniZrno.getZaposleni(id);
         if (zaposleni != null) {
@@ -77,6 +80,12 @@ public class ZaposleniVir {
     }
 
     @POST
+    @Operation(summary = "Kreiraj novega zaposlenega", description = "Ustvari novega zaposlenega.")
+    @Tag(name="POST")
+    @APIResponses({
+            @APIResponse(description = "Ustvarjen nov zaposleni", responseCode = "201", content = @Content(schema = @Schema(implementation = Zaposleni.class))),
+            @APIResponse(description = "Zaposleni ze obstaja!", responseCode = "409", content = @Content(schema = @Schema(implementation = Zaposleni.class)))
+    })
     public Response createZaposleni(Zaposleni zaposleni) { //ali ZaposleniDTO?
         zaposleniZrno.createZaposleni(zaposleni);
         if (zaposleni == null) {
@@ -91,6 +100,12 @@ public class ZaposleniVir {
 
     @PUT
     @Path("{id}")
+    @Operation(summary = "Posodabljanje zaposlenega", description = "Posodobi zaposlenega.")
+    @Tag(name="PUT")
+    @APIResponses({
+            @APIResponse(description = "Posodobljen zaposleni", responseCode = "200", content = @Content(schema = @Schema(implementation = Zaposleni.class))),
+            @APIResponse(description = "Zaposleni ni najden!", responseCode = "404")
+    })
     public Response updateZaposleni(@PathParam("id") Integer id, Zaposleni zaposleni) {
         return Response
                 .status(Response.Status.CREATED)
@@ -100,6 +115,12 @@ public class ZaposleniVir {
 
     @DELETE
     @Path("{id}")
+    @Operation(summary = "Brisanje zaposlenega", description = "Pobriše zaposlenega.")
+    @Tag(name="DELETE")
+    @APIResponses({
+            @APIResponse(description = "Izbrisan zaposleni", responseCode = "204", content = @Content(schema = @Schema(implementation = Zaposleni.class))),
+            @APIResponse(description = "Zaposleni ni najden!", responseCode = "404")
+    })
     public Response deleteZaposleni(@PathParam("id") Integer id) {
         return Response
                 .status(Response.Status.NO_CONTENT)
@@ -110,6 +131,12 @@ public class ZaposleniVir {
     // Poslovna metoda 3: spremeni stanje stevila oseb v prostoru, kjer je podani zaposleni
     @PUT
     @Path("{id}/{vstopov}/{izstopov}")
+    @Operation(summary = "Spremeni stevilo oseb v prostoru zaposlenega", description = "Posodobi prostor zaposlenega.")
+    @Tag(name="BusinessLogic")
+    @APIResponses({
+            @APIResponse(description = "Posodobljen prostor zaposlenega", responseCode = "200", content = @Content(schema = @Schema(implementation = boolean.class))),
+            @APIResponse(description = "Prostor ni najden!", responseCode = "404")
+    })
     public Response updateStOseb(@PathParam("id") Integer id, @PathParam("vstopov") Integer vstopov, @PathParam("izstopov") Integer izstopov) {
         ZaposleniDTO zaposleniDTO = upravljanjePoslovnihMetod.getZaposleniDTOFromId(id);
         Zaposleni z = zaposleniZrno.getZaposleni(id);
