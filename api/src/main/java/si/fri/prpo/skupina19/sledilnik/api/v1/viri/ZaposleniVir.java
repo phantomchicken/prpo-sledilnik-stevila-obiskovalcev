@@ -1,5 +1,6 @@
 package si.fri.prpo.skupina19.sledilnik.api.v1.viri;
 
+import com.kumuluz.ee.configuration.utils.ConfigurationUtil;
 import com.kumuluz.ee.rest.beans.QueryParameters;
 import si.fri.prpo.skupina19.entitete.Prostor;
 import si.fri.prpo.skupina19.entitete.Vrata;
@@ -11,9 +12,13 @@ import si.fri.prpo.skupina19.sledilnik.dtos.ZaposleniDTO;
 import si.fri.prpo.skupina19.sledilnik.zrna.UpravljanjePoslovnihMetod;
 import si.fri.prpo.skupina19.sledilnik.zrna.ZaposleniZrno;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -27,11 +32,17 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 @ApplicationScoped
 @Path("zaposleni")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class ZaposleniVir {
+    private Client httpClient;
+    private String baseUrl;
+
     @Context
     protected UriInfo uriInfo;
 
@@ -40,6 +51,12 @@ public class ZaposleniVir {
 
     @Inject
     UpravljanjePoslovnihMetod upravljanjePoslovnihMetod;
+
+    @PostConstruct
+    private void init() {
+        httpClient = ClientBuilder.newClient();
+        baseUrl = ConfigurationUtil.getInstance().get("integrations.sistem-porocil.base-url") .orElse("http://localhost:8081/v1/");
+    }
 
     @GET
     @Operation(summary = "Pridobi podrobnosti zaposlenih", description = "Vrne podrobnosti zaposlenih.")
@@ -140,17 +157,33 @@ public class ZaposleniVir {
     public Response updateStOseb(@PathParam("id") Integer id, @PathParam("vstopov") Integer vstopov, @PathParam("izstopov") Integer izstopov) {
         ZaposleniDTO zaposleniDTO = upravljanjePoslovnihMetod.getZaposleniDTOFromId(id);
         Zaposleni z = zaposleniZrno.getZaposleni(id);
-        upravljanjePoslovnihMetod.spremeniSteviloOsebPoZaposlenim(zaposleniDTO,vstopov,izstopov);
         Vrata v = zaposleniDTO.getVrata();
         VrataDTO vrataDTO = upravljanjePoslovnihMetod.getVrataDTOFromId(v.getId());
         Prostor p = v.getProstor();
         ProstorDTO prostorDTO = upravljanjePoslovnihMetod.getProstorDTOFromId(p.getId());
-        if (v!=null && p!=null)
-        return Response
-                .status(Response.Status.CREATED)
-                .entity(prostorDTO.toString() +"\n" + vrataDTO.toString())
-                .build();
+        updateZapisi(p.getId(), v.getId(), vstopov, izstopov, p.getTrenutnoOseb());
+        upravljanjePoslovnihMetod.spremeniSteviloOsebPoZaposlenim(zaposleniDTO,vstopov,izstopov);
+        if (v!=null && p!=null) {
+            return Response
+                    .status(Response.Status.CREATED)
+                    .entity(v.getProstor().toString() +"\n" + zaposleniDTO.getVrata().toString())
+                    .build();
+        }
         else return Response
                 .status(Response.Status.NOT_FOUND).build();
+    }
+
+    private void updateZapisi(Integer prostorId, Integer vrataId, Integer vstopov, Integer izstopov, Integer trenutnoOseb){
+        HashMap h = new HashMap<String,Integer>();
+        h.put("prostorId",prostorId);
+        h.put("vrataId",vrataId);
+        h.put("vstopov",vstopov);
+        h.put("izstopov",izstopov);
+        h.put("trenutnoOseb",trenutnoOseb);
+        try {
+            httpClient. target(baseUrl +"porocila") .request(MediaType.APPLICATION_JSON) .post(Entity.json(h));
+        } catch(WebApplicationException | ProcessingException e) {
+            throw new InternalServerErrorException(e);
+        }
     }
 }
