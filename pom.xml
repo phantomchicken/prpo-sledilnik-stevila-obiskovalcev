@@ -28,7 +28,9 @@
         <postgresql.version>42.2.18</postgresql.version>
         <kumuluzee-config-mp.version>1.4.0</kumuluzee-config-mp.version>
         <kumuluzee-openapi-mp.version>1.4.0</kumuluzee-openapi-mp.version>
-        <!---<kumuluzee-swagger.version>1.2.1</kumuluzee-swagger.version>-->
+        <kumuluzee-openapi-mp-ui.version>1.4.0</kumuluzee-openapi-mp-ui.version>
+        <kumuluzee-security.version>1.2.0</kumuluzee-security.version>
+        <keycloak.version>11.0.3</keycloak.version>
     </properties>
 
     <dependencyManagement>
@@ -60,11 +62,6 @@
                 <artifactId>kumuluzee-openapi-mp-ui</artifactId>
                 <version>${kumuluzee-openapi-mp.version}</version>
             </dependency>
-            <!---<dependency>
-                <groupId>com.kumuluz.ee.swagger</groupId>
-                <artifactId>kumuluzee-swagger-ui</artifactId>
-                <version>${kumuluzee-swagger.version}</version>
-            </dependency>-->
             <dependency>
                 <groupId>org.postgresql</groupId>
                 <artifactId>postgresql</artifactId>
@@ -90,23 +87,5 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
-    <!---<build>
-        <plugins>
-            <plugin>
-                <artifactId>kumuluzee-openapi-mp-maven-plugin</artifactId>
-                <groupId>com.kumuluz.ee.openapi</groupId>
-                <version>${kumuluzee-openapi-mp.version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>-->
-
 
 </project>

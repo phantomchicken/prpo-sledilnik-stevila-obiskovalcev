@@ -32,10 +32,10 @@
             <groupId>com.kumuluz.ee.openapi</groupId>
             <artifactId>kumuluzee-openapi-mp</artifactId>
         </dependency>
-        <!--<dependency>
-            <groupId>com.kumuluz.ee.swagger</groupId>
-            <artifactId>kumuluzee-swagger-ui</artifactId>
-        </dependency> -->
+        <dependency>
+            <groupId>com.kumuluz.ee.openapi</groupId>
+            <artifactId>kumuluzee-openapi-mp-ui</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.kumuluz.ee.rest</groupId>
             <artifactId>kumuluzee-rest-core</artifactId>

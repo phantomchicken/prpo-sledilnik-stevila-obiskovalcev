@@ -9,9 +9,7 @@ kumuluzee:
       username: postgres
       password: postgres
 
-  openapi-mp:
-    ui:
-      enabled: true
 integrations:
   sistem-porocil:
     base-url: http://localhost:8081/v1/
+
