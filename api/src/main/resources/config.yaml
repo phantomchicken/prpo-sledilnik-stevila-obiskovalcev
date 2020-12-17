@@ -23,7 +23,13 @@ kumuluzee:
       "resource": "sledilnik-stevila-obiskovalcev-api",
       "confidential-port": 0
     }'
-
+  health:
+    checks:
+      disk-space-health-check:
+        threshold: 100000000
+      data-source-health-check:
+        type: liveness
+        jndi-name: jdbc/sledilnik-stevila-obiskovalcev
 integrations:
   sistem-porocil:
     base-url: http://localhost:8081/v1/

@@ -1,0 +1,33 @@
+docker build . -f Dockerfile --no-cache --pull -t sledilnik
+run -p 8080:8080 sledilnik
+
+ce se zatakne:
+docker images -> docker rmi
+docker ps -a -> docker rm
+
+push: (ze narejeno)
+docker login
+docker tag sledilnik doineedaccountsforeverything/sledilnik
+docker push doineedaccountsforeverything/sledilnik
+
+Pozor! Pri Toolboxu poizvedbe na 192.168.99.100 npr. GET http://192.168.99.100:8080/v1/vrata
+---------------------------------------------------------
+KEYCLOAK:
+docker run  KEYCLOAK_USER=test KEYCLOAK_PASSWORD=test -p 8082:8080 jboss/keycloak
+http://192.168.99.100:8082/auth/ oz. localhost:8082/auth
+administration console -> log in -> username:test, password:test
+dodaj userja drJ julius
+
+POIZVEDBE:
+POST http://192.168.99.100:8082/auth/realms/master/protocol/openid-connect/token
+    body:
+        grant_type:password
+        client_id:sledilnik-stevila-obiskovalcev-app
+        username:drJ / test
+        password:julius / test
+kopiraj token
+
+GET http://localhost:8080/v1/zaposleni //oba delata
+    authorization: token
+DELETE http://localhost:8080/v1/zaposleni/4 //samo test dela
+    authorization: token
