@@ -1,5 +1,5 @@
 docker build . -f Dockerfile --no-cache --pull -t sledilnik
-run -p 8080:8080 sledilnik
+docker run -p 8080:8080 sledilnik
 
 ce se zatakne:
 docker images -> docker rmi
@@ -11,9 +11,11 @@ docker tag sledilnik doineedaccountsforeverything/sledilnik
 docker push doineedaccountsforeverything/sledilnik
 
 Pozor! Pri Toolboxu poizvedbe na 192.168.99.100 npr. GET http://192.168.99.100:8080/v1/vrata
+Ko se ze enkrat uspesno izvede docker build, je dovolj za prihodne teste zagnati zgolj docker run (ce ohranimo vsebnike),
+pred tem pa izbrisemo morebitne vsebnike ki zasedejo ciljni port
 ---------------------------------------------------------
 KEYCLOAK:
-docker run  KEYCLOAK_USER=test KEYCLOAK_PASSWORD=test -p 8082:8080 jboss/keycloak
+docker run -e KEYCLOAK_USER=test -e KEYCLOAK_PASSWORD=test -p 8082:8080 jboss/keycloak // ustvari novi keycloak container, protip ne ustavljati keycloaka, drugace je treba ponoviti nastavitve!
 http://192.168.99.100:8082/auth/ oz. localhost:8082/auth
 administration console -> log in -> username:test, password:test
 dodaj userja drJ julius
