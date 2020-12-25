@@ -28,7 +28,7 @@ import com.kumuluz.ee.cors.annotations.CrossOrigin;
 @Path("prostori")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-@CrossOrigin(supporetedMethods = "GET, POST, HEAD, DELETE, OPTIONS");
+@CrossOrigin(supportedMethods = "GET, POST, HEAD, DELETE, OPTIONS")
 public class ProstorVir {
     @Context
     protected UriInfo uriInfo;
