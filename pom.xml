@@ -84,6 +84,11 @@
                 <version>${postgresql.version}</version>
             </dependency>
             <dependency>
+                <groupId>com.kumuluz.ee.cors</groupId>
+                <artifactId>kumuluzee-cors</artifactId>
+                <version>${kumuluzee-cors.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>si.fri.prpo.skupina19</groupId>
                 <artifactId>api</artifactId>
                 <version>${project.version}</version>
