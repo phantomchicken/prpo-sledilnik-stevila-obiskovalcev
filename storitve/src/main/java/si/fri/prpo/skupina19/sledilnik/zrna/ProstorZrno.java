@@ -73,6 +73,7 @@ public class ProstorZrno {
             p.setKvadratura(noviP.getKvadratura());
             p.setStVrat(noviP.getStVrat());
             p.setTrenutnoOseb(noviP.getTrenutnoOseb());
+            p.setSeznamVrat(noviP.getSeznamVrat());
             em.merge(noviP);
         }
         return noviP;
