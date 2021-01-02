@@ -1,4 +1,5 @@
 docker build . -f Dockerfile --no-cache --pull -t sledilnik
+docker build . -f Dockerfile --no-cache --pull -t sledilniknoauth
 docker run -p 8080:8080 sledilnik
 
 ce se zatakne:
@@ -10,17 +11,41 @@ docker login
 docker tag sledilnik doineedaccountsforeverything/sledilnik
 docker push doineedaccountsforeverything/sledilnik
 
+config.yaml base-url http://192.168.99.100:8081/v1/
+
 Pozor! Pri Toolboxu poizvedbe na 192.168.99.100 npr. GET http://192.168.99.100:8080/v1/vrata
 Ko se ze enkrat uspesno izvede docker build, je dovolj za prihodne teste zagnati zgolj docker run (ce ohranimo vsebnike),
 pred tem pa izbrisemo morebitne vsebnike ki zasedejo ciljni port
 ---------------------------------------------------------
 KEYCLOAK:
-docker run -e KEYCLOAK_USER=test -e KEYCLOAK_PASSWORD=test -p 8082:8080 jboss/keycloak // ustvari novi keycloak container, protip ne ustavljati keycloaka, drugace je treba ponoviti nastavitve!
-http://192.168.99.100:8082/auth/ oz. localhost:8082/auth
+1)root + api pom: keycloak-jetty94-adapter, kumuluzee-security-keycloak
+2)ZaposleniVir: import javax.annotation.security.RolesAllowed;
+import com.kumuluz.ee.security.annotations.Secure;
+odkomentirati vse rolesallowed anotacije, @secured
+3)config.yaml: (skopirati pod health)
+  security:
+    keycloak:
+      realm: "master"
+      bearer-only: true
+      auth-server-url: "http://192.168.99.100:8082/auth"
+      ssl-required: "external"
+      resource: "sledilnik-stevila-obiskovalcev"
+    json: '{
+      "realm": "master",
+      "bearer-only": true,
+      "auth-server-url": "http://192.168.99.100:8082/auth/",
+      "ssl-required": "external",
+      "resource": "sledilnik-stevila-obiskovalcev-api",
+      "confidential-port": 0
+    }'
+
+4) docker run -e KEYCLOAK_USER=test -e KEYCLOAK_PASSWORD=test -p 8082:8080 jboss/keycloak // ustvari novi keycloak container, protip ne ustavljati keycloaka, drugace je treba ponoviti nastavitve!
+
+5) http://192.168.99.100:8082/auth/ oz. localhost:8082/auth
 administration console -> log in -> username:test, password:test
 dodaj userja drJ julius
 
-POIZVEDBE:
+6) POIZVEDBE:
 POST http://192.168.99.100:8082/auth/realms/master/protocol/openid-connect/token
     body:
         grant_type:password
