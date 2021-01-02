@@ -33,11 +33,13 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import java.util.List;
+import com.kumuluz.ee.cors.annotations.CrossOrigin;
 
 @ApplicationScoped
 @Path("vrata")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
+@CrossOrigin(supportedMethods = "GET, POST, HEAD, DELETE, OPTIONS")
 public class VrataVir {
     @Context
     protected UriInfo uriInfo;
