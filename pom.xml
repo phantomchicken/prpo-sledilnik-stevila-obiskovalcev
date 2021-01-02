@@ -25,7 +25,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <kumuluzee.version>3.11.0</kumuluzee.version>
         <kumuluzee-rest.version>1.4.0</kumuluzee-rest.version>
-        <kumuluzee-cors.version>1.0.6</kumuluzee-cors.version>
         <postgresql.version>42.2.18</postgresql.version>
         <kumuluzee-config-mp.version>1.4.0</kumuluzee-config-mp.version>
         <kumuluzee-openapi-mp.version>1.4.0</kumuluzee-openapi-mp.version>
@@ -64,16 +63,16 @@
                 <artifactId>kumuluzee-openapi-mp-ui</artifactId>
                 <version>${kumuluzee-openapi-mp.version}</version>
             </dependency>
-            <dependency>
-                <groupId>com.kumuluz.ee.security</groupId>
-                <artifactId>kumuluzee-security-keycloak</artifactId>
-                <version>${kumuluzee-security.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.keycloak</groupId>
-                <artifactId>keycloak-jetty94-adapter</artifactId>
-                <version>${keycloak.version}</version>
-            </dependency>
+            <!-- <dependency>
+                 <groupId>com.kumuluz.ee.security</groupId>
+                 <artifactId>kumuluzee-security-keycloak</artifactId>
+                 <version>${kumuluzee-security.version}</version>
+             </dependency>
+             <dependency>
+                 <groupId>org.keycloak</groupId>
+                 <artifactId>keycloak-jetty94-adapter</artifactId>
+                 <version>${keycloak.version}</version>
+             </dependency>-->
             <dependency>
                 <groupId>com.kumuluz.ee.health</groupId>
                 <artifactId>kumuluzee-health</artifactId>
@@ -100,12 +99,6 @@
                 <groupId>si.fri.prpo.skupina19</groupId>
                 <artifactId>storitve</artifactId>
                 <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.kumuluz.ee.cors</groupId>
-                <artifactId>kumuluzee-cors</artifactId>
-                <version>${kumuluzee-cors.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
