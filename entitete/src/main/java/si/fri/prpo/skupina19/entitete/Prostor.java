@@ -36,7 +36,7 @@ public class Prostor {
     @Column(name="kvadratov_po_osebi")
     private Integer kvadratovPoOsebi;
 
-    @JsonbTransient
+    //@JsonbTransient
     @OneToMany(mappedBy = "prostor", cascade = CascadeType.ALL)
     private List<Vrata> seznamVrat;
 

@@ -13,7 +13,7 @@ import javax.persistence.*;
                 @NamedQuery(name = "Vrata.getStIzstopov", query = "SELECT v.stIzstopov FROM Vrata v WHERE v.id = :id"),
                 @NamedQuery(name = "Vrata.getSt", query = "SELECT v.stVstopov, v.stIzstopov FROM Vrata v"),
         })
-
+//A
 public class Vrata {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,6 +31,7 @@ public class Vrata {
     private Zaposleni zaposleni;
 
     @ManyToOne
+    @JsonbTransient
     @JoinColumn(name = "prostor_id")
     private Prostor prostor;
 

@@ -33,6 +33,10 @@
             <artifactId>kumuluzee-rest-core</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.kumuluz.ee.cors</groupId>
+            <artifactId>kumuluzee-cors</artifactId>
+        </dependency>
+        <dependency>
             <groupId>si.fri.prpo.skupina19</groupId>
             <artifactId>entitete</artifactId>
         </dependency>

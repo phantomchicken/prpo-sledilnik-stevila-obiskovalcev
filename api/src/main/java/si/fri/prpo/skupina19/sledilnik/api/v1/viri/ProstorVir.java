@@ -22,10 +22,13 @@ import javax.ws.rs.core.UriInfo;
 import java.util.List;
 import com.kumuluz.ee.rest.beans.QueryParameters;
 
+import com.kumuluz.ee.cors.annotations.CrossOrigin;
+
 @ApplicationScoped
 @Path("prostori")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
+@CrossOrigin(supportedMethods = "GET, POST, HEAD, DELETE, OPTIONS")
 public class ProstorVir {
     @Context
     protected UriInfo uriInfo;

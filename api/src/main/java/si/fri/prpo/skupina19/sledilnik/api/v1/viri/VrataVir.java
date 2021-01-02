@@ -1,8 +1,20 @@
 package si.fri.prpo.skupina19.sledilnik.api.v1.viri;
 
 import com.kumuluz.ee.rest.beans.QueryParameters;
+import si.fri.prpo.skupina19.entitete.Prostor;
 import si.fri.prpo.skupina19.entitete.Vrata;
+import si.fri.prpo.skupina19.entitete.Zaposleni;
+import si.fri.prpo.skupina19.sledilnik.anotacije.BeleziKlice;
+import si.fri.prpo.skupina19.sledilnik.dtos.ProstorDTO;
+import si.fri.prpo.skupina19.sledilnik.dtos.VrataDTO;
+import si.fri.prpo.skupina19.sledilnik.dtos.ZaposleniDTO;
+import si.fri.prpo.skupina19.sledilnik.zrna.UpravljanjePoslovnihMetod;
+import si.fri.prpo.skupina19.sledilnik.zrna.UpravljanjeProstorovZrno;
+import si.fri.prpo.skupina19.sledilnik.zrna.UpravljanjeVrataZrno;
+import si.fri.prpo.skupina19.sledilnik.zrna.UpravljanjePoslovnihMetod;
+import si.fri.prpo.skupina19.sledilnik.zrna.ZaposleniZrno;
 import si.fri.prpo.skupina19.sledilnik.zrna.VrataZrno;
+import si.fri.prpo.skupina19.sledilnik.zrna.ProstorZrno;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -20,6 +32,8 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
+import java.util.List;
+
 @ApplicationScoped
 @Path("vrata")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -30,6 +44,15 @@ public class VrataVir {
 
     @Inject
     VrataZrno vrataZrno;
+
+    @Inject
+    ProstorZrno prostorZrno;
+
+    @Inject
+    UpravljanjeProstorovZrno upravljanjeProstorovZrno;
+
+    @Inject
+    UpravljanjeVrataZrno upravljanjeVrataZrno;
 
     @GET
     @Operation(summary = "Pridobi podrobnosti vrat", description = "Vrne podrobnosti vrat.")
@@ -70,14 +93,26 @@ public class VrataVir {
     }
 
     @POST
+    @Path("dodaj/{idProstora}/{vstopov}/{izstopov}")
     @Operation(summary = "Kreiraj nova vrata", description = "Ustvari nova vrata.")
     @Tag(name="POST")
     @APIResponses({
             @APIResponse(description = "Ustvarjena nova vrata", responseCode = "201", content = @Content(schema = @Schema(implementation = Vrata.class))),
             @APIResponse(description = "vrata ze obstajajo!", responseCode = "409", content = @Content(schema = @Schema(implementation = Vrata.class)))
     })
-    public Response createVrata(Vrata vrata) { //ali VrataDTO?
-        vrataZrno.createVrata(vrata);
+    public Response createVrata(@PathParam("idProstora") Integer id, @PathParam("vstopov") Integer vstopov, @PathParam("izstopov") Integer izstopov) { //ali VrataDTO?
+        VrataDTO vrataDTO = new VrataDTO();
+        vrataDTO.setStVstopov(vstopov);
+        vrataDTO.setStIzstopov(izstopov);
+        Prostor p = prostorZrno.getProstor(id);
+        vrataDTO.setProstor(p);
+        Vrata vrata = upravljanjeVrataZrno.createVrata(vrataDTO);
+        p.setStVrat(p.getStVrat()+1);
+        List<Vrata> vr = p.getSeznamVrat();
+        vr.add(vrata);
+        p.setSeznamVrat(vr);
+        prostorZrno.updateProstor(id, p);
+        //vrataZrno.createVrata(vrata);
         if (vrata == null) {
             return Response
                     .status(Response.Status.BAD_REQUEST).build();
