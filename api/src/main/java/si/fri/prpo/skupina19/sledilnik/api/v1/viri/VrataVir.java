@@ -32,6 +32,8 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
+import java.util.List;
+
 @ApplicationScoped
 @Path("vrata")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -105,6 +107,12 @@ public class VrataVir {
         Prostor p = prostorZrno.getProstor(id);
         vrataDTO.setProstor(p);
         Vrata vrata = upravljanjeVrataZrno.createVrata(vrataDTO);
+        p.setStVrat(p.getStVrat()+1);
+        List<Vrata> vr = p.getSeznamVrat();
+        vr.add(vrata);
+        p.setSeznamVrat(vr);
+        prostorZrno.updateProstor(id, p);
+        //vrataZrno.createVrata(vrata);
         if (vrata == null) {
             return Response
                     .status(Response.Status.BAD_REQUEST).build();
