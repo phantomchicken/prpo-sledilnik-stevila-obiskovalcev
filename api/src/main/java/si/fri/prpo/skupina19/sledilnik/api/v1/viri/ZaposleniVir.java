@@ -62,7 +62,9 @@ public class ZaposleniVir {
     @PostConstruct
     private void init() {
         httpClient = ClientBuilder.newClient();
-        baseUrl = ConfigurationUtil.getInstance().get("integrations.sistem-porocil.base-url") .orElse("http://192.168.99.100:8081/v1/");
+        baseUrl = "http://192.168.99.100:8081/v1/";
+        //baseUrl = ConfigurationUtil.getInstance().get("integrations.sistem-porocil.base-url") .orElse("http://192.168.99.100:8081/v1/");
+        //baseUrl = ConfigurationUtil.getInstance().get("integrations.sistem-porocil.base-url") .orElse("http://localhost:8081/v1/");
         log.info(baseUrl);
     }
 
@@ -171,13 +173,14 @@ public class ZaposleniVir {
     public Response updateStOseb(@PathParam("id") Integer id, @PathParam("vstopov") Integer vstopov, @PathParam("izstopov") Integer izstopov) throws Exception {
         ZaposleniDTO zaposleniDTO = upravljanjePoslovnihMetod.getZaposleniDTOFromId(id);
         Zaposleni z = zaposleniZrno.getZaposleni(id);
-        Vrata v = zaposleniDTO.getVrata();
-        VrataDTO vrataDTO = upravljanjePoslovnihMetod.getVrataDTOFromId(v.getId());
-        Prostor p = v.getProstor();
-        ProstorDTO prostorDTO = upravljanjePoslovnihMetod.getProstorDTOFromId(p.getId());
-        updateZapisi(p.getId(), v.getId(), vstopov, izstopov, p.getTrenutnoOseb());
+
         upravljanjePoslovnihMetod.spremeniSteviloOsebPoZaposlenim(zaposleniDTO,vstopov,izstopov);
-        if (v!=null && p!=null) {
+        if (z!=null) {
+            Vrata v = zaposleniDTO.getVrata();
+            Prostor p = v.getProstor();
+            VrataDTO vrataDTO = upravljanjePoslovnihMetod.getVrataDTOFromId(v.getId());
+            ProstorDTO prostorDTO = upravljanjePoslovnihMetod.getProstorDTOFromId(p.getId());
+            updateZapisi(p.getId(), v.getId(), vstopov, izstopov, p.getTrenutnoOseb());
             return Response
                     .status(Response.Status.CREATED)
                     .entity(v.getProstor().toString() +"\n" + zaposleniDTO.getVrata().toString())
@@ -194,8 +197,7 @@ public class ZaposleniVir {
         h.put("vstopov",vstopov);
         h.put("izstopov",izstopov);
         h.put("trenutnoOseb",trenutnoOseb);
-        log.info("ovdje sam");
-
+        log.info("baseUrl je :" + baseUrl);
 
         try {
             httpClient. target(baseUrl +"porocila") .request(MediaType.APPLICATION_JSON) .post(Entity.json(h));
@@ -207,17 +209,4 @@ public class ZaposleniVir {
     }
 
 
-    public void testURL(String strUrl) throws Exception {
-
-        try {
-            URL url = new URL(strUrl);
-            HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();
-            urlConn.connect();
-            log.info(strUrl +" je valjda ok");
-        } catch (IOException e) {
-            log.info("Error creating HTTP connection");
-            e.printStackTrace();
-            throw e;
-        }
-    }
 }

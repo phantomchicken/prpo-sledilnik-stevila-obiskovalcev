@@ -1,10 +1,12 @@
 docker build . -f Dockerfile --no-cache --pull -t sledilnik
 docker build . -f Dockerfile --no-cache --pull -t sledilniknoauth
-docker run -p 8080:8080 sledilnik
+docker run -p 8080:8080 sledilnik:latest
 
-ce se zatakne:
-docker images -> docker rmi
+ce se zatakne (ne posodablja builda):
+docker images -> docker rmi (pobrisi vse brezvezne imagee,)
+docker image prune
 docker ps -a -> docker rm
+!mvn clean package!
 
 push: (ze narejeno)
 docker login
