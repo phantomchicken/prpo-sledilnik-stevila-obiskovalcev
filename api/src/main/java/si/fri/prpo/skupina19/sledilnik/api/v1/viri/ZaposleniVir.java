@@ -2,7 +2,7 @@ package si.fri.prpo.skupina19.sledilnik.api.v1.viri;
 
 import com.kumuluz.ee.configuration.utils.ConfigurationUtil;
 import com.kumuluz.ee.rest.beans.QueryParameters;
-//import com.kumuluz.ee.security.annotations.Secure;
+import com.kumuluz.ee.security.annotations.Secure;
 import si.fri.prpo.skupina19.entitete.Prostor;
 import si.fri.prpo.skupina19.entitete.Vrata;
 import si.fri.prpo.skupina19.entitete.Zaposleni;
@@ -14,7 +14,7 @@ import si.fri.prpo.skupina19.sledilnik.zrna.UpravljanjePoslovnihMetod;
 import si.fri.prpo.skupina19.sledilnik.zrna.ZaposleniZrno;
 
 import javax.annotation.PostConstruct;
-//import javax.annotation.security.RolesAllowed;
+import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -40,7 +40,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
-//@Secure
+@Secure
 @ApplicationScoped
 @Path("zaposleni")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -62,13 +62,13 @@ public class ZaposleniVir {
     @PostConstruct
     private void init() {
         httpClient = ClientBuilder.newClient();
-        baseUrl = "http://192.168.99.100:8081/v1/";
+        //baseUrl = "http://192.168.99.100:8081/v1/";
         //baseUrl = ConfigurationUtil.getInstance().get("integrations.sistem-porocil.base-url") .orElse("http://192.168.99.100:8081/v1/");
-        //baseUrl = ConfigurationUtil.getInstance().get("integrations.sistem-porocil.base-url") .orElse("http://localhost:8081/v1/");
+        baseUrl = ConfigurationUtil.getInstance().get("integrations.sistem-porocil.base-url") .orElse("http://localhost:8081/v1/");
         log.info(baseUrl);
     }
 
-    //@RolesAllowed({"zaposleni","admin"})
+    @RolesAllowed({"zaposleni","admin"})
     @GET
     @Operation(summary = "Pridobi podrobnosti zaposlenih", description = "Vrne podrobnosti zaposlenih.")
     @Tag(name="GET")
@@ -88,7 +88,7 @@ public class ZaposleniVir {
         return Response .ok(zaposleniZrno.getZaposleni(query)) .header("X-Total-Count", prostoriCount) .build();
     }
 
-    //@RolesAllowed({"zaposleni","admin"})
+    @RolesAllowed({"zaposleni","admin"})
     @GET
     @Path("{id}")
     @Operation(summary = "Pridobi podrobnosti zaposlenega", description = "Vrne podrobnosti zaposlenega.")
@@ -107,7 +107,7 @@ public class ZaposleniVir {
         }
     }
 
-    //@RolesAllowed({"admin"})
+    @RolesAllowed({"admin"})
     @POST
     @Operation(summary = "Kreiraj novega zaposlenega", description = "Ustvari novega zaposlenega.")
     @Tag(name="POST")
@@ -127,7 +127,7 @@ public class ZaposleniVir {
                 .build();
     }
 
-    //@RolesAllowed({"admin"})
+    @RolesAllowed({"admin"})
     @PUT
     @Path("{id}")
     @Operation(summary = "Posodabljanje zaposlenega", description = "Posodobi zaposlenega.")
@@ -143,7 +143,7 @@ public class ZaposleniVir {
                 .build();
     }
 
-    //@RolesAllowed({"admin"})
+    @RolesAllowed({"admin"})
     @DELETE
     @Path("{id}")
     @Operation(summary = "Brisanje zaposlenega", description = "Pobriše zaposlenega.")
@@ -161,7 +161,7 @@ public class ZaposleniVir {
     }
 
     // Poslovna metoda 3: spremeni stanje stevila oseb v prostoru, kjer je podani zaposleni
-    //@RolesAllowed({"uporabnik","admin"})
+    @RolesAllowed({"zaposleni","admin"})
     @PUT
     @Path("{id}/{vstopov}/{izstopov}")
     @Operation(summary = "Spremeni stevilo oseb v prostoru zaposlenega", description = "Posodobi prostor zaposlenega.")

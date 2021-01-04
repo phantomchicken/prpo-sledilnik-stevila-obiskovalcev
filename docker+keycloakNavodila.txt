@@ -19,7 +19,8 @@ Pozor! Pri Toolboxu poizvedbe na 192.168.99.100 npr. GET http://192.168.99.100:8
 Ko se ze enkrat uspesno izvede docker build, je dovolj za prihodne teste zagnati zgolj docker run (ce ohranimo vsebnike),
 pred tem pa izbrisemo morebitne vsebnike ki zasedejo ciljni port
 ---------------------------------------------------------
-KEYCLOAK:
+KEYCLOAK (prvic zazeni keycloak potem mikrostoritev):
+0)zazeni drugo mikrostoritev, ali zakomentiraj "updateZapisi" v ZaposleniVir
 1)root + api pom: keycloak-jetty94-adapter, kumuluzee-security-keycloak
 2)ZaposleniVir: import javax.annotation.security.RolesAllowed;
 import com.kumuluz.ee.security.annotations.Secure;
@@ -41,22 +42,27 @@ odkomentirati vse rolesallowed anotacije, @secured
       "confidential-port": 0
     }'
 
-4) docker run -e KEYCLOAK_USER=test -e KEYCLOAK_PASSWORD=test -p 8082:8080 jboss/keycloak // ustvari novi keycloak container, protip ne ustavljati keycloaka, drugace je treba ponoviti nastavitve!
+4) docker run -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin -p 8082:8080 jboss/keycloak // ustvari novi keycloak container, protip ne ustavljati keycloaka, drugace je treba ponoviti nastavitve!
 
 5) http://192.168.99.100:8082/auth/ oz. localhost:8082/auth
 administration console -> log in -> username:test, password:test
-dodaj userja drJ julius
+import realm-export.json, skip existing
+dodaj userja drJ pod Users
+dodaj geslo "julius" pod Credentials, temporary password na OFF
+dodaj vlogo "zaposleni" pod Role Mappings
 
 6) POIZVEDBE:
 POST http://192.168.99.100:8082/auth/realms/master/protocol/openid-connect/token
     body:
         grant_type:password
         client_id:sledilnik-stevila-obiskovalcev-app
-        username:drJ / test
-        password:julius / test
+        username:drJ / admin
+        password:julius / admin
 kopiraj token
 
-GET http://localhost:8080/v1/zaposleni //oba delata
-    authorization: token
-DELETE http://localhost:8080/v1/zaposleni/4 //samo test dela
-    authorization: token
+GET http://localhost:8080/v1/zaposleni          //oba imata pravice
+    authorization: Bearer token
+PUT http://localhost:8080/v1/zaposleni/4/10/5   //oba imata pravice
+    authorization: Bearer token
+DELETE http://localhost:8080/v1/zaposleni/4     //samo admin ima pravice
+    authorization: Bearer token
